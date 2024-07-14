@@ -1,0 +1,97 @@
+@config "./tailwind.config.js";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  textarea,
+  input[type="text"],
+  input[type="button"],
+  input[type="submit"],
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+}
+html {
+  scroll-behavior: smooth;
+}
+body .website-wrapper {
+  @apply min-h-screen;
+}
+#wpadminbar + .website-wrapper {
+  @apply min-h-[calc(100svh_-32px)];
+}
+
+/* scrollbar */
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-main;
+}
+/* width */
+
+::-webkit-scrollbar {
+  @apply w-[10px] h-2;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  /* box-shadow: inset 0px 0px 4px #07275815; */
+}
+
+.learning-form::-webkit-scrollbar {
+  @apply w-1 h-1;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  @apply hidden;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.pixxel-post-content ul {
+  @apply mb-3 pr-8 list-disc text-sm leading-10 font-normal md:text-lg md:leading-[2.3rem];
+}
+.pixxel-post-content h1 {
+  @apply text-2xl leading-[2.125rem] font-semibold md:text-[2.5rem] py-6;
+}
+.pixxel-post-content h2 {
+  @apply text-xl leading-[2.125rem] md:leading-[4rem] font-semibold  md:text-2xl pt-6;
+}
+.pixxel-post-content h3 {
+  @apply text-base leading-[1.5rem] font-semibold md:text-xl md:leading-6 py-5;
+}
+.pixxel-post-content h4 {
+  @apply py-5 text-sm font-semibold md:text-xl md:leading-6;
+}
+.pixxel-post-content h5 {
+  @apply py-5 text-sm leading-6 md:font-semibold md:text-base md:leading-6;
+}
+.pixxel-post-content p {
+  @apply text-sm leading-6 font-normal pt-4;
+}
+.pixxel-post-content table {
+  @apply w-full;
+}
+.pixxel-post-content td {
+  @apply px-1 border border-blue-main;
+}
+
+/* home custom css */
+.consultant-slider .splide__slide{
+  opacity:50%;
+  transition:all 300ms ease-out;
+}
+.consultant-slider .splide__slide.is-active{
+  opacity:100%;
+}

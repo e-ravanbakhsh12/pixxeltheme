@@ -1,0 +1,20 @@
+{
+    "name": "pixxeltheme/pixxeltheme",
+    "description": "custom theme for Pixxel company",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "PixxelTheme\\": ""
+        },
+        "files": ["includes/global-functions.php"]
+    },
+    "authors": [
+        {
+            "name": "ehsan ravanbakhsh",
+            "email": "e.ravanbakhsh@gmail.com"
+        }
+    ],
+    "require": {
+        "flamecore/user-agent": "dev-master"
+    }
+}

@@ -1,0 +1,126 @@
+@font-face {
+  font-family: 'pixxel';
+  src:  url('fonts/pixxel.eot?pc3yr3');
+  src:  url('fonts/pixxel.eot?pc3yr3#iefix') format('embedded-opentype'),
+    url('fonts/pixxel.ttf?pc3yr3') format('truetype'),
+    url('fonts/pixxel.woff?pc3yr3') format('woff'),
+    url('fonts/pixxel.svg?pc3yr3#pixxel') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="pixxelicon-"], [class*=" pixxelicon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'pixxel' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.pixxelicon-arrow-right-2:before {
+  content: "\e905";
+}
+.pixxelicon-play-video:before {
+  content: "\e903";
+}
+.pixxelicon-chevron-left:before {
+  content: "\e906";
+}
+.pixxelicon-add:before {
+  content: "\e946";
+}
+.pixxelicon-redo:before {
+  content: "\e947";
+}
+.pixxelicon-mouse-arrow:before {
+  content: "\e948";
+}
+.pixxelicon-message:before {
+  content: "\e943";
+}
+.pixxelicon-clock-fill:before {
+  content: "\e942";
+}
+.pixxelicon-check:before {
+  content: "\e940";
+}
+.pixxelicon-mail:before {
+  content: "\e93b";
+}
+.pixxelicon-location:before {
+  content: "\e93a";
+}
+.pixxelicon-list:before {
+  content: "\e938";
+}
+.pixxelicon-chevron-down1:before {
+  content: "\e936";
+}
+.pixxelicon-view:before {
+  content: "\e933";
+}
+.pixxelicon-qout:before {
+  content: "\e92a";
+}
+.pixxelicon-qout-fill:before {
+  content: "\e93c";
+}
+.pixxelicon-arrow-dash-2:before {
+  content: "\e92b";
+}
+.pixxelicon-arrow-dash:before {
+  content: "\e92c";
+}
+.pixxelicon-star:before {
+  content: "\e923";
+}
+.pixxelicon-star-fill:before {
+  content: "\e924";
+}
+.pixxelicon-hamburger:before {
+  content: "\e925";
+}
+.pixxelicon-chevron-down:before {
+  content: "\e91d";
+}
+.pixxelicon-close:before {
+  content: "\e91a";
+}
+.pixxelicon-smartphone:before {
+  content: "\e91b";
+}
+.pixxelicon-user:before {
+  content: "\e91c";
+}
+.pixxelicon-instagram:before {
+  content: "\e900";
+}
+.pixxelicon-aparat:before {
+  content: "\e926";
+}
+.pixxelicon-linkedin:before {
+  content: "\e927";
+}
+.pixxelicon-youtube:before {
+  content: "\e928";
+}
+.pixxelicon-telegram:before {
+  content: "\e901";
+}
+.pixxelicon-phone:before {
+  content: "\e93d";
+}
+.pixxelicon-phone-fill:before {
+  content: "\e902";
+}
+.pixxelicon-Left-arrow:before {
+  content: "\e904";
+}
