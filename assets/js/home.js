@@ -5,58 +5,22 @@
     constructor() {
       const _this = this;
 
-      // modal functions
-      $(document).on(
-        "click",
-        ".popup , .modal-overlay , .modal .pixxelicon-close",
-        function (e) {
-          _this.modal($(this));
+
+      $(document).on("click", ".toggle-tab", function (e) {
+        const name = $(this).data("tab");
+        if($(this).find('i').hasClass('rotate-180')){
+          $(this).parents('.toggle-row').find('.toggle-content').slideUp();
+          $(this).find('h3').removeClass('text-blue-main');
+          $(this).find('i').removeClass('rotate-180');
+        }else{
+          $('.toggle-content').slideUp();
+          $('.toggle-tab i').removeClass('rotate-180');
+          $('.toggle-tab h3').removeClass('text-blue-main');
+
+          $(this).parents('.toggle-row').find('.toggle-content').slideDown();
+          $(this).find('h3').addClass('text-blue-main');
+          $(this).find('i').addClass('rotate-180');
         }
-      );
-      $(document).on(
-        "click",
-        ".success-modal-overlay , .success-modal .pixxelicon-close ,.success-modal .close-success",
-        function (e) {
-          _this.successModal();
-        }
-      );
-
-      $(document).on("change", ".state", function (e) {
-        const stateId = $(this).val();
-        $(`.modal .city option`).each(function (e) {
-          const cityStateId = $(this).attr("stateId");
-          $(this).addClass("hidden");
-          if (cityStateId == stateId) {
-            $(this).removeClass("hidden");
-          }
-        });
-        $(`.modal .city option`).first().removeClass("hidden");
-        $(`.modal .city`).val("0");
-      });
-      $(".modal").submit(function (e) {
-        e.preventDefault(); // Prevent form submission
-        const formData = new FormData(this);
-        _this.submitModal(formData, $(this));
-      });
-
-      // $(document).on("submit", ".modal", function (e) {
-      //   e.preventDefault();
-      // });
-
-      $(document).on("click", ".tab-item", function (e) {
-        const name = $(this).attr("tab");
-        $(".tab-item")
-          .removeClass(
-            "bg-white text-magenta underline underline-offset-4 border-magenta"
-          )
-          .addClass("border-transparent");
-        $(this)
-          .addClass(
-            "bg-white text-magenta underline underline-offset-4 border-magenta"
-          )
-          .removeClass("border-transparent");
-        $(".tab-content").addClass("hidden");
-        $(`.tab-content-${name}`).removeClass("hidden");
       });
 
       const productList = new Splide(".product-slider", {
@@ -132,11 +96,6 @@
         $(this).find("i").toggleClass("rotate-180");
         $(this).find(".more, .less").toggleClass("hidden");
       });
-
-
-      $(window).on("scroll", function () {
-        _this.stickyMenuAction($(this));
-      });
     }
 
     modal() {
@@ -210,39 +169,7 @@
       });
     }
 
-    stickyMenuAction(scroll) {
-      let _this = this;
-      let cur_pos = scroll.scrollTop();
 
-      if ($(window).width() < 768) {
-        if (
-          cur_pos > $("#hero-img").offset().top - 20 &&
-          cur_pos < $("footer").offset().top - $(window).height()
-        ) {
-          $(".sticky-section").removeClass("-bottom-full").addClass("bottom-0");
-        } else {
-          $(".sticky-section").addClass("-bottom-full").removeClass("bottom-0");
-        }
-      }
-    }
-
-    getUtmParams(form) {
-      const url = new URL(window.location.href);
-      const searchParams = url.searchParams;
-      const source = searchParams.get("utm_source");
-      const campaign = searchParams.get("utm_campaign");
-      const medium = searchParams.get("utm_medium");
-      if (source !== null) {
-        form.append("utmsource_code", source);
-      }
-      if (campaign !== null) {
-        form.append("camp_code", campaign);
-      }
-      if (medium !== null) {
-        form.append("utmmedium_code", medium);
-      }
-      return form;
-    }
   }
 
   let home = new Home();

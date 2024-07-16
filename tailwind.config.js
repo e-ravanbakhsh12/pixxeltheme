@@ -14,6 +14,9 @@ module.exports = {
         "midnight-900": "rgba(17, 32, 47, 1)",
         "blue-main": "rgba(1, 132, 253, 1)",
         "yellow-main": "rgba(249, 167, 37, 1)",
+        "divider": "rgba(137, 115, 88, 0.2)",
+        "orange-main": "rgba(207, 87, 46, 1)",
+        
       },
       fontFamily: {
         sans: ["IRANSansX", "arial", "sans-serif"],

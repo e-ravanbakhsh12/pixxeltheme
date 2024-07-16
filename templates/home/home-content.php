@@ -156,12 +156,61 @@ $_this = $args['_this'];
                     </div>
                 <?php endfor ?>
             </div>
-             <a class="regular-16 px-6 py-3 rounded-full border border-black mt-3 md:mt-8 transition-all hover:px-10 cursor-pointer">مشاهده‌ی همه</a>       
+            <a class="regular-16 px-6 py-3 rounded-full border border-black mt-3 md:mt-8 transition-all hover:px-10 cursor-pointer">مشاهده‌ی همه</a>
         </div>
     </section>
-    <section class="py-10 md:py-[6.5rem] bg-cream-02">
-        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col">
+    <section class="py-10 md:py-[6.5rem]">
+        <div class="container xl:max-w-screen-xl px-6 md:px-0 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+            <?php
+            for ($i = 0; $i < 2; $i++) : ?>
+                <div class="w-full relative">
+                    <img src="<?= PIXXEL_URL . '/assets/img/home/why.jpg' ?>" class="w-full flex-center h-32 md:h-60 rounded-3xl object-cover" />
+                    <div class="absolute w-full bottom-2 md:bottom-6 ">
+                        <div class="mx-2 md:mx-8 bg-white rounded-xl flex items-center gap-2 justify-between px-2 py-3 md:px-10 md:py-8">
+                            <h3 class="regular-14 md:regular-28">چرا باید ضد آفتاب بزنیم؟</h3>
+                            <a class="flex-center h-10 rounded-full bg-blue-main text-white gap-2 w-fit px-4 cursor-pointer">
+                                مشاهده محصول
+                                <i class="pixxelicon-chevron-left text-[0.5rem]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <?php endfor ?>
+        </div>
+    </section>
+    <section class="py-10 md:py-[6.5rem] bg-light-blue">
+        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex flex-col md:flex-row gap-6 md:gap-24">
+            <h2 class="semibold-28 md:semibold-36 text-center shrink-0">سوالات متداول</h2>
+            <div class="toggle-main-container grow px-4 py-4 md:px-10 divide-y divide-midnight-50 bg-white rounded-2xl">
+                <?php
+                for ($i = 0; $i < 5; $i++) : ?>
+                    <div class="toggle-row py-4 md:py-6 ">
+                        <div class="toggle-tab  flex justify-between items-center w-full gap-2 cursor-pointer" data-tab="<?= $i ?>">
+                            <h3 class="semibold-16 md:semibold-18 grow transition-all">آیا ترکیبات و فرمولاسیون محصولات برند پیکسل مورد تایید است؟</h3>
+                            <i class="pixxelicon-chevron-down text-[0.5rem] shrink-0 transition-all"></i>
+                        </div>
+                        <div class="toggle-content regular-14 md:regular-16 pt-4 md:pt-6 hidden" data-tab="<?= $i ?>">
+                            پیکسل یک برند پیشرو در صنعت زیبایی کشور است که در جهت حفظ ارتقای سلامت در جامعه فعاليت می‌كند. ترکیبات و فرمولاسیون محصولات برند پیکسل مورد تایید لابراتور اتو سوئیس بوده که مواد اولیه تمام محصولات از خارج کشور به ویژه کشور سوئیس تامین می‌شود. هلدینگ سیلانه سبز صاحب انحصاری محصولات پیکسل در ایران به حساب می‌آید که با همکاری هلدینگ تهران بوران، این محصولات بهداشتی و مراقبتی را در اختیار مردم قرار می‌دهد به گونه‌ای که کلیه محصولات این برند را می‌توانید از داروخانه‌ها، فروشگاه‌های زیبایی، زنجیره‌ای و اینترنتی در سراسر ایران تهیه کنید.
+                        </div>
+                    </div>
+                <?php endfor ?>
+            </div>
 
+        </div>
+    </section>
+    <section class="py-10 md:py-[6.5rem]">
+        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col">
+            <h2 class="semibold-28 md:semibold-36 md:w-full text-center">چرا پیکسل‌ اکسپرت</h2>
+            <div class="flex flex-col md:flex-row divide-y divide-divider md:divide-y-0 md:divide-x md:divide-x-reverse mt-6 md:mt-14">
+                <?php
+                for ($i = 0; $i < 4; $i++) : ?>
+                    <div class="w-full flex flex-col gap-3 py-4 md:py-0 md:px-10">
+                       <i class="pixxelicon-guarantee text-[1.75rem] text-orange-main"></i>
+                       <h3 class="semibold-18">از دل طبیعت</h3>
+                       <p class="regular-14">ترکیبات و فرمولاسیون محصولات برند پیکسل مورد تایید لابراتور اتو سوئیس بوده که مواد اولیه تمام محصولات از خارج کشور به ویژه کشور سوئیس تامین می‌شود.</p>
+                    </div>
+                <?php endfor ?>
+            </div>
         </div>
     </section>
 </div>
