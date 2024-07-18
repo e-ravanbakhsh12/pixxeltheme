@@ -16,10 +16,13 @@ module.exports = {
         "yellow-main": "rgba(249, 167, 37, 1)",
         "divider": "rgba(137, 115, 88, 0.2)",
         "orange-main": "rgba(207, 87, 46, 1)",
+        "p-green": "rgba(137, 242, 120, 1)",
+        "p-beige": "rgba(242, 167, 120, 1)",
+        "p-purple": "rgba(105, 111, 255, 1)",
         
       },
       fontFamily: {
-        sans: ["IRANSansX", "arial", "sans-serif"],
+        sans: ["Ravi", "arial", "sans-serif"],
       },
       fontSize: {
         xxs: "0.5rem",

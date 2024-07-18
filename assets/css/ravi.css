@@ -1,0 +1,40 @@
+
+@font-face {
+	font-family: Ravi;
+	font-style: normal;
+	font-weight: 100;
+	src: url('woff/RaviFaNum-thin.woff') format('woff'),   
+	url('woff2/RaviFaNum-thin.woff2') format('woff2');		
+}
+
+@font-face {
+	font-family: Ravi;
+	font-style: normal;
+	font-weight: 300;
+	src: url('woff/RaviFaNum-Light.woff') format('woff'),   
+	url('woff2/RaviFaNum-Light.woff2') format('woff2');	
+}
+
+@font-face {
+	font-family: Ravi;
+	font-style: normal;
+	font-weight: normal;
+	src: url('../fonts/ravi/woff/RaviFaNum-Regular.woff') format('woff'),   
+	url('../fonts/raviwoff2/RaviFaNum-Regular.woff2') format('woff2');		 
+}
+
+@font-face {
+	font-family: Ravi;
+	font-style: normal;
+	font-weight: 600;
+	src: url('../fonts/raviwoff/RaviFaNum-SemiBold.woff') format('woff'),   
+	url('../fonts/raviwoff2/RaviFaNum-SemiBold.woff2') format('woff2');		 
+}
+
+@font-face {
+	font-family: Ravi;
+	font-style: normal;
+	font-weight: bold;
+	src: url('../fonts/raviwoff/RaviFaNum-Bold.woff') format('woff'),   
+	url('../fonts/raviwoff2/RaviFaNum-Bold.woff2') format('woff2'); 
+}

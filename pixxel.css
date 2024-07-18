@@ -1,3 +1,29 @@
+
+
+@font-face {
+	font-family: Ravi;
+	font-style: normal;
+	font-weight: normal;
+	src: url('../fonts/ravi/woff/RaviFaNum-Regular.woff') format('woff'),   
+	url('../fonts/ravi/woff2/RaviFaNum-Regular.woff2') format('woff2');		 
+}
+
+@font-face {
+	font-family: Ravi;
+	font-style: normal;
+	font-weight: 600;
+	src: url('../fonts/ravi/woff/RaviFaNum-SemiBold.woff') format('woff'),   
+	url('../fonts/ravi/woff2/RaviFaNum-SemiBold.woff2') format('woff2');		 
+}
+
+@font-face {
+	font-family: Ravi;
+	font-style: normal;
+	font-weight: bold;
+	src: url('../fonts/ravi/woff/RaviFaNum-Bold.woff') format('woff'),   
+	url('../fonts/ravi/woff2/RaviFaNum-Bold.woff2') format('woff2'); 
+}
+
 @config "./tailwind.config.js";
 @tailwind base;
 @tailwind components;
@@ -77,8 +103,14 @@ body .website-wrapper {
 .pixxel-post-content h5 {
   @apply py-5 text-sm leading-6 md:font-semibold md:text-base md:leading-6;
 }
+.pixxel-post-content,.pixxel-post-content p {
+  @apply regular-14 md:regular-16 text-justify;
+}
 .pixxel-post-content p {
-  @apply text-sm leading-6 font-normal pt-4;
+  @apply pt-4;
+}
+.pixxel-post-content img{
+@apply rounded-2xl mx-auto my-6;
 }
 .pixxel-post-content table {
   @apply w-full;
@@ -87,6 +119,13 @@ body .website-wrapper {
   @apply px-1 border border-blue-main;
 }
 
+/* header css */
+.search-container{
+  @apply top-0;
+}
+.admin-bar .search-container{
+  @apply top-8;
+}
 /* home custom css */
 .consultant-slider .splide__slide{
   opacity:50%;

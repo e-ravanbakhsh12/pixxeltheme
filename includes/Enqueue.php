@@ -19,7 +19,7 @@ class Enqueue extends PixxelTheme
 
         // Register theme stylesheet.
         wp_enqueue_style('pixxel-icon', PIXXEL_URL . '/assets/pixxelicon/style.css', [], PIXXEL_VERSION);
-        wp_enqueue_style('pixxel-iransans', PIXXEL_URL . '/assets/css/iransans.css', [], 1.1);
+        // wp_enqueue_style('pixxel-iransans', PIXXEL_URL . '/assets/css/iransans.css', [], 1.1);
         wp_register_style('pixxel-style', PIXXEL_URL . '/assets/css/main-style.css', [], PIXXEL_VERSION);
         wp_enqueue_style('pixxel-style');
         wp_enqueue_script('pixxel-global-js', PIXXEL_URL . '/assets/js/global.js', ['jquery'], PIXXEL_VERSION, true);

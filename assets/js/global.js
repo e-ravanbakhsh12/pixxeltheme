@@ -5,8 +5,14 @@
     constructor() {
       const _this = this;
       // mobile menu toggle
-      $(document).on("click", ".hamburger-menu, .menu-close", function (e) {
+      $(document).on("click", ".hamburger-menu, .menu-close , .mobile-menu-overlay", function (e) {
+        $('.mobile-menu-overlay').toggleClass("hidden");
         $(".menu-container").toggleClass("-right-full right-0");
+      });
+      // search bar toggle
+      $(document).on("click", ".search-icon-container , .search-overlay, .close-search", function (e) {
+        $('.search-overlay').toggleClass("hidden");
+        $(".search-container").toggleClass("translate-y-[-150%]");
       });
 
       // menu items toggle
@@ -14,7 +20,7 @@
         if ($(window).width() < 768) {
           const self = $(this);
           $(this)
-            .siblings(".labell-sub-menu")
+            .siblings(".pixxel-sub-menu")
             .slideToggle(function () {
               if ($(this).is(":visible")) {
                 self

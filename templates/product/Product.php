@@ -24,6 +24,6 @@ class Product
 
     public function displayContent()
     {
-        get_template_part('templates/product/product', 'content', ['class' => $this]);
+        get_template_part('templates/product/product', 'content', ['_this' => $this]);
     }
 }

@@ -89,12 +89,12 @@ class PixxelTheme
         # ======================================================
         #  MENU Navigation =====================================
         # ======================================================
-        if (is_admin()) {
-            $navigation = new Navigation();
-            add_action('wp_ajax_haal_get_menu_icon', [$navigation, 'getMenuIcon']);
-            add_action('wp_nav_menu_item_custom_fields',  [$navigation, 'menuCustomFields'], 10, 5);
-            add_action('wp_update_nav_menu_item',  [$navigation, 'navUpdate'], 10, 2);
-        }
+        // if (is_admin()) {
+        //     $navigation = new Navigation();
+        //     add_action('wp_ajax_haal_get_menu_icon', [$navigation, 'getMenuIcon']);
+        //     add_action('wp_nav_menu_item_custom_fields',  [$navigation, 'menuCustomFields'], 10, 5);
+        //     add_action('wp_update_nav_menu_item',  [$navigation, 'navUpdate'], 10, 2);
+        // }
 
 
         # ======================================================

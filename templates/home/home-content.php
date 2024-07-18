@@ -9,31 +9,39 @@ wp_enqueue_script('splide', PIXXEL_URL . '/assets/js/splide.min.js', [], '4.1.2'
 wp_enqueue_script('pixxel-home', PIXXEL_URL . '/assets/js/home.js', ['jquery', 'splide'], PIXXEL_VERSION, true);
 
 $_this = $args['_this'];
-
-
+$section1 = get_field('section_1');
+$section2 = get_field('section_2');
+$section3 = get_field('section_3');
+$section4 = get_field('section_4');
+$section5 = get_field('section_5');
+$section7 = get_field('section_7');
+$section8 = get_field('section_8');
 ?>
 <div class="home-container relative">
     <section class="relative pt-[4.5rem] md:pt-32">
-        <img class="w-full absolute h-full object-cover inset-0" src="<?= PIXXEL_URL . '/assets/img/home/hero-bg.jpg' ?>" alt="">
+        <?php if ($section1['hero_img']) : ?>
+            <?= wp_get_attachment_image($section1['hero_img'], 'full', false, ['class' => 'w-full absolute h-full object-cover inset-0']) ?>
+        <?php else : ?>
+            <img class="w-full absolute h-full object-cover inset-0" src="<?= PIXXEL_URL . '/assets/img/home/hero-bg.jpg' ?>" alt="">
+        <?php endif ?>
 
         <div class="container xl:max-w-screen-xl  text-white z-10 relative px-4 md:px-0 drop-shadow-hero pt-32 pb-8 md:pt-44 md:pb-52">
-            <h1 class="bold-24 md:bold-48">پوست شما عاشق میشود</h1>
-            <p class="regular-14 md:regular-18 pt-4 md:pt-6 md:max-w-[25rem]">پیکسل یک برند پیشرو در صنعت زیبایی کشور است که در جهت حفظ ارتقای سلامت در جامعه فعاليت می‌كند.</p>
-            <a class="flex-center h-10 rounded-full bg-blue-main text-white gap-2 w-fit px-4 mt-4 md:mt-6">
-                مشاهده همه محصولات
+            <h1 class="bold-24 md:bold-48"><?= $section1['title'] ?></h1>
+            <p class="regular-14 md:regular-18 pt-4 md:pt-6 md:max-w-[25rem]"><?= $section1['description'] ?></p>
+            <a href="<?= $section1['button']['link']['url'] ?>" target="<?= $section1['button']['link']['target'] ?>" class="flex-center h-10 rounded-full bg-blue-main text-white gap-2 w-fit px-4 mt-4 md:mt-6">
+                <?= $section1['button']['label'] ?>
                 <i class="pixxelicon-chevron-left text-[0.5rem]"></i>
-
             </a>
         </div>
     </section>
     <section class="py-10 md:py-[6.5rem] bg-cream-02">
         <div class="container xl:max-w-screen-xl px-6 md:px-0">
             <div class="flex flex-wrap items-center pb-8 md:pb-4 md:border-b border-white">
-                <h2 class="semibold-28 md:semibold-36 md:w-full order-1">محصولات</h2>
+                <h2 class="semibold-28 md:semibold-36 md:w-full order-1"><?= $section2['title'] ?></h2>
                 <a class="regular-14 md:regular-16 order-2 md:order-3 mr-auto">
                     مشاهده همه
                 </a>
-                <p class="pt-2 w-full md:w-auto order-3 md:order-2">پیکسل یک برند پیشرو در صنعت زیبایی کشور است که در جهت حفظ ارتقای سلامت در جامعه فعاليت می‌كند.</p>
+                <p class="pt-2 w-full md:w-auto order-3 md:order-2"><?= $section2['description'] ?></p>
             </div>
             <div id="product-gallery" class="splide product-slider relative pt-6 md:pt-8" aria-label="Roof Type Gallery">
                 <div class="splide__track  pb-5">
@@ -41,7 +49,7 @@ $_this = $args['_this'];
                         <?php
                         for ($i = 0; $i < 7; $i++) : ?>
                             <li class="splide__slide relative w-[14rem] md:w-full bg-white rounded-2xl group-1 ">
-                                <div class="w-full flex flex-col items-center p-3">
+                                <div class="w-full flex flex-col items-center p-3 md:pb-6">
                                     <div class="w-full flex items-center justify-between">
                                         <span class="size-5 rounded-full bg-orange border-orange-2 border-2"></span>
                                         <div class="semibold-12 md:semibold-14 px-2 py-[0.125rem] rounded-full bg-cream-20">پوست چرب</div>
@@ -69,7 +77,7 @@ $_this = $args['_this'];
     </section>
     <section class="py-10 md:py-[6.5rem]">
         <div class="flex-center flex-col">
-            <h2 class="semibold-28 md:semibold-36 md:w-full text-center">ویدیوهای تست محصول</h2>
+            <h2 class="semibold-28 md:semibold-36 md:w-full text-center"><?= $section3['title'] ?></h2>
 
             <div id="video-gallery" class="splide video-slider relative pt-6 md:pt-8" aria-label="video Gallery">
                 <div class="splide__track ">
@@ -99,22 +107,22 @@ $_this = $args['_this'];
     </section>
     <section class="py-10 md:py-[6.5rem] bg-light-blue">
         <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col">
-            <h2 class="semibold-28 md:semibold-36 md:w-full text-center">سخن متخصصان درباره محصولات ما</h2>
+            <h2 class="semibold-28 md:semibold-36 md:w-full text-center"><?= $section4['title'] ?></h2>
             <div id="consultant-gallery" class="splide consultant-slider w-full relative pt-6 md:pt-8" aria-label="consultant Gallery">
                 <div class="splide__track">
                     <div class="splide__list">
-                        <?php
-                        for ($i = 0; $i < 5; $i++) : ?>
+                        <?php if (count($section4['expert']))
+                            foreach ($section4['expert'] as $expert) : ?>
                             <li class="splide__slide bg-white overflow-hidden rounded-2xl group-1 ">
                                 <div class="w-[17.5rem] md:w-full flex-center flex-col relative p-3 md:p-6">
-                                    <img src="<?= PIXXEL_URL . "/assets/img/home/consultant-$i.png" ?>" alt="" class=" size-[10rem] rounded-full object-cover">
-                                    <h3 class="semibold-16 md:semibold-22 pt-3 md:pt-4">دکتر فلاحی</h3>
-                                    <p class="regular-14 md:regular-16 md:pt-2">فوق تخصص زیبایی</p>
+                                    <?= wp_get_attachment_image($expert['img'], 'full', false, ['class' => 'size-[10rem] rounded-full object-cover', 'loading' => "lazy"]) ?>
+                                    <h3 class="semibold-16 md:semibold-22 pt-3 md:pt-4"><?= $expert['name'] ?></h3>
+                                    <p class="regular-14 md:regular-16 md:pt-2"><?= $expert['level'] ?></p>
                                     <div class="w-full h-[1px] bg-midnight-50"></div>
-                                    <p class="text-center  regular-12 md:regular-14">صحبت هایی درباره محصولات پیکسل که ویژگی هایی بسیاری دارد. صحبت هایی درباره محصولات پیکسل که ویژگی هایی بسیاری دارد.صحبت هایی درباره محصولات پیکسل که ویژگی هایی بسیاری دارد.صحبت هایی درباره محصولات پیکسل که ویژگی هایی بسیاری دارد.صحبت هایی درباره محصولات پیکسل که ویژگی هایی بسیاری دارد.</p>
+                                    <p class="text-center  regular-12 md:regular-14"><?= $expert['description'] ?></p>
                                 </div>
                             </li>
-                        <?php endfor ?>
+                        <?php endforeach ?>
                     </div>
                 </div>
                 <div class="splide__arrows items-center justify-center gap-4 mt-7 md:mt-0 text-black flex">
@@ -130,16 +138,16 @@ $_this = $args['_this'];
     </section>
     <section class="py-10 md:py-[6.5rem]">
         <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col">
-            <h2 class="semibold-28 md:semibold-36 md:w-full text-center">دیگر برند‌های ما</h2>
-            <p class="regular-14 md:regular-16 pt-4">برندهای همکار پیکسل اکسپرت در مجموعه‌ی هولدینگ پیکسل</p>
+            <h2 class="semibold-28 md:semibold-36 md:w-full text-center"><?= $section5['title'] ?></h2>
+            <p class="regular-14 md:regular-16 pt-4"><?= $section5['description'] ?></p>
             <div class="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 pt-6 md:pt-14">
                 <?php
-                for ($i = 0; $i < 6; $i++) : ?>
+                if (count($section5['brand'])) foreach ($section5['brand'] as $brand) : ?>
                     <div class="w-full h-full flex-center flex-col gap-4 md:gap-8 py-3 md:py-9 px-4 md:px-6">
-                        <img src="<?= PIXXEL_URL . '/assets/img/logo.png' ?>" class="grayscale size-16 md:size-[4.5rem] rounded-full object-cover" />
-                        <h4 class="regular-16 md:regular-18 line-clamp-1">برند پیکسل اکسپرت</h4>
+                        <?= wp_get_attachment_image($brand['img'], 'full', false, ['class' => 'size-16 md:size-[4.5rem] rounded-full object-cover', 'loading' => "lazy"]) ?>
+                        <h4 class="regular-16 md:regular-18 line-clamp-1"><?= $brand['title'] ?></h4>
                     </div>
-                <?php endfor ?>
+                <?php endforeach ?>
             </div>
         </div>
     </section>
@@ -166,7 +174,7 @@ $_this = $args['_this'];
                 <div class="w-full relative">
                     <img src="<?= PIXXEL_URL . '/assets/img/home/why.jpg' ?>" class="w-full flex-center h-32 md:h-60 rounded-3xl object-cover" />
                     <div class="absolute w-full bottom-2 md:bottom-6 ">
-                        <div class="mx-2 md:mx-8 bg-white rounded-xl flex items-center gap-2 justify-between px-2 py-3 md:px-10 md:py-8">
+                        <div class="mx-2 md:mx-8 bg-white rounded-2xl md:rounded-xl flex items-center gap-2 justify-between px-2 py-3 md:px-10 md:py-8">
                             <h3 class="regular-14 md:regular-28">چرا باید ضد آفتاب بزنیم؟</h3>
                             <a class="flex-center h-10 rounded-full bg-blue-main text-white gap-2 w-fit px-4 cursor-pointer">
                                 مشاهده محصول
@@ -180,36 +188,36 @@ $_this = $args['_this'];
     </section>
     <section class="py-10 md:py-[6.5rem] bg-light-blue">
         <div class="container xl:max-w-screen-xl px-6 md:px-0 flex flex-col md:flex-row gap-6 md:gap-24">
-            <h2 class="semibold-28 md:semibold-36 text-center shrink-0">سوالات متداول</h2>
+            <h2 class="semibold-28 md:semibold-36 text-center shrink-0"><?= $section7['title'] ?></h2>
             <div class="toggle-main-container grow px-4 py-4 md:px-10 divide-y divide-midnight-50 bg-white rounded-2xl">
                 <?php
-                for ($i = 0; $i < 5; $i++) : ?>
+                if (count($section7['faq'])) foreach ($section7['faq'] as $i => $faq) : ?>
                     <div class="toggle-row py-4 md:py-6 ">
                         <div class="toggle-tab  flex justify-between items-center w-full gap-2 cursor-pointer" data-tab="<?= $i ?>">
-                            <h3 class="semibold-16 md:semibold-18 grow transition-all">آیا ترکیبات و فرمولاسیون محصولات برند پیکسل مورد تایید است؟</h3>
+                            <h3 class="semibold-16 md:semibold-18 grow transition-all"><?= $faq['title'] ?></h3>
                             <i class="pixxelicon-chevron-down text-[0.5rem] shrink-0 transition-all"></i>
                         </div>
                         <div class="toggle-content regular-14 md:regular-16 pt-4 md:pt-6 hidden" data-tab="<?= $i ?>">
-                            پیکسل یک برند پیشرو در صنعت زیبایی کشور است که در جهت حفظ ارتقای سلامت در جامعه فعاليت می‌كند. ترکیبات و فرمولاسیون محصولات برند پیکسل مورد تایید لابراتور اتو سوئیس بوده که مواد اولیه تمام محصولات از خارج کشور به ویژه کشور سوئیس تامین می‌شود. هلدینگ سیلانه سبز صاحب انحصاری محصولات پیکسل در ایران به حساب می‌آید که با همکاری هلدینگ تهران بوران، این محصولات بهداشتی و مراقبتی را در اختیار مردم قرار می‌دهد به گونه‌ای که کلیه محصولات این برند را می‌توانید از داروخانه‌ها، فروشگاه‌های زیبایی، زنجیره‌ای و اینترنتی در سراسر ایران تهیه کنید.
+                            <?= $faq['content'] ?>
                         </div>
                     </div>
-                <?php endfor ?>
+                <?php endforeach ?>
             </div>
 
         </div>
     </section>
     <section class="py-10 md:py-[6.5rem]">
         <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col">
-            <h2 class="semibold-28 md:semibold-36 md:w-full text-center">چرا پیکسل‌ اکسپرت</h2>
+            <h2 class="semibold-28 md:semibold-36 md:w-full text-center"><?= $section8['title'] ?></h2>
             <div class="flex flex-col md:flex-row divide-y divide-divider md:divide-y-0 md:divide-x md:divide-x-reverse mt-6 md:mt-14">
                 <?php
-                for ($i = 0; $i < 4; $i++) : ?>
+                if(count($section8['items'])) foreach ($section8['items'] as $item) : ?>
                     <div class="w-full flex flex-col gap-3 py-4 md:py-0 md:px-10">
-                       <i class="pixxelicon-guarantee text-[1.75rem] text-orange-main"></i>
-                       <h3 class="semibold-18">از دل طبیعت</h3>
-                       <p class="regular-14">ترکیبات و فرمولاسیون محصولات برند پیکسل مورد تایید لابراتور اتو سوئیس بوده که مواد اولیه تمام محصولات از خارج کشور به ویژه کشور سوئیس تامین می‌شود.</p>
+                        <i class="<?= $item['icon_name'] ?> text-[1.75rem] text-orange-main"></i>
+                        <h3 class="semibold-18"><?= $item['title'] ?></h3>
+                        <p class="regular-14"><?= $item['description'] ?></p>
                     </div>
-                <?php endfor ?>
+                <?php endforeach ?>
             </div>
         </div>
     </section>
