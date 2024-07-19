@@ -4,10 +4,10 @@ namespace PixxelTheme\templates\blog;
 
 use WP_Query;
 
-wp_enqueue_style('labell-icon', PIXXEL_URL . '/assets/css/labellicon.css');
+wp_enqueue_style('pixxel-icon', PIXXEL_URL . '/assets/css/pixxelicon.css');
 wp_enqueue_style('splide', PIXXEL_URL . '/assets/css/splide-core.min.css', [], '4.1.2');
 wp_enqueue_script('splide', PIXXEL_URL . '/assets/js/splide.min.js', [], '4.1.2', true);
-wp_enqueue_script('labell-blog', PIXXEL_URL . '/assets/js/blog.js', ['jquery', 'splide'], PIXXEL_VERSION, true);
+wp_enqueue_script('pixxel-blog', PIXXEL_URL . '/assets/js/blog.js', ['jquery', 'splide'], PIXXEL_VERSION, true);
 
 $class = $args['class'];
 foreach (get_the_category() as $category) {
@@ -47,7 +47,7 @@ $relatedBlog = new WP_Query($relatedBlogArgs);
                 <?php endif ?>
                 <div class=""><?= date_i18n('d  M  Y', strtotime(get_the_date('m/d/y'))) ?></div>
             </div>
-            <div class="text-sm mt-6 md:mt-8 labell-post-content ">
+            <div class="text-sm mt-6 md:mt-8 pixxel-post-content ">
                 <?= the_content() ?>
             </div>
             <?php if (is_array(get_the_tags()) && 1==2) : ?>

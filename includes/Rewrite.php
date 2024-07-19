@@ -2,9 +2,8 @@
 
 namespace PixxelTheme\includes;
 
-use PixxelTheme\templates\representation\Representation;
+use PixxelTheme\templates\search\Search;
 use PixxelTheme\includes\comment\Comment;
-use PixxelTheme\includes\Form;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -29,19 +28,11 @@ class Rewrite
         # ======================================================
         #  AJAX rewrite Rule ===================================
         # ======================================================
-        add_rewrite_tag('%labellSearch%', '([^&/]+)');
-        add_rewrite_rule('wp-ajax/search/([^/]+)/?', 'index.php?labellSearch=$matches[1]', 'top');
+        add_rewrite_tag('%pixxelSearch%', '([^&/]+)');
+        add_rewrite_rule('wp-ajax/search/([^/]+)/?', 'index.php?pixxelSearch=$matches[1]', 'top');
 
-        add_rewrite_tag('%representation%', '([^&/]+)');
-        add_rewrite_rule('wp-ajax/representation/([^/]+)/?', 'index.php?representation=$matches[1]', 'top');
-
-
-        add_rewrite_tag('%labellComment%', '([^&/]+)');
-        add_rewrite_rule('wp-ajax/comment/([^/]+)/?', 'index.php?labellComment=$matches[1]', 'top');
-
-        add_rewrite_tag('%labellForm%', '([^&/]+)');
-        add_rewrite_rule('wp-ajax/form/([^/]+)/?', 'index.php?labellForm=$matches[1]', 'top');
-
+        add_rewrite_tag('%pixxelComment%', '([^&/]+)');
+        add_rewrite_rule('wp-ajax/comment/([^/]+)/?', 'index.php?pixxelComment=$matches[1]', 'top');
         // flush_rewrite_rules();
     }
 
@@ -52,25 +43,19 @@ class Rewrite
             define('WP_AJAX', true);
             global $wp_query;
 
-            $commentQuery = $wp_query->get('labellComment');
+            $commentQuery = $wp_query->get('pixxelComment');
             if (!empty($commentQuery)) {
                 $commentTemplate = new Comment();
                 $commentTemplate->setQuery($commentQuery);
                 return;
             }
-            $representationQuery = $wp_query->get('representation');
-            if (!empty($representationQuery)) {
-                $representationPageTemplate = new Representation();
-                $representationPageTemplate->setQuery($representationQuery);
+            $searchQuery = $wp_query->get('pixxelSearch');
+            if (!empty($searchQuery)) {
+                $search = new Search();
+                $search->setQuery(urldecode($searchQuery));
                 return;
             }
-
-            $formQuery = $wp_query->get('labellForm');
-            if (!empty($formQuery)) {
-                $form = new Form();
-                $form->setQuery($formQuery);
-                return;
-            }
+            
         }
 
         // redirect conditions

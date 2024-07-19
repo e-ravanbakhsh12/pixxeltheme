@@ -43,8 +43,8 @@ class Comment
                     'comment_parent' => intval($data->parentId),
                     'user_id' => get_current_user_id(),
                     'comment_meta' => [
-                        'labell_user_id' => get_current_user_id(),
-                        'labell_type' => 'admin',
+                        'pixxel_user_id' => get_current_user_id(),
+                        'pixxel_type' => 'admin',
                     ]
                 ];
             } else {
@@ -58,9 +58,9 @@ class Comment
                     'comment_approved' => $approved,
                     'comment_parent' => intval($data->parentId),
                     'comment_meta' => [
-                        'labell_user_id' => $user_id,
-                        'labell_mobile' => sanitize_text_field($data->mobile),
-                        'labell_type' => 'anonymous',
+                        'pixxel_user_id' => $user_id,
+                        'pixxel_mobile' => sanitize_text_field($data->mobile),
+                        'pixxel_type' => 'anonymous',
                     ]
                 ];
             }
@@ -73,9 +73,9 @@ class Comment
             $load_comment_id = $is_first_level ? $comment_id : intval($data->firstLevelId);
             $comment_objs = get_comments(['comment__in' => [$load_comment_id]]);
 
-            // $directory = labell_get_domain_directory();
+            // $directory = pixxel_get_domain_directory();
             // $url = get_permalink(sanitize_text_field($data->postId));
-            // labell_remove_custom_dir_cash('/cache/wp-rocket/'.$directory.'/forum/question/'.utf8_encode($question_obj->slug),$url);
+            // pixxel_remove_custom_dir_cash('/cache/wp-rocket/'.$directory.'/forum/question/'.utf8_encode($question_obj->slug),$url);
 
             ob_start();
             $this->generateCommentItem($comment_objs[0], 0, $approved, $user_id, 0);
@@ -99,8 +99,8 @@ class Comment
             $user_id = get_current_user_id();
         }
         // enqueue js file
-        wp_enqueue_script('labell-comment', PIXXEL_URL . '/assets/js/comment.js', ['jquery'], PIXXEL_VERSION, true);
-        wp_localize_script('labell-comment', 'commentData', ['isLogin' => $is_login, 'postId' => $post_id]);
+        wp_enqueue_script('pixxel-comment', PIXXEL_URL . '/assets/js/comment.js', ['jquery'], PIXXEL_VERSION, true);
+        wp_localize_script('pixxel-comment', 'commentData', ['isLogin' => $is_login, 'postId' => $post_id]);
 
         $comment_list = get_comments(['post_id' => $post_id, 'status' => 'approve', 'parent__in' => [0]]);
 ?>
@@ -110,35 +110,35 @@ class Comment
                     <i class="pixxelicon-shape text-base text-magenta"></i>
                     شما هم نظر خود را برای ما بنویسید
                 </h3>
-                <button class="flex items-center h-fit gap-2 md:hidden text-sm-bold text-magenta labell-add-comment shrink-0">
+                <button class="flex items-center h-fit gap-2 md:hidden text-sm-bold text-magenta pixxel-add-comment shrink-0">
                     <i class="text-base pixxelicon-add"></i>
                     افزودن نظر
                 </button>
             </div>
-            <div class="flex flex-col gap-4 mt-2 labell-comment-container md:mt-6">
+            <div class="flex flex-col gap-4 mt-2 pixxel-comment-container md:mt-6">
                 <?php if (is_array($comment_list)) foreach ($comment_list as $i => $comment) : ?>
                     <?php echo $this->generateCommentItem($comment, $i, 1, $user_id, 0); ?>
                 <?php endforeach ?>
             </div>
-            <form class="labell-comment-popup p-6 md:p-0 bg-white md:bg-transparent  fixed md:relative left-0 z-[60] -bottom-[130%] md:bottom-auto md:left-auto  duration-500 transition-all md: flex flex-col w-full labell-comment-form md:mt-0">
+            <form class="pixxel-comment-popup p-6 md:p-0 bg-white md:bg-transparent  fixed md:relative left-0 z-[60] -bottom-[130%] md:bottom-auto md:left-auto  duration-500 transition-all md: flex flex-col w-full pixxel-comment-form md:mt-0">
                 <i class="p-3 text-lg text-black pixxelicon-cross md:hidden"></i>
                 <div class="flex flex-col md:flex-row mt-7 gap-5">
                     <?php if (!$is_login) : ?>
                         <div class="flex flex-col gap-5 mb-5 md:flex-row w-full">
                             <div class="md:flex-1 flex flex-col gap-1">
-                                <label for="labell-comment-name" class="text-medium text-xs md:text-sm">نام و نام خانوادگی</label>
-                                <input type="text" name="labell-comment-name" id="labell-comment-name" class="h-12 px-4 bg-white border outline-none border-neutrals-300 " placeholder="نام و نام خانوادگی خود را وارد کنید">
+                                <label for="pixxel-comment-name" class="text-medium text-xs md:text-sm">نام و نام خانوادگی</label>
+                                <input type="text" name="pixxel-comment-name" id="pixxel-comment-name" class="h-12 px-4 bg-white border outline-none border-neutrals-300 " placeholder="نام و نام خانوادگی خود را وارد کنید">
                             </div>
                             <div class="md:flex-1 flex flex-col gap-1">
-                                <label for="labell-comment-mobile" class="text-medium text-xs md:text-sm">شماره موبایل</label>
-                                <input type="text" name="labell-comment-mobile" id="labell-comment-mobile" class=" h-12 px-4 bg-white border outline-none border-neutrals-300 " placeholder="شماره موبایل خود را وارد کنید">
+                                <label for="pixxel-comment-mobile" class="text-medium text-xs md:text-sm">شماره موبایل</label>
+                                <input type="text" name="pixxel-comment-mobile" id="pixxel-comment-mobile" class=" h-12 px-4 bg-white border outline-none border-neutrals-300 " placeholder="شماره موبایل خود را وارد کنید">
                             </div>
                         </div>
                     <?php endif ?>
                     <div class=" flex flex-col w-full">
                         <div class="flex flex-col gap-1">
-                            <label for="labell-comment-content" class="text-medium text-xs md:text-sm">پیام</label>
-                            <textarea name="labell-comment-content" id="labell-comment-content" class="w-full p-4 outline-none resize-none h-52 md:h-40 border border-mid-50  " placeholder="پیام خود را بنویسید"></textarea>
+                            <label for="pixxel-comment-content" class="text-medium text-xs md:text-sm">پیام</label>
+                            <textarea name="pixxel-comment-content" id="pixxel-comment-content" class="w-full p-4 outline-none resize-none h-52 md:h-40 border border-mid-50  " placeholder="پیام خود را بنویسید"></textarea>
                         </div>
                         <button type="submit" class="h-10 font-bold text-lg border w-full md:w-fit md:mr-auto  text-white bg-magenta px-4 flex justify-center items-center gap-2 mt-8">
                             ارسال پیام
@@ -164,8 +164,8 @@ class Comment
             <div class="comment-reply-field hidden md:flex flex-col mt-4">
                 <?php if (!$is_login) : ?>
                     <div class="flex flex-col gap-5 md:flex-row">
-                        <input type="text" name="labell-comment-name" id="labell-reply-comment-name" class="md:flex-1  h-12 px-4 bg-white border outline-none border-neutrals-300 " placeholder="نام و نام خانوادگی">
-                        <input type="text" name="labell-comment-mobile" id="labell-reply-comment-mobile" class="phone-number md:flex-1 h-12 px-4 bg-white border outline-none border-neutrals-300 " placeholder="شماره موبایل" inputmode="numeric">
+                        <input type="text" name="pixxel-comment-name" id="pixxel-reply-comment-name" class="md:flex-1  h-12 px-4 bg-white border outline-none border-neutrals-300 " placeholder="نام و نام خانوادگی">
+                        <input type="text" name="pixxel-comment-mobile" id="pixxel-reply-comment-mobile" class="phone-number md:flex-1 h-12 px-4 bg-white border outline-none border-neutrals-300 " placeholder="شماره موبایل" inputmode="numeric">
                     </div>
                 <?php endif ?>
                 <div class="textarea-container flex w-full gap-0 items-end justify-center  mt-6 absolute md:relative transition-all">
@@ -178,7 +178,7 @@ class Comment
                 </div>
             </div>
         </div>
-        <div class="fixed top-0 bottom-0 left-0 right-0 z-50 visible hidden transition-all cursor-pointer labell-comment-popup-overlay bg-black/40"></div>
+        <div class="fixed top-0 bottom-0 left-0 right-0 z-50 visible hidden transition-all cursor-pointer pixxel-comment-popup-overlay bg-black/40"></div>
 
         <!-- reply comment in mobile -->
         <div class="reply-comment-modal-overlay hidden bg-black/40 fixed top-0 right-0 left-0 bottom-0 z-50 transition-all visible cursor-pointer px-6 pt-6 pb-4"></div>
@@ -186,8 +186,8 @@ class Comment
             <i class="pixxelicon-cross text-sm font-medium text-neutrals-900 cursor-pointer p-3"></i>
             <?php if (!$is_login) : ?>
                 <div class="flex flex-col gap-5 md:flex-row mt-6">
-                    <input type="text" name="labell-comment-name" id="labell-reply-comment-name-mobile" class="md:flex-1  h-12 px-4 bg-white border outline-none border-neutrals-300 " placeholder="نام و نام خانوادگی">
-                    <input type="number" name="labell-comment-mobile" id="labell-reply-comment-mobile-mobile" class="phone-number md:flex-1 h-12 px-4 bg-white border outline-none border-neutrals-300 " placeholder="شماره موبایل">
+                    <input type="text" name="pixxel-comment-name" id="pixxel-reply-comment-name-mobile" class="md:flex-1  h-12 px-4 bg-white border outline-none border-neutrals-300 " placeholder="نام و نام خانوادگی">
+                    <input type="number" name="pixxel-comment-mobile" id="pixxel-reply-comment-mobile-mobile" class="phone-number md:flex-1 h-12 px-4 bg-white border outline-none border-neutrals-300 " placeholder="شماره موبایل">
                 </div>
             <?php endif ?>
             <h4 class="headline4 pt-6 pb-4">پاسخ</h4>
@@ -205,8 +205,8 @@ class Comment
             $comment_data = [
                 'comment_ID' => $comment_id,
                 'comment_meta' => [
-                    'labell_user_id' => get_current_user_id(),
-                    'labell_type' => 'admin',
+                    'pixxel_user_id' => get_current_user_id(),
+                    'pixxel_type' => 'admin',
                 ],
             ];
         }
@@ -216,7 +216,7 @@ class Comment
     function generateCommentItem($comment, $i = 0, $approve = 1, $user_id, $level)
     {
         $level++;
-        $comment_type = get_comment_meta($comment->comment_ID, 'labell_type', true);
+        $comment_type = get_comment_meta($comment->comment_ID, 'pixxel_type', true);
         $children_list = $this->commentChildren($comment->comment_ID);
         $has_children = !empty($children_list);
 

@@ -13,8 +13,5 @@ if (get_post_type() == 'post') {
 } elseif (get_post_type() == 'product') {
     $productList = new ProductList();
     $productList->displayContent();
-}elseif (get_post_type() == 'project') {
-    $projectList = new ProjectList();
-    $projectList->displayContent();
 }
 get_footer();

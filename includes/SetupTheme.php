@@ -33,14 +33,14 @@ class SetupTheme
         add_image_size('front-blog', 247, 165, true);
 
         /**
-         * Add labell shortcode
+         * Add pixxel shortcode
          */
             
     }
 
     public function textdomainHandler()
     {
-        load_theme_textdomain('labell', PIXXEL_DIR . '/languages/');
+        load_theme_textdomain('pixxel', PIXXEL_DIR . '/languages/');
     }
     
     

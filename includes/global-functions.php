@@ -131,6 +131,18 @@ function getUserIp()
     return $ip;
 }
 
+function getPageIdByTemplate( $template ) {
+    $args = [
+        'post_type'  => 'page',
+        'fields'     => 'ids',
+        'nopaging'   => true,
+        'meta_key'   => '_wp_page_template',
+        'meta_value' => $template
+    ];
+    $pages = get_posts( $args );
+    return $pages;
+}
+
 function sanitizeNestedObject( $object ) {
     // Create an empty array to store the sanitized object
     $sanitized_object = array();
@@ -166,6 +178,6 @@ function sanitizeNestedObject( $object ) {
 
 function isTopDomain()
 {
-    return strpos($_SERVER['HTTP_HOST'], 'labell.top') !== false ? true : false;
+    return strpos($_SERVER['HTTP_HOST'], 'pixxel.top') !== false ? true : false;
 }
 

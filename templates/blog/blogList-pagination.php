@@ -10,7 +10,7 @@ $url = $args['url'];
 if ($max_num_pages > 1) : ?>
 
     <div class="w-full md:w-1/4"></div>
-    <div class="labell-pagination flex w-full my-5 text-sm" page="<?php esc_attr_e($page_query) ?>" max-page="<?php esc_attr_e($max_num_pages) ?>">
+    <div class="pixxel-pagination flex w-full my-5 text-sm" page="<?php esc_attr_e($page_query) ?>" max-page="<?php esc_attr_e($max_num_pages) ?>">
         <div class="mx-auto flex items-start gap-1 md:gap-3">
             <?php if ($page_query > 1) : ?>
                 <a href="<?= $url.'?paged='.$page_query - 1  ?>"  class="page-item size-9 flex-center cursor-pointer flex bg-bg  hover:bg-magenta transition-all hover:text-white" page="<?php esc_attr_e($page_query - 1) ?>">

@@ -3,7 +3,7 @@
 namespace PixxelTheme\templates\contactUs;
 
 // wp_enqueue_script('google-maps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBow3_Ck71F_ApQTlzWlPeRkEV_sCeuppo', array(), PIXXEL_VERSION, true);
-wp_enqueue_script('labell-contact-us', PIXXEL_URL . '/assets/js/contact-us.js', ['jquery'], PIXXEL_VERSION, true);
+wp_enqueue_script('pixxel-contact-us', PIXXEL_URL . '/assets/js/contact-us.js', ['jquery'], PIXXEL_VERSION, true);
 
 
 $class = $args['class'];

@@ -2,7 +2,7 @@
 
 namespace PixxelTheme\templates\aboutUs;
 
-wp_enqueue_script('labell-product', PIXXEL_URL . '/assets/js/faq.js', ['jquery'], PIXXEL_VERSION, true);
+wp_enqueue_script('pixxel-product', PIXXEL_URL . '/assets/js/faq.js', ['jquery'], PIXXEL_VERSION, true);
 
 
 $class = $args['class'];

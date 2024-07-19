@@ -16,6 +16,7 @@ $section4 = get_field('section_4');
 $section5 = get_field('section_5');
 $section7 = get_field('section_7');
 $section8 = get_field('section_8');
+$productPageId = getPageIdByTemplate('pages/page-product.php');
 ?>
 <div class="home-container relative">
     <section class="relative pt-[4.5rem] md:pt-32">
@@ -25,9 +26,9 @@ $section8 = get_field('section_8');
             <img class="w-full absolute h-full object-cover inset-0" src="<?= PIXXEL_URL . '/assets/img/home/hero-bg.jpg' ?>" alt="">
         <?php endif ?>
 
-        <div class="container xl:max-w-screen-xl  text-white z-10 relative px-4 md:px-0 drop-shadow-hero pt-32 pb-8 md:pt-44 md:pb-52">
-            <h1 class="bold-24 md:bold-48"><?= $section1['title'] ?></h1>
-            <p class="regular-14 md:regular-18 pt-4 md:pt-6 md:max-w-[25rem]"><?= $section1['description'] ?></p>
+        <div class="container xl:max-w-screen-xl  text-white z-10 relative px-4 md:px-0 pt-32 pb-8 md:pt-44 md:pb-52">
+            <h1 class="bold-24 md:bold-48 drop-shadow-hero"><?= $section1['title'] ?></h1>
+            <p class="regular-14 md:regular-18 pt-4 md:pt-6 md:max-w-[25rem] drop-shadow-hero"><?= $section1['description'] ?></p>
             <a href="<?= $section1['button']['link']['url'] ?>" target="<?= $section1['button']['link']['target'] ?>" class="flex-center h-10 rounded-full bg-blue-main text-white gap-2 w-fit px-4 mt-4 md:mt-6">
                 <?= $section1['button']['label'] ?>
                 <i class="pixxelicon-chevron-left text-[0.5rem]"></i>
@@ -38,7 +39,7 @@ $section8 = get_field('section_8');
         <div class="container xl:max-w-screen-xl px-6 md:px-0">
             <div class="flex flex-wrap items-center pb-8 md:pb-4 md:border-b border-white">
                 <h2 class="semibold-28 md:semibold-36 md:w-full order-1"><?= $section2['title'] ?></h2>
-                <a class="regular-14 md:regular-16 order-2 md:order-3 mr-auto">
+                <a href="<?= get_permaLink($productPageId[0]) ?>" class="regular-14 md:regular-16 order-2 md:order-3 mr-auto">
                     مشاهده همه
                 </a>
                 <p class="pt-2 w-full md:w-auto order-3 md:order-2"><?= $section2['description'] ?></p>
@@ -47,21 +48,27 @@ $section8 = get_field('section_8');
                 <div class="splide__track  pb-5">
                     <div class="splide__list">
                         <?php
-                        for ($i = 0; $i < 7; $i++) : ?>
+                        if ($section2['products']) foreach ($section2['products'] as $product) :
+                            $color = get_field('color', $product->ID);
+                            $properties = get_field('properties', $product->ID);
+                        ?>
                             <li class="splide__slide relative w-[14rem] md:w-full bg-white rounded-2xl group-1 ">
                                 <div class="w-full flex flex-col items-center p-3 md:pb-6">
                                     <div class="w-full flex items-center justify-between">
-                                        <span class="size-5 rounded-full bg-orange border-orange-2 border-2"></span>
-                                        <div class="semibold-12 md:semibold-14 px-2 py-[0.125rem] rounded-full bg-cream-20">پوست چرب</div>
+                                        <div class="flex items-center gap-2">
+                                            <?php if ($color) foreach ($color as $i => $item) : ?>
+                                                <span class="size-5 rounded-full border-orange-2 border-2" style="background-color:<?= $item['value'] ?>"></span>
+                                            <?php endforeach ?>
+                                        </div>
+                                        <div class="semibold-12 md:semibold-14 px-2 py-[0.125rem] rounded-full bg-bg text-midnight-900"><?= $properties['skin_type'] ?></div>
                                     </div>
-
                                     <img src="<?= PIXXEL_URL . '/assets/img/home/product.jpg' ?>" alt="" class="w-full aspect-square">
-                                    <h3 class="regular-16 md:regular-18 w-full text-right transition-all group-1-hover:text-blue-main pt-3 md:pt-4">ضدآفتاب بدون رنگ</h3>
-                                    <p class="regular-12 md:regular-14 text-midnight-700 w-full text-right pt-2 line-clamp-2">ضدآفتاب بژ طبیعی پیکسل (پوست خشک)</p>
+                                    <h3 class="regular-16 md:regular-18 w-full text-right transition-all group-1-hover:text-blue-main pt-3 md:pt-4"><?= $product->post_title ?></h3>
+                                    <p class="regular-12 md:regular-14 text-midnight-700 w-full text-right pt-2 line-clamp-2"><?= $product->post_excerpt ?></p>
                                     <a class="flex-center h-10 rounded-full bg-blue-main text-white gap-2 w-fit px-4 mt-4 md:mt-6 absolute  -bottom-5 opacity-0 group-1-hover:opacity-100 transition-all">مشاهده محصول</a>
                                 </div>
                             </li>
-                        <?php endfor ?>
+                        <?php endforeach ?>
                     </div>
                 </div>
                 <div class="splide__arrows items-center justify-center gap-4 mt-7 md:mt-0 text-black hidden md:flex">
@@ -211,7 +218,7 @@ $section8 = get_field('section_8');
             <h2 class="semibold-28 md:semibold-36 md:w-full text-center"><?= $section8['title'] ?></h2>
             <div class="flex flex-col md:flex-row divide-y divide-divider md:divide-y-0 md:divide-x md:divide-x-reverse mt-6 md:mt-14">
                 <?php
-                if(count($section8['items'])) foreach ($section8['items'] as $item) : ?>
+                if (count($section8['items'])) foreach ($section8['items'] as $item) : ?>
                     <div class="w-full flex flex-col gap-3 py-4 md:py-0 md:px-10">
                         <i class="<?= $item['icon_name'] ?> text-[1.75rem] text-orange-main"></i>
                         <h3 class="semibold-18"><?= $item['title'] ?></h3>

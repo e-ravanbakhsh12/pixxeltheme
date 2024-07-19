@@ -11,15 +11,18 @@ wp_enqueue_style('splide', PIXXEL_URL . '/assets/css/splide-core.min.css', [], '
 // wp_enqueue_script('pixxel-glightbox', PIXXEL_URL . '/assets/js/glightbox.min.js', [], PIXXEL_VERSION, true);
 // wp_enqueue_script('splide-grid', PIXXEL_URL . '/assets/js/splide-grid.min.js', [], '0.4.1', true);
 wp_enqueue_script('splide', PIXXEL_URL . '/assets/js/splide.min.js', [], '4.1.2', true);
-wp_enqueue_script('pixxel-product', PIXXEL_URL . '/assets/js/product.js', ['jquery', 'splide' ], PIXXEL_VERSION, true);
+wp_enqueue_script('pixxel-product', PIXXEL_URL . '/assets/js/product.js', ['jquery', 'splide'], PIXXEL_VERSION, true);
 
 $_this = $args['_this'];
 $price = get_field('price');
+$color = get_field('color');
 $gallery = get_field('gallery');
 $properties = get_field('properties');
 $productDetails = get_field('product_details');
 $expert = get_field('expert');
 $why = get_field('why');
+$productPageId = getPageIdByTemplate('pages/page-product.php');
+
 
 ?>
 <div class="product-container relative">
@@ -27,7 +30,7 @@ $why = get_field('why');
         <div class="breadcrumb-list regular-12 text-midnight-700 flex items-center gap-1">
             <a href="<?= home_url() ?>" class="">خانه</a>
             <i class="pixxelicon-arrow-right-2 rotate-180 text-[.5rem]"></i>
-            <a href="<?= home_url() ?>" class="">محصولات</a>
+            <a href="<?= get_permaLink($productPageId[0]) ?>" class="">محصولات</a>
             <i class="pixxelicon-arrow-right-2 rotate-180 text-[.5rem]"></i>
             <div class=""><?= get_the_title() ?></div>
         </div>
@@ -52,9 +55,9 @@ $why = get_field('why');
                         </div>
                     </div>
                     <div class="thumbnails hidden md:flex flex-row flex-wrap gap-4 pt-3 w-full">
-                    <?= get_the_post_thumbnail(get_the_ID(), 'full', ['class' => 'size-20 object-contain cursor-pointer border  border-blue-main rounded-2xl aspect-square transition-all', 'loading' => "lazy", 'data-item' => 0]) ?>
+                        <?= get_the_post_thumbnail(get_the_ID(), 'full', ['class' => 'size-20 object-contain cursor-pointer border  border-blue-main rounded-2xl aspect-square transition-all', 'loading' => "lazy", 'data-item' => 0]) ?>
                         <?php if ($gallery) foreach ($gallery as $i => $img) : ?>
-                            <?= wp_get_attachment_image($img, 'thumbnail', false, ['class' => 'size-20 object-contain cursor-pointer border opacity-50 border-midnight-50 rounded-2xl aspect-square transition-all', 'loading' => "lazy", 'data-item' => $i+1]) ?>
+                            <?= wp_get_attachment_image($img, 'thumbnail', false, ['class' => 'size-20 object-contain cursor-pointer border opacity-50 border-midnight-50 rounded-2xl aspect-square transition-all', 'loading' => "lazy", 'data-item' => $i + 1]) ?>
                         <?php endforeach ?>
                     </div>
                 </div>
@@ -91,18 +94,18 @@ $why = get_field('why');
                     </div>
                     <div class="flex flex-col gap-3 md:gap-4 pt-6">
                         <h3 class="semibold-14 md:semibold-16">معرفی کوتاه</h3>
-                        <p class="regular-14 md:regular-16 text-midnight-700 text-justify">کرم ضدآفتاب بدون رنگ مناسب پوست‌های خشک تا نرمال و حساس با SPF50  می‌باشد، دارای خاصیت ضدپیری پوست، حاوی اوسرین، هیالورونیک اسید، آنتی اکسیدان، ویتامین  B3، B5 می‌باشد که به حفظ </p>
+                        <p class="regular-14 md:regular-16 text-midnight-700 text-justify"><?= get_the_excerpt() ?></p>
                     </div>
                 </div>
                 <div class="pt-6 md:pt-0">
                     <div class="bg-light-blue rounded-3xl p-3 md:p-6">
                         <h3 class="semibold-14 md:semibold-16">رنگ</h3>
-                        <div class="flex items-center gap-3 pt-3">
-                            <div class="size-8 rounded-full bg-p-green relative flex-center">
-                                <i class="pixxelicon-check hidden text-white flex-center size-3 rounded-full bg-blue-main  text-[0.25rem] "></i>
-                            </div>
-                            <div class="size-8 rounded-full bg-p-beige"></div>
-                            <div class="size-8 rounded-full bg-p-purple"></div>
+                        <div class="flex items-center gap-3 pt-3" data-selected='<?= $color[0]['label'] ?>'>
+                            <?php if ($color) foreach ($color as $i=> $item) : ?>
+                                <div class="color-item size-8 rounded-full relative flex-center cursor-pointer ring-offset-light-blue ring-offset-2 ring-blue-main <?= $i>0 ?'ring-0':'ring-1' ?>" style="background-color:<?= $item['value'] ?>" data-value="<?= $item['label'] ?>">
+                                    <i class="pixxelicon-check <?= $i>0 ?'hidden':'flex-center' ?> text-white  size-3 rounded-full bg-blue-main  text-[0.25rem] "></i>
+                                </div>
+                            <?php endforeach ?>
                         </div>
                         <p class="pt-6 md:pt-10">توضیحات کوتاه یا آیتم کوتاه</p>
                         <div class="price-container w-full flex items-center justify-between gap-4 semibold-14 md:semibold-16 pt-8 md:pt-11">

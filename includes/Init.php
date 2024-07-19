@@ -63,20 +63,20 @@ class Init
                 'hierarchical'    => false,
                 'menu_position'   => 10,
                 'menu_icon'       => 'dashicons-media-document',
-                'supports'        => ['title', 'editor', 'comments', 'thumbnail', 'custom-fields'],
+                'supports'        => ['title', 'editor', 'comments', 'thumbnail', 'custom-fields','excerpt'],
                 'rewrite'         => array(
                     'slug' => 'product',
                     'with_front' => false
                 ),
-                'has_archive'=>'product',
+                'has_archive' => 'product',
             );
 
             // Register product post type
             register_post_type('product', $args);
 
-            
 
-            // register project category
+
+            // register product category
             $cat_labels = array(
                 'name'          => esc_html__('Category', 'pixxel'),
                 'singular_name' => esc_html__('Category', 'pixxel'),

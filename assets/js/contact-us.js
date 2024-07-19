@@ -55,7 +55,7 @@
       formData = _this.getUtmParams(formData);
       // Send form data to the specified URL
       $.ajax({
-        url: labellArr.homeUrl+"/wp-ajax/form/formData",
+        url: pixxelArr.homeUrl+"/wp-ajax/form/formData",
         type: "POST",
         data: formData,
         processData: false,

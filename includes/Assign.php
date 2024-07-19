@@ -19,7 +19,15 @@ class Assign
 
     public  function addToHeader()
     {
-        
+        $color = get_option('theme_color','option');
+        ?>  
+        <style>  
+            :root {  
+                --primary: rgb(var<?= $color  ?>);  
+            }  
+
+        </style>  
+        <?php  
     }
 
     public  function addToBody()

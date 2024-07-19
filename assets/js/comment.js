@@ -3,7 +3,7 @@
   class Comment {
     constructor() {
       let _this = this;
-      $(document).on("submit",'.labell-comment-popup', function (e) {
+      $(document).on("submit",'.pixxel-comment-popup', function (e) {
         e.preventDefault();
         _this.submitComment($(this));
       });
@@ -12,7 +12,7 @@
       });
       $(document).on(
         "click",
-        ".labell-add-comment,.labell-comment-popup-overlay, .labell-comment-popup .pixxelicon-cross",
+        ".pixxel-add-comment,.pixxel-comment-popup-overlay, .pixxel-comment-popup .pixxelicon-cross",
         function (e) {
           e.preventDefault();
           _this.commentModal($(this));
@@ -117,15 +117,15 @@
 
       if (
         !parseInt(commentData.isLogin) &&
-        $("#labell-comment-name").length &&
-        !$("#labell-comment-name").val().length
+        $("#pixxel-comment-name").length &&
+        !$("#pixxel-comment-name").val().length
       ) {
         $(".comment-response-box .error-message")
           .html("لطفاً نام خود را وارد نمایید")
           .removeClass("hidden");
         return;
       }
-      if (!$("#labell-comment-content").val().length) {
+      if (!$("#pixxel-comment-content").val().length) {
         $(".comment-response-box .error-message")
           .html("لطفاً پیام خود را وارد نمایید")
           .removeClass("hidden");
@@ -137,19 +137,19 @@
       const arg = {
         parentId: 0,
         postId: commentData.postId,
-        name: $("#labell-comment-name").length
-          ? $("#labell-comment-name").val()
+        name: $("#pixxel-comment-name").length
+          ? $("#pixxel-comment-name").val()
           : null,
-        mobile: $("#labell-comment-mobile").length
-          ? $("#labell-comment-mobile").val()
+        mobile: $("#pixxel-comment-mobile").length
+          ? $("#pixxel-comment-mobile").val()
           : null,
-        content: $("#labell-comment-content").val(),
+        content: $("#pixxel-comment-content").val(),
       };
 
       const formData = new FormData();
       formData.append("data", JSON.stringify(arg));
       $.ajax({
-        url: labellArr.homeUrl + "/wp-ajax/comment/add-comment",
+        url: pixxelArr.homeUrl + "/wp-ajax/comment/add-comment",
         data: formData,
         processData: false,
         contentType: false,
@@ -163,9 +163,9 @@
             $(".comment-response-box .success-message")
               .html(response.message)
               .removeClass("hidden");
-            $(".labell-comment-container").prepend(response.content.commentHtml);
+            $(".pixxel-comment-container").prepend(response.content.commentHtml);
           }
-          $(".labell-comment-form input ,.labell-comment-form textarea").val("");
+          $(".pixxel-comment-form input ,.pixxel-comment-form textarea").val("");
           addAppModeQueryString();
         },
         error: function (response) {},
@@ -189,8 +189,8 @@
     }
 
     commentModal(btn) {
-      $(".labell-comment-popup-overlay").toggleClass("hidden");
-      $(".labell-comment-popup").toggleClass("-bottom-[130%] bottom-0");
+      $(".pixxel-comment-popup-overlay").toggleClass("hidden");
+      $(".pixxel-comment-popup").toggleClass("-bottom-[130%] bottom-0");
     }
 
     replyField(replyBtn) {
@@ -241,11 +241,11 @@
         textareaValue = textarea.text();
       }
 
-      const name = $(`[name="labell-comment-name"]`).length
-        ? (mobile ? $(`#labell-reply-comment-name-mobile`).val() : $(`#labell-reply-comment-name`).val())
+      const name = $(`[name="pixxel-comment-name"]`).length
+        ? (mobile ? $(`#pixxel-reply-comment-name-mobile`).val() : $(`#pixxel-reply-comment-name`).val())
         : null;
-      const mobileNum = $(`[name="labell-comment-mobile"]`).length
-        ? (mobile ? $(`#labell-reply-comment-mobile-mobile`).val() : $(`#labell-reply-comment-mobile`).val())
+      const mobileNum = $(`[name="pixxel-comment-mobile"]`).length
+        ? (mobile ? $(`#pixxel-reply-comment-mobile-mobile`).val() : $(`#pixxel-reply-comment-mobile`).val())
         : null;
 
       const arg = {
@@ -259,7 +259,7 @@
       let formData = new FormData();
       formData.append("data", JSON.stringify(arg));
       $.ajax({
-        url: labellArr.homeUrl + "/wp-ajax/comment/add-comment",
+        url: pixxelArr.homeUrl + "/wp-ajax/comment/add-comment",
         data: formData,
         processData: false,
         contentType: false,
@@ -280,7 +280,7 @@
               $(".comment-response-box .success-message")
                 .html(response.message)
                 .removeClass("hidden");
-              $(".labell-comment-container").prepend(
+              $(".pixxel-comment-container").prepend(
                 response.content.commentHtml
               );
             }else{

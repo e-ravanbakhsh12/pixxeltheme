@@ -5,42 +5,59 @@ namespace PixxelTheme\templates\product;
 use WP_Query;
 
 
-$class = $args['class'];
+$_this = $args['_this'];
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $args = array(
     'post_type'         => 'product',
     'orderby'           => 'date',
     'order'             => 'DESC',
     'post_status'       => 'publish',
-    'posts_per_page'    => 18,
+    'posts_per_page'    => 8,
     'paged'             => $paged,
 );
 $products = new WP_Query($args);
 ?>
-<div class="main-container bg-grad relative">
-    <section class="relative pt-[4.5rem] md:pt-36 w-full mx-auto pb-[4.5rem] md:pb-44">
-        <div class="container xl:max-w-screen-xl px-3 md:px-0 ">
-            <h1 class="text-xl md:text-[1.75rem] font-bold flex items-baseline  gap-2 ">
-                <i class="pixxelicon-shape text-base text-magenta"></i>
-                <?= get_the_title() ?>
-            </h1>
-            <div class="products-list grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 w-full mt-4 md:mt-12 gap-3">
-                <?php if ($products->have_posts()) foreach ($products->posts as $product) :
-                ?>
-                    <a href="<?= get_permalink($product->ID) ?>" class=" relative group-1 flex-center">
-                        <?= get_the_post_thumbnail($product->ID, 'full', ['class' => 'w-full h-[12rem] h-[18.125rem] object-cover object-top']) ?>
-                        <div class="w-full h-full absolute inset-0 bg-black-cover group-1-hover:opacity-0 transition-all"></div>
-                        <h4 class="text-xl font-bold md:text-[1.625rem] text-white absolute text-center"><?= $product->post_title ?></h4>
-                        <i class="pixxelicon-corner absolute -bottom-1 right-0  text-bg text-2xl md:text-4xl -rotate-90"></i>
-                        <img src="<?= PIXXEL_URL . '/assets/img/home/type/triangle.svg' ?>" class="w-5 object-contain absolute bottom-0 right-0" alt="" loading="lazy">
+<div class="product-list-container bg-cream-02 relative">
+    <div class="container xl:max-w-screen-xl px-6 md:px-0 pt-2">
+        <div class="breadcrumb-list regular-12 text-midnight-700 flex items-center gap-1">
+            <a href="<?= home_url() ?>" class="">خانه</a>
+            <i class="pixxelicon-arrow-right-2 rotate-180 text-[.5rem]"></i>
+            <div class="">محصولات</div>
 
+        </div>
+    </div>
+    <section class="py-10 md:py-16">
+        <div class="container xl:max-w-screen-xl px-3 md:px-0 ">
+            <h1 class="text-xl semibold-28 md:semibold-36">
+                محصولات
+            </h1>
+            <div class="products-list grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 w-full pt-8 md:pt-6 gap-2 md:gap-4">
+                <?php if ($products->have_posts()) foreach ($products->posts as $product) :
+                    $color = get_field('color', $product->ID);
+                    $properties = get_field('properties', $product->ID);
+
+                ?>
+                    <a href="<?= get_permalink($product->ID) ?>" class="w-full flex flex-col items-center p-3 md:pb-6 bg-white rounded-2xl group-1">
+                        <div class="w-full flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <?php if ($color) foreach ($color as $i => $item) : ?>
+                                    <span class="size-5 rounded-full border-orange-2 border-2" style="background-color:<?= $item['value'] ?>"></span>
+                                <?php endforeach ?>
+                            </div>
+                            <div class="semibold-12 md:semibold-14 px-2 py-[0.125rem] rounded-full bg-bg text-midnight-900"><?= $properties['skin_type'] ?></div>
+                        </div>
+                        <?= get_the_post_thumbnail($product->ID, 'full', ['class' => 'w-full aspect-square object-contain', 'loading' => "lazy", 'data-item' => 0]) ?>
+                        <h3 class="regular-16 md:regular-18 w-full text-right transition-all group-1-hover:text-blue-main pt-3 md:pt-4"><?= $product->post_title ?></h3>
+                        <p class="regular-12 md:regular-14 text-midnight-700 w-full text-right pt-2 line-clamp-2"><?= $product->post_excerpt ?></p>
                     </a>
-                <?php endforeach ?>
+                <?php
+                    wp_reset_postdata();
+                endforeach ?>
             </div>
             <div class="pagination">
                 <?php
-                if ($posts->max_num_pages > 1) {
-                    echo $class->displayPagination($paged, $posts->max_num_pages);
+                if ($products->max_num_pages > 1) {
+                    echo $_this->displayPagination($paged, $products->max_num_pages);
                 }
                 ?>
             </div>

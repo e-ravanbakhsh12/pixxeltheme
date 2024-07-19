@@ -4,15 +4,39 @@
   class Home {
     constructor() {
       const _this = this;
+      this.searchTimeout;
       // mobile menu toggle
-      $(document).on("click", ".hamburger-menu, .menu-close , .mobile-menu-overlay", function (e) {
-        $('.mobile-menu-overlay').toggleClass("hidden");
-        $(".menu-container").toggleClass("-right-full right-0");
-      });
+      $(document).on(
+        "click",
+        ".hamburger-menu, .menu-close , .mobile-menu-overlay",
+        function (e) {
+          $(".mobile-menu-overlay").toggleClass("hidden");
+          $(".menu-container").toggleClass("-right-full right-0");
+        }
+      );
       // search bar toggle
-      $(document).on("click", ".search-icon-container , .search-overlay, .close-search", function (e) {
-        $('.search-overlay').toggleClass("hidden");
-        $(".search-container").toggleClass("translate-y-[-150%]");
+      $(document).on(
+        "click",
+        ".search-icon-container , .search-overlay, .close-search",
+        function (e) {
+          $(".search-overlay").toggleClass("hidden");
+          $(".search-container").toggleClass("translate-y-[-150%]");
+        }
+      );
+
+      // search action
+      $(document).on("change pest keyup", "#main-search", function (e) {
+        e.preventDefault();
+        clearTimeout(_this.searchTimeout);
+        _this.searchTimeout = setTimeout(() => {
+          _this.searchRequest($(this));
+        }, 800);
+      });
+      $(document).on("click", ".pixxelicon-trash", function (e) {
+        $("#main-search").val("");
+        $(".main-search-result-content").html("");
+        $(".empty-result-container").html("");
+        $(this).remove();
       });
 
       // menu items toggle
@@ -51,7 +75,7 @@
             });
         }
       });
-      this.stretchMegaMenu();
+      // this.stretchMegaMenu();
 
       // faq toggle
       $(document).on("click", ".faq-tab-item", function (e) {
@@ -104,11 +128,46 @@
       });
     }
 
+    searchRequest(input) {
+      const _this = this;
+      const search = input.val();
+      const container = $(".main-search-result-content");
+      const emptyResult = $(".empty-result-container");
+      const loading = input.parent().find("svg");
+      emptyResult.addClass("hidden");
+      container.html("");
+      if (search.length > 2) {
+        input.parent().find("svg").removeClass("hidden");
+        input.prop("disabled", true);
+        input.addClass("opacity-60");
+        $.ajax({
+          url: pixxelArr.homeUrl + "/wp-ajax/search/" + search,
+          type: "GET",
+          contentType: "application/json",
+          success: function (response) {
+            loading.addClass("hidden");
+            input.prop("disabled", false);
+            input.removeClass("opacity-60");
+            $(input).parent().find(".pixxelicon-trash").removeClass("hidden");
+            if (response.success) {
+              container.html(response.content.result);
+            } else {
+              emptyResult.removeClass("hidden");
+            }
+          },
+          error: function (response) {
+            loading.addClass("hidden");
+            input.prop("disabled", false);
+            input.removeClass("opacity-60");
+          },
+        });
+      }
+    }
+
     stretchMegaMenu() {
       let windowWidth = $(window).width();
       if (windowWidth > 768) {
         if (windowWidth > 1280) windowWidth = 1280;
-        console.log($(".stretch-megamenu").width());
         const extendOffset = (windowWidth - $(".stretch-megamenu").width()) / 2;
         $(".stretch-megamenu").css({
           width: windowWidth + "px",

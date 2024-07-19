@@ -19,7 +19,7 @@ class ACF
             acf_add_options_page(array(
                 'page_title' => 'تنظیمات لابل',
                 'menu_title' => 'تنظیمات لابل',
-                'menu_slug' => 'admin-labell-site',
+                'menu_slug' => 'admin-pixxel-site',
                 'capability' => 'edit_posts',
                 'redirect' => false,
                 'update_button' => 'ذخیره',

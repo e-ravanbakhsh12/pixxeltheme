@@ -7,9 +7,11 @@ module.exports = {
     },
     extend: {
       colors: {
+        "bg": "rgba(244, 239, 233, 1)",
         "cream-02": "rgba(244, 239, 233, 1)",
         "light-blue": "rgba(237, 245, 255, 1)",
         "midnight-50": "rgba(229, 232, 234, 1)",
+        "midnight-200": "rgba(183, 188, 193, 1)",
         "midnight-700": "rgba(64, 77, 88, 1)",
         "midnight-900": "rgba(17, 32, 47, 1)",
         "blue-main": "rgba(1, 132, 253, 1)",
@@ -27,9 +29,10 @@ module.exports = {
       fontSize: {
         xxs: "0.5rem",
       },
-      boxShadow: {},
+      boxShadow: {
+      },
       dropShadow: {
-        hero: "0px 2px 32px 0px rgba(0, 0, 0, 0.35)",
+        hero: "0px 2px 32px rgba(0, 0, 0, 0.35)",
       },
       borderRadius: {},
       backgroundImage: {
@@ -60,6 +63,16 @@ module.exports = {
           fontWeight: "bold",
           fontSize: "1.5rem",
           lineHeight: "2.3125rem",
+        },
+        ".semibold-12": {
+          fontWeight: "600",
+          fontSize: "0.75rem",
+          lineHeight: "1.125rem",
+        },
+        ".semibold-14": {
+          fontWeight: "600",
+          fontSize: "0.875rem",
+          lineHeight: "1.375rem",
         },
         ".semibold-36": {
           fontWeight: "600",
