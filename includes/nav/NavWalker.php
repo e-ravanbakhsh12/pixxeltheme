@@ -55,7 +55,7 @@ class NavWalker extends Walker_Nav_Menu
 
         if ($depth == 0) {
             $classes[] = $this->mode === 'transparent' ? 'md:hover:bg-white md:hover:text-black md:text-white' : 'md:hover:bg-blue-main md:hover:text-white';
-            $classes[] = 'group-1 level-1 py-1 md:py-0';
+            $classes[] = 'group-1 level-1 py-1 md:py-0 rounded-xl';
             if ($args->walker->has_children) {
                 if (!$is_mega) {
                     $classes[] = 'md:relative ';

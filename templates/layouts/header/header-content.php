@@ -32,7 +32,9 @@ $type = $_this->type;
                     <div class="container xl:max-w-screen-xl ">
                         <div class="transition-all  px-1 flex items-center justify-between md:justify-start py-2 md:px-0 md:py-5 ">
                             <i class="pixxelicon-hamburger hamburger-menu text-base p-3 md:hidden cursor-pointer <?= $mode == 'transparent' ? 'text-white' : '' ?>"></i>
-                            <img src="<?= PIXXEL_URL . '/assets/img/logo.png' ?>" class="size-10 " />
+                            <a href="<?= home_url() ?>" class="size-10 shrink-0">
+                                <img src="<?= PIXXEL_URL . '/assets/img/logo.png' ?>" class="size-10 " />
+                            </a>
                             <div class="mobile-menu-overlay hidden fixed top-0 left-0 w-full h-full bg-black/50 "></div>
                             <div class="menu-container regular-16 md:regular-14 w-3/4 md:w-full h-svh top-0 md:top-auto md:h-auto px-5 md:px-2 fixed md:relative -right-full md:right-0 transition-all duration-200 bg-white md:bg-transparent">
                                 <div class="flex justify-between gap-2 mt-6  md:hidden">

@@ -25,6 +25,6 @@ class BlogList
 
     public function displayContent()
     {
-        get_template_part('templates/blog/blogList', 'content', ['class' => $this]);
+        get_template_part('templates/blog/blogList', 'content', ['_this' => $this]);
     }
 }
