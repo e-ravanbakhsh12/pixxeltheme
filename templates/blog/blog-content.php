@@ -9,7 +9,7 @@ wp_enqueue_style('splide', PIXXEL_URL . '/assets/css/splide-core.min.css', [], '
 wp_enqueue_script('splide', PIXXEL_URL . '/assets/js/splide.min.js', [], '4.1.2', true);
 wp_enqueue_script('pixxel-blog', PIXXEL_URL . '/assets/js/blog.js', ['jquery', 'splide'], PIXXEL_VERSION, true);
 
-$class = $args['class'];
+$class = $args['_this'];
 foreach (get_the_category() as $category) {
     $cat_id[] = $category->term_id;
 }
@@ -29,67 +29,46 @@ $relatedBlogArgs = [
 ];
 $relatedBlog = new WP_Query($relatedBlogArgs);
 ?>
-<div class="main-container bg-white relative">
-    <section class="relative pt-[4.5rem] md:pt-36 bg-white w-full max-w-[53.125rem] mx-auto <?= $relatedBlog->have_posts() ? '' : 'pb-[4.5rem] md:pb-44' ?>">
-        <div class="container xl:max-w-screen-xl px-3 md:px-0">
-            <h1 class="text-[1.75rem] md:text-[2rem] font-black flex items-baseline  gap-2 ">
-                <?= get_the_title() ?>
-            </h1>
-            <p class="mt-6 text-sm leading-6"><?= get_the_excerpt() ?></p>
-            <?= get_the_post_thumbnail(get_the_ID(), 'full', ['class' => 'w-full object-contain py-4 md:py-6']) ?>
-            <div class="flex justify-between gap-4 text-xs ">
-                <?php if (0) : ?>
-                    <div class="flex items-baseline gap-1 py-2 text-magenta">
-                        <?php if (is_array(get_the_category())) foreach (get_the_category() as $i => $category) : ?>
-                            <a href="<?php echo esc_url(get_term_link($category->term_id)) ?>" class=" " title="<?= $category->name ?>"><?= $category->name ?></a><?= $i + 1 < count(get_the_category()) ? ' ، ' : '' ?>
-                        <?php endforeach ?>
-                    </div>
-                <?php endif ?>
-                <div class=""><?= date_i18n('d  M  Y', strtotime(get_the_date('m/d/y'))) ?></div>
+<div class="blog-container bg-white relative">
+    <div class="container xl:max-w-screen-xl px-6 md:px-0 pt-2">
+        <div class="breadcrumb-list regular-12 text-midnight-700 flex items-center gap-1">
+            <a href="<?= home_url() ?>" class="">خانه</a>
+            <i class="pixxelicon-arrow-right-2 rotate-180 text-[.5rem]"></i>
+            <a href="<?= get_permaLink($productPageId[0]) ?>" class="">محصولات</a>
+            <i class="pixxelicon-arrow-right-2 rotate-180 text-[.5rem]"></i>
+            <div class=""><?= get_the_title() ?></div>
+        </div>
+    </div>
+    <section class="py-10 ">
+        <div class="container xl:max-w-[50.5rem] px-6 md:px-0 ">
+            <?= get_the_post_thumbnail(get_the_ID(), 'full', ['class' => 'w-full object-contain rounded-2xl']) ?>
+            <h1 class="semibold-28 md:semibold-36 py-8 border-b border-midnight-50"><?= get_the_title() ?></h1>
+            <div class="pixxel-post-content pb-8 border-b border-midnight-50">
+                <?= get_the_content() ?>
             </div>
-            <div class="text-sm mt-6 md:mt-8 pixxel-post-content ">
-                <?= the_content() ?>
-            </div>
-            <?php if (is_array(get_the_tags()) && 1==2) : ?>
-                <div class="flex flex-wrap items-baseline gap-1 py-2 text-light-gray-4 text-xs">
-                    <i class="pixxelicon-location text-sm"></i>
-                    <?php if (count(get_the_tags())) foreach (get_the_tags() as $i => $tag) : ?>
-                        <a href="<?php echo esc_url(get_term_link($tag->term_id)) ?>" class=" " title="<?= $tag->name ?>"><?= $tag->name ?></a><?= $i + 1 < count(get_the_tags()) ? ' ، ' : '' ?>
-                    <?php endforeach ?>
-                </div>
-            <?php endif ?>
         </div>
     </section>
 
     <?php
     if ($relatedBlog->have_posts()) :
     ?>
-        <section class="container xl:max-w-screen-xl  mt-[4.5rem] md:mt-28 pb-[4.5rem] md:pb-44">
-            <div class="mr-4 md:mr-0 relative z-10">
-                <h2 class="text-[1.375rem] md:text-[1.75rem] font-bold flex items-baseline  gap-2">
-                    <i class="pixxelicon-shape text-base text-magenta"></i>
-                    مطالب مشابه
+        <section class="container xl:max-w-screen-xl py-10 md:py-32 flex flex-col md:items-center">
+                <h2 class="semibold-28 md:semibold-36 ">
+                    مقالات مشابه
                 </h2>
-                <div id="related-blog-gallery" class="splide splide-related-blog relative mt-6" aria-label="Related Blog Gallery">
+                <div id="related-blog-gallery" class="splide splide-related-blog relative w-full pt-6 md:pt-14" aria-label="Related Blog Gallery">
                     <div class="splide__track">
                         <div class="splide__list">
                             <?php foreach ($relatedBlog->posts as $blog) :
                             ?>
                                 <li class="splide__slide ">
-                                    <div class="flex flex-col gap-2 md:gap-8 ">
-                                        <div class="relative shrink-0">
-                                            <?= get_the_post_thumbnail($blog->ID, 'full', ['class' => 'w-full object-cover object-top h-32 md:h-56']) ?>
-                                            <i class="pixxelicon-corner absolute -top-1 right-0 text-white text-xl rotate-180"></i>
-                                        </div>
+                                    <div class="flex flex-col gap-2 md:gap-8 w-[16.25rem] md:w-[19.25rem]">
+                                        <?= get_the_post_thumbnail($blog->ID, 'full', ['class' => 'w-full h-[10.5rem] md:h-[12rem] object-cover rounded-2xl']) ?>
                                         <div class="">
-                                            <a href="<?= get_permalink($blog->ID) ?>" class="relative group-1 line-clamp-2 min-h-10">
-                                                <h3 class="text-xs md:text-sm font-medium line-clamp-2"><?= $blog->post_title ?></h3>
+                                            <a href="<?= get_permalink($blog->ID) ?>" class="semibold-16 min-h-12">
+                                                <h3 class="line-clamp-2"><?= $blog->post_title ?></h3>
                                             </a>
-                                            <div class="flex items-baseline gap-2 text-[0.625rem]">
-                                                <i class="pixxelicon-calendar "></i>
-                                                <?= date_i18n('d  M  Y', strtotime($blog->post_date)) ?>
-                                            </div>
-                                            <p class="line-clamp-2 md:line-clamp-4 text-[0.625rem] md:text-xs mt-2 md:mt-4"><?= $blog->post_excerpt  ?></p>
+                                            <p class="regular-14 line-clamp-2 mt-4"><?= getFirstParagraph($blog->post_content) ?></p>
                                         </div>
 
                                     </div>
@@ -98,16 +77,7 @@ $relatedBlog = new WP_Query($relatedBlogArgs);
                             <?php endforeach ?>
                         </div>
                     </div>
-                    <div class="splide__arrows flex items-center justify-center gap-4 mt-7 md:mt-0">
-                        <button class="splide__arrow splide__arrow--prev md:absolute md:-right-5 md:top-1/2 md:-translate-y-1/2 text-sm size-9 flex-center text-dusty-gray bg-gray-1 hover:bg-magenta hover:text-white transition-all">
-                            <i class="pixxelicon-Left-arrow flex-center rotate-180"></i>
-                        </button>
-                        <button class="splide__arrow splide__arrow--next md:absolute md:-left-5 md:top-1/2 md:-translate-y-1/2 text-sm size-9 flex-center text-dusty-gray bg-gray-1 hover:bg-magenta hover:text-white transition-all">
-                            <i class="pixxelicon-Left-arrow flex-center"></i>
-                        </button>
-                    </div>
                 </div>
-            </div>
         </section>
     <?php endif ?>
 

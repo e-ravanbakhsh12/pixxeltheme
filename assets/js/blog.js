@@ -9,17 +9,17 @@
           // type: "loop",
           direction: "rtl",
           // drag:'free',
-          autoplay: true,
-          arrows: true,
+          autoplay: false,
+          arrows: false,
           gap: 16,
-          perPage: 2,
+          perPage: 'auto',
           mediaQuery: "min",
           breakpoints: {
             768: {
-              perPage: 4,
+              perPage: 'auto',
             },
             340: {
-              perPage: 2,
+              perPage: 'auto',
             },
           },
         });

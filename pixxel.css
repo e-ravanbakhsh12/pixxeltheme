@@ -86,22 +86,22 @@ body .website-wrapper {
 }
 
 .pixxel-post-content ul {
-  @apply mb-3 pr-8 list-disc text-sm leading-10 font-normal md:text-lg md:leading-[2.3rem];
+  @apply mb-3 pr-8 list-disc text-sm  font-normal md:text-lg;
 }
 .pixxel-post-content h1 {
-  @apply text-2xl leading-[2.125rem] font-semibold md:text-[2.5rem] py-6;
+  @apply text-2xl  font-semibold md:text-4xl py-6;
 }
 .pixxel-post-content h2 {
-  @apply text-xl leading-[2.125rem] md:leading-[4rem] font-semibold  md:text-2xl pt-6;
+  @apply text-xl font-semibold  md:text-2xl pt-6;
 }
 .pixxel-post-content h3 {
-  @apply text-base leading-[1.5rem] font-semibold md:text-xl md:leading-6 py-5;
+  @apply text-base font-semibold md:text-xl  py-5;
 }
 .pixxel-post-content h4 {
-  @apply py-5 text-sm font-semibold md:text-xl md:leading-6;
+  @apply py-5 text-sm font-semibold md:text-xl ;
 }
 .pixxel-post-content h5 {
-  @apply py-5 text-sm leading-6 md:font-semibold md:text-base md:leading-6;
+  @apply py-5 text-sm md:font-semibold md:text-base ;
 }
 .pixxel-post-content,.pixxel-post-content p {
   @apply regular-14 md:regular-16 text-justify;

@@ -13,7 +13,7 @@ function isLocalhost()
 function getFirstParagraph($content)
 {
 
-    $str = wpautop($content);
+    $str = $content;
     $str = substr($str, 0, strpos($str, '</p>') + 4);
     $str = strip_tags($str, '');
     return  $str;

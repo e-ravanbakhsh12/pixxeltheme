@@ -1312,6 +1312,18 @@ textarea,
   height: 100svh;
 }
 
+.h-\[\] {
+  height: ;
+}
+
+.h-\[10\.5\] {
+  height: 10.5;
+}
+
+.h-\[10\.5rem\] {
+  height: 10.5rem;
+}
+
 .max-h-\[11\.5rem\] {
   max-height: 11.5rem;
 }
@@ -1354,6 +1366,14 @@ textarea,
 
 .min-h-\[300px\] {
   min-height: 300px;
+}
+
+.min-h-\[\] {
+  min-height: ;
+}
+
+.min-h-12 {
+  min-height: 3rem;
 }
 
 .w-1\/2 {
@@ -1417,6 +1437,14 @@ textarea,
   width: 100%;
 }
 
+.w-\[16\.25\] {
+  width: 16.25;
+}
+
+.w-\[16\.25rem\] {
+  width: 16.25rem;
+}
+
 .min-w-\[100px\] {
   min-width: 100px;
 }
@@ -1443,10 +1471,6 @@ textarea,
 
 .max-w-\[45\.25rem\] {
   max-width: 45.25rem;
-}
-
-.max-w-\[53\.125rem\] {
-  max-width: 53.125rem;
 }
 
 .max-w-\[53rem\] {
@@ -3194,10 +3218,6 @@ textarea,
   font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
 }
 
-.leading-6 {
-  line-height: 1.5rem;
-}
-
 .leading-8 {
   line-height: 2rem;
 }
@@ -3828,14 +3848,14 @@ body .website-wrapper {
   list-style-type: disc;
   padding-right: 2rem;
   font-size: 0.875rem;
+  line-height: 1.25rem;
   font-weight: 400;
-  line-height: 2.5rem;
 }
 
 @media (min-width: 768px) {
   .pixxel-post-content ul {
     font-size: 1.125rem;
-    line-height: 2.3rem;
+    line-height: 1.75rem;
   }
 }
 
@@ -3843,27 +3863,28 @@ body .website-wrapper {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   font-size: 1.5rem;
+  line-height: 2rem;
   font-weight: 600;
-  line-height: 2.125rem;
 }
 
 @media (min-width: 768px) {
   .pixxel-post-content h1 {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 }
 
 .pixxel-post-content h2 {
   padding-top: 1.5rem;
   font-size: 1.25rem;
+  line-height: 1.75rem;
   font-weight: 600;
-  line-height: 2.125rem;
 }
 
 @media (min-width: 768px) {
   .pixxel-post-content h2 {
     font-size: 1.5rem;
-    line-height: 4rem;
+    line-height: 2rem;
   }
 }
 
@@ -3871,14 +3892,14 @@ body .website-wrapper {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
   font-size: 1rem;
-  font-weight: 600;
   line-height: 1.5rem;
+  font-weight: 600;
 }
 
 @media (min-width: 768px) {
   .pixxel-post-content h3 {
     font-size: 1.25rem;
-    line-height: 1.5rem;
+    line-height: 1.75rem;
   }
 }
 
@@ -3893,7 +3914,7 @@ body .website-wrapper {
 @media (min-width: 768px) {
   .pixxel-post-content h4 {
     font-size: 1.25rem;
-    line-height: 1.5rem;
+    line-height: 1.75rem;
   }
 }
 
@@ -3901,14 +3922,14 @@ body .website-wrapper {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
   font-size: 0.875rem;
-  line-height: 1.5rem;
+  line-height: 1.25rem;
 }
 
 @media (min-width: 768px) {
   .pixxel-post-content h5 {
     font-size: 1rem;
-    font-weight: 600;
     line-height: 1.5rem;
+    font-weight: 600;
   }
 }
 
@@ -4342,6 +4363,14 @@ body .website-wrapper {
     height: auto;
   }
 
+  .md\:h-\[\] {
+    height: ;
+  }
+
+  .md\:h-\[12rem\] {
+    height: 12rem;
+  }
+
   .md\:max-h-\[26rem\] {
     max-height: 26rem;
   }
@@ -4389,6 +4418,10 @@ body .website-wrapper {
 
   .md\:w-full {
     width: 100%;
+  }
+
+  .md\:w-\[19\.25rem\] {
+    width: 19.25rem;
   }
 
   .md\:max-w-32 {
@@ -4669,6 +4702,11 @@ body .website-wrapper {
     padding-bottom: 6.5rem;
   }
 
+  .md\:py-32 {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+
   .md\:pb-14 {
     padding-bottom: 3.5rem;
   }
@@ -4775,10 +4813,6 @@ body .website-wrapper {
 
   .md\:text-\[1\.75rem\] {
     font-size: 1.75rem;
-  }
-
-  .md\:text-\[2rem\] {
-    font-size: 2rem;
   }
 
   .md\:text-base {
@@ -4964,6 +4998,10 @@ body .website-wrapper {
 }
 
 @media (min-width: 1280px) {
+  .xl\:max-w-\[50\.5rem\] {
+    max-width: 50.5rem;
+  }
+
   .xl\:max-w-\[60\.5rem\] {
     max-width: 60.5rem;
   }

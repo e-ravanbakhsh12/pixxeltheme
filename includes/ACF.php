@@ -17,8 +17,8 @@ class ACF
 
             // add acf setting page
             acf_add_options_page(array(
-                'page_title' => 'تنظیمات لابل',
-                'menu_title' => 'تنظیمات لابل',
+                'page_title' => 'تنظیمات پیکسل',
+                'menu_title' => 'تنظیمات پیکسل',
                 'menu_slug' => 'admin-pixxel-site',
                 'capability' => 'edit_posts',
                 'redirect' => false,

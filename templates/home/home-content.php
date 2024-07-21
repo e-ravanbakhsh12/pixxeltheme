@@ -65,7 +65,7 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
                                     <img src="<?= PIXXEL_URL . '/assets/img/home/product.jpg' ?>" alt="" class="w-full aspect-square">
                                     <h3 class="regular-16 md:regular-18 w-full text-right transition-all group-1-hover:text-blue-main pt-3 md:pt-4"><?= $product->post_title ?></h3>
                                     <p class="regular-12 md:regular-14 text-midnight-700 w-full text-right pt-2 line-clamp-2"><?= $product->post_excerpt ?></p>
-                                    <a class="flex-center h-10 rounded-full bg-blue-main text-white gap-2 w-fit px-4 mt-4 md:mt-6 absolute  -bottom-5 opacity-0 group-1-hover:opacity-100 transition-all">مشاهده محصول</a>
+                                    <a href="<?= get_permalink($product->ID) ?>" class="flex-center h-10 rounded-full bg-blue-main text-white gap-2 w-fit px-4 mt-4 md:mt-6 absolute  -bottom-5 opacity-0 group-1-hover:opacity-100 transition-all">مشاهده محصول</a>
                                 </div>
                             </li>
                         <?php endforeach ?>
