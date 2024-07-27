@@ -22,10 +22,20 @@ class Enqueue extends PixxelTheme
         // wp_enqueue_style('pixxel-iransans', PIXXEL_URL . '/assets/css/iransans.css', [], 1.1);
         wp_register_style('pixxel-style', PIXXEL_URL . '/assets/css/main-style.css', [], PIXXEL_VERSION);
         wp_enqueue_style('pixxel-style');
+
+        // js files
+        if (!isGoogleBot()) {
+            wp_enqueue_script('gsap', PIXXEL_URL . '/assets/js/gsap.min.js', '3.12.5', true);
+            wp_enqueue_script('gsap-st', PIXXEL_URL . '/assets/js/scrollTrigger.min.js', ['gsap'], '3.12.5', true);
+            wp_enqueue_script('gsap-stp', PIXXEL_URL . '/assets/js/scrollToPlugin.min.js', ['gsap', 'gsap-st'], '3.12.5', true);
+            wp_enqueue_script('gsap-ss', PIXXEL_URL . '/assets/js/scrollSmoother.min.js', ['gsap', 'gsap-st', 'gsap-stp'], PIXXEL_VERSION, true);
+            wp_enqueue_script('gsap-text', PIXXEL_URL . '/assets/js/splitText.min.js', ['gsap'], PIXXEL_VERSION, true);
+            wp_enqueue_script('pixxel-animation', PIXXEL_URL . '/assets/js/animation.js', ['jquery', 'gsap', 'gsap-st', 'gsap-stp', 'gsap-ss', 'gsap-text'], PIXXEL_VERSION, true);
+        }
         wp_enqueue_script('pixxel-global-js', PIXXEL_URL . '/assets/js/global.js', ['jquery'], PIXXEL_VERSION, true);
         wp_localize_script('pixxel-global-js', 'pixxelArr', backEndData());
 
-        
+
         wp_dequeue_style('wp-block-library');
         wp_dequeue_style('wp-block-library-theme');
     }
@@ -71,7 +81,6 @@ class Enqueue extends PixxelTheme
             'pixxel-forum-dashboard',
             [$this, 'dashboardMenuContent'],
         );
-        
     }
 
     public function dashboardMenuContent()

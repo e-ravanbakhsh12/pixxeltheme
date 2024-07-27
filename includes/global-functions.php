@@ -1,5 +1,7 @@
 <?php
 
+use FlameCore\UserAgent\UserAgent;
+
 function persianSort($a, $b) {
     $collator = new Collator('fa_IR');
     return $collator->compare($a, $b);
@@ -10,12 +12,13 @@ function isLocalhost()
     return in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1', '192.168.1.51', '192.168.1.50'));
 }
 
-function getFirstParagraph($content)
+function getFirstParagraph($content,$character=200)
 {
 
     $str = $content;
-    $str = substr($str, 0, strpos($str, '</p>') + 4);
+    // $str = substr($str, 0, strpos($str, '</p>') + 4);
     $str = strip_tags($str, '');
+    $str =substr($str, 0, $character);
     return  $str;
 }
 
@@ -181,3 +184,8 @@ function isTopDomain()
     return strpos($_SERVER['HTTP_HOST'], 'pixxel.top') !== false ? true : false;
 }
 
+function isGoogleBot(){
+    $userAgent = UserAgent::createFromGlobal();
+    return $userAgent->getBrowserName()==='googlebot';
+    
+}

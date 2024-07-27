@@ -38,7 +38,7 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
     <section class="pt-10 pb-8 md:pb-14">
         <div class="container xl:max-w-screen-xl px-6 md:px-0">
             <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4">
-                <div class="product-image">
+                <div class="product-image" data-anim="horizontal" data-x="-40" data-delay="0.2">
                     <div id="product-img-list" class="splide splide-product-img relative" aria-label="Product Gallery">
                         <div class="splide__track">
                             <div class="splide__list">
@@ -61,7 +61,7 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
                         <?php endforeach ?>
                     </div>
                 </div>
-                <div class="w-full">
+                <div class="w-full" data-anim="horizontal" data-x="-40" data-delay="0.4">
                     <h1 class="semibold-18 md:bold-24 "><?= get_the_title() ?></h1>
                     <div class="divider h-[1px] w-full bg-midnight-50 my-6"></div>
                     <div class="flex items-center gap-4 regular-14 md:regular-16">
@@ -97,13 +97,13 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
                         <p class="regular-14 md:regular-16 text-midnight-700 text-justify"><?= get_the_excerpt() ?></p>
                     </div>
                 </div>
-                <div class="pt-6 md:pt-0">
+                <div class="pt-6 md:pt-0" data-anim="horizontal" data-x="-40" data-delay="0.6">
                     <div class="bg-light-blue rounded-3xl p-3 md:p-6">
                         <h3 class="semibold-14 md:semibold-16">رنگ</h3>
                         <div class="flex items-center gap-3 pt-3" data-selected='<?= $color[0]['label'] ?>'>
-                            <?php if ($color) foreach ($color as $i=> $item) : ?>
-                                <div class="color-item size-8 rounded-full relative flex-center cursor-pointer ring-offset-light-blue ring-offset-2 ring-blue-main <?= $i>0 ?'ring-0':'ring-1' ?>" style="background-color:<?= $item['value'] ?>" data-value="<?= $item['label'] ?>">
-                                    <i class="pixxelicon-check <?= $i>0 ?'hidden':'flex-center' ?> text-white  size-3 rounded-full bg-blue-main  text-[0.25rem] "></i>
+                            <?php if ($color) foreach ($color as $i => $item) : ?>
+                                <div class="color-item size-8 rounded-full relative flex-center cursor-pointer ring-offset-light-blue ring-offset-2 ring-blue-main <?= $i > 0 ? 'ring-0' : 'ring-1' ?>" style="background-color:<?= $item['value'] ?>" data-value="<?= $item['label'] ?>">
+                                    <i class="pixxelicon-check <?= $i > 0 ? 'hidden' : 'flex-center' ?> text-white  size-3 rounded-full bg-blue-main  text-[0.25rem] "></i>
                                 </div>
                             <?php endforeach ?>
                         </div>
@@ -121,10 +121,10 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
     <section class="">
         <div class="container xl:max-w-screen-xl px-6 md:px-0">
             <div class="w-full md:w-2/3 py-8 md:py-14 border-y border-midnight-50 grid grid-cols-1 md:grid-cols-2 md:gap-4">
-                <h2 class="semibold-22 md:semibold-28">جزئیات محصول</h2>
+                <h2 class="semibold-22 md:semibold-28" data-anim="title" data-delay="0.2" data-split="lines">جزئیات محصول</h2>
                 <div class="flex flex-col divide-y divide-midnight-50 regular-14 md:regular-16">
-                    <?php if ($productDetails) foreach ($productDetails as $detail) : ?>
-                        <div class="flex items-center gap-4 w-full py-3 md:py-4">
+                    <?php if ($productDetails) foreach ($productDetails as $i=> $detail) : ?>
+                        <div class="flex items-center gap-4 w-full py-3 md:py-4" data-anim="up" data-y="40" data-delay="<?= $i*0.1 ?>">
                             <div class="w-32 line-clamp-1 text-midnight-700"><?= $detail['title'] ?></div>
                             <div class="w-grow line-clamp-1"><?= $detail['value'] ?></div>
                         </div>
@@ -132,21 +132,21 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
                 </div>
             </div>
             <div class="w-full md:w-2/3 pt-8 md:pt-14">
-                <h2 class="semibold-22 md:semibold-28">معرفی محصول</h2>
-                <div class="pixxel-post-content py-6 md:py-8">
+                <h2 class="semibold-22 md:semibold-28" data-anim="title" data-delay="0.2" data-split="lines">معرفی محصول</h2>
+                <div class="pixxel-post-content py-6 md:py-8" data-anim="up" data-y="40" data-delay="<?= $i*0.1 ?>">
                     <?= get_the_content() ?>
                 </div>
             </div>
     </section>
     <section class="py-10 md:py-[6.5rem] bg-light-blue">
         <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col">
-            <h2 class="semibold-28 md:semibold-36 md:w-full text-center"><?= $expert['title'] ?></h2>
+            <h2 class="semibold-28 md:semibold-36 md:w-full text-center" data-anim="title" data-delay="0.2" data-split="lines"><?= $expert['title'] ?></h2>
             <div id="consultant-gallery" class="splide consultant-slider w-full relative pt-6 md:pt-8" aria-label="consultant Gallery">
                 <div class="splide__track">
                     <div class="splide__list">
                         <?php if ($expert['expert'])
-                            foreach ($expert['expert'] as $expert) : ?>
-                            <li class="splide__slide bg-white overflow-hidden rounded-2xl group-1 ">
+                            foreach ($expert['expert'] as $i=> $expert) : ?>
+                            <li class="splide__slide bg-white overflow-hidden rounded-2xl group-1 " data-anim="horizontal" data-x="40" data-delay="<?=  $i*0.2 ?>">
                                 <div class="w-[17.5rem] md:w-full flex-center flex-col relative p-3 md:p-6">
                                     <?= wp_get_attachment_image($expert['img'], 'full', false, ['class' => 'size-[10rem] rounded-full object-cover', 'loading' => "lazy"]) ?>
                                     <h3 class="semibold-16 md:semibold-22 pt-3 md:pt-4"><?= $expert['name'] ?></h3>
@@ -169,13 +169,23 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
             </div>
         </div>
     </section>
+    <?php if (comments_open()) : ?>
+        <section class="bg-cream-02">
+            <div class="container xl:max-w-screen-xl  py-16 md:py-28 px-3 md:px-0">
+                    <?php
+                    $comment = new Comment('product');
+                    echo $comment->generateCustomComment(get_the_ID());
+                    ?>
+            </div>
+        </section>
+    <?php endif ?>
     <section class="py-10 md:py-[6.5rem]">
         <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col">
-            <h2 class="semibold-28 md:semibold-36 md:w-full text-center"><?= $why['title'] ?></h2>
+            <h2 class="semibold-28 md:semibold-36 md:w-full text-center" data-anim="title" data-delay="0.2" data-split="lines"><?= $why['title'] ?></h2>
             <div class="flex flex-col md:flex-row divide-y divide-divider md:divide-y-0 md:divide-x md:divide-x-reverse mt-6 md:mt-14">
                 <?php
-                if (count($why['items'])) foreach ($why['items'] as $item) : ?>
-                    <div class="w-full flex flex-col gap-3 py-4 md:py-0 md:px-10">
+                if (count($why['items'])) foreach ($why['items'] as $i=> $item) : ?>
+                    <div class="w-full flex flex-col gap-3 py-4 md:py-0 md:px-10" data-anim="horizontal" data-x="-40" data-delay="<?=  $i*0.2 ?>">
                         <i class="<?= $item['icon_name'] ?> text-[1.75rem] text-orange-main"></i>
                         <h3 class="semibold-18"><?= $item['title'] ?></h3>
                         <p class="regular-14"><?= $item['description'] ?></p>

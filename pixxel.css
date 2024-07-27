@@ -1,27 +1,25 @@
-
-
 @font-face {
-	font-family: Ravi;
-	font-style: normal;
-	font-weight: normal;
-	src: url('../fonts/ravi/woff/RaviFaNum-Regular.woff') format('woff'),   
-	url('../fonts/ravi/woff2/RaviFaNum-Regular.woff2') format('woff2');		 
+  font-family: Ravi;
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/ravi/woff/RaviFaNum-Regular.woff") format("woff"),
+    url("../fonts/ravi/woff2/RaviFaNum-Regular.woff2") format("woff2");
 }
 
 @font-face {
-	font-family: Ravi;
-	font-style: normal;
-	font-weight: 600;
-	src: url('../fonts/ravi/woff/RaviFaNum-SemiBold.woff') format('woff'),   
-	url('../fonts/ravi/woff2/RaviFaNum-SemiBold.woff2') format('woff2');		 
+  font-family: Ravi;
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/ravi/woff/RaviFaNum-SemiBold.woff") format("woff"),
+    url("../fonts/ravi/woff2/RaviFaNum-SemiBold.woff2") format("woff2");
 }
 
 @font-face {
-	font-family: Ravi;
-	font-style: normal;
-	font-weight: bold;
-	src: url('../fonts/ravi/woff/RaviFaNum-Bold.woff') format('woff'),   
-	url('../fonts/ravi/woff2/RaviFaNum-Bold.woff2') format('woff2'); 
+  font-family: Ravi;
+  font-style: normal;
+  font-weight: bold;
+  src: url("../fonts/ravi/woff/RaviFaNum-Bold.woff") format("woff"),
+    url("../fonts/ravi/woff2/RaviFaNum-Bold.woff2") format("woff2");
 }
 
 @config "./tailwind.config.js";
@@ -98,19 +96,20 @@ body .website-wrapper {
   @apply text-base font-semibold md:text-xl  py-5;
 }
 .pixxel-post-content h4 {
-  @apply py-5 text-sm font-semibold md:text-xl ;
+  @apply py-5 text-sm font-semibold md:text-xl;
 }
 .pixxel-post-content h5 {
-  @apply py-5 text-sm md:font-semibold md:text-base ;
+  @apply py-5 text-sm md:font-semibold md:text-base;
 }
-.pixxel-post-content,.pixxel-post-content p {
+.pixxel-post-content,
+.pixxel-post-content p {
   @apply regular-14 md:regular-16 text-justify;
 }
 .pixxel-post-content p {
   @apply pt-4;
 }
-.pixxel-post-content img{
-@apply rounded-2xl mx-auto my-6;
+.pixxel-post-content img {
+  @apply rounded-2xl mx-auto my-6;
 }
 .pixxel-post-content table {
   @apply w-full;
@@ -120,17 +119,66 @@ body .website-wrapper {
 }
 
 /* header css */
-.search-container{
+.search-container {
   @apply top-0;
 }
-.admin-bar .search-container{
+.admin-bar .search-container {
   @apply top-8;
 }
 /* home custom css */
-.consultant-slider .splide__slide{
-  opacity:50%;
-  transition:all 300ms ease-out;
+.consultant-slider .splide__slide {
+  opacity: 50%;
+  transition: all 300ms ease-out;
 }
-.consultant-slider .splide__slide.is-active{
-  opacity:100%;
+.consultant-slider .splide__slide.is-active {
+  opacity: 100%;
+}
+/* skeleton loading  */
+.skeleton {
+  background-color: #ededed;
+  background: linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 60%
+    )
+    #ededed;
+  background-size: 200% 100%;
+  background-position-x: 180%;
+  animation: 1s loading ease-in-out infinite;
+}
+
+@keyframes loading {
+  to {
+    background-position-x: -20%;
+  }
+}
+
+/* contact form 7 style */
+.wpcf7-form.init{
+  @apply flex flex-col gap-4;
+}
+.wpcf7 input[type="text"],
+.wpcf7 input[type="email"],
+.wpcf7 input[type="tel"],
+.wpcf7 input[type="number"],
+.wpcf7 input[type="search"] {
+  @apply h-10 py-1 px-3 border-2 outline-none border-midnight-50 rounded-2xl text-midnight-400 w-full;
+}
+.wpcf7 textarea{
+  
+  @apply rounded-2xl regular-14 md:regular-16  w-full h-full max-h-48 border-2 border-midnight-50 p-4 resize-none overflow-y-auto outline-none text-justify;
+}
+.wpcf7 input[type="submit"] {
+  @apply h-10 flex-center w-full md:w-fit  text-white bg-blue-main px-4 md:px-16 flex justify-center items-center gap-3 rounded-full;
+
+}
+.wpcf7 input[type="url"]::placeholder, .wpcf7 input[type="email"]::placeholder, .wpcf7 input[type="tel"]::placeholder {
+  text-align: right !important;
+}
+.wpcf7 .wpcf7-spinner{
+  display: none;
+}
+.wpcf7 form.failed .wpcf7-response-output{
+  @apply !rounded-full
 }

@@ -15,8 +15,12 @@ class AboutUs
         $this->ajaxActions();
     }
 
+    public function ajaxActions(){
+
+    }
+
     public function displayContent()
     {
-        get_template_part('templates/aboutUs/aboutUs', 'content', ['class' => $this]);
+        get_template_part('templates/aboutUs/aboutUs', 'content', ['_this' => $this]);
     }
 }

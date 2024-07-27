@@ -1,4 +1,5 @@
 <?php
+
 namespace PixxelTheme\templates\blog;
 
 class Blog
@@ -17,8 +18,12 @@ class Blog
 
     public function ajaxActions()
     {
-        if ($this->query == 'get-sub-category') {
-            
+        if ($this->query == 'view-post') {
+            $data = json_decode(stripslashes($_POST['data']));
+            $postId = sanitize_text_field($data->id);
+            $count = intval( get_post_meta($postId,'view-count',true));
+            update_post_meta($postId,'view-count',$count+1);
+            ajaxResponse(true, 'بازدید با موفقیت ثبت گردید', [$count]);
         }
     }
 

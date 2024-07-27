@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'pixxelicon';
-  src:  url('fonts/pixxelicon.eot?e960ar');
-  src:  url('fonts/pixxelicon.eot?e960ar#iefix') format('embedded-opentype'),
-    url('fonts/pixxelicon.ttf?e960ar') format('truetype'),
-    url('fonts/pixxelicon.woff?e960ar') format('woff'),
-    url('fonts/pixxelicon.svg?e960ar#pixxelicon') format('svg');
+  src:  url('fonts/pixxelicon.eot?boi0zs');
+  src:  url('fonts/pixxelicon.eot?boi0zs#iefix') format('embedded-opentype'),
+    url('fonts/pixxelicon.ttf?boi0zs') format('truetype'),
+    url('fonts/pixxelicon.woff?boi0zs') format('woff'),
+    url('fonts/pixxelicon.svg?boi0zs#pixxelicon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.pixxelicon-cross:before {
+  content: "\e90e";
+}
+.pixxelicon-add-image:before {
+  content: "\e90f";
+}
+.pixxelicon-arrow-bottom:before {
+  content: "\e90d";
+}
 .pixxelicon-search:before {
   content: "\e909";
 }

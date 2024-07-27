@@ -164,27 +164,313 @@
       }
     }
 
-    stretchMegaMenu() {
-      let windowWidth = $(window).width();
-      if (windowWidth > 768) {
-        if (windowWidth > 1280) windowWidth = 1280;
-        const extendOffset = (windowWidth - $(".stretch-megamenu").width()) / 2;
-        $(".stretch-megamenu").css({
-          width: windowWidth + "px",
-          right: "-" + extendOffset + "px",
-        });
-      } else {
-        // $(".stretch-megamenu").css({
-        //   width: "auto",
-        //   right: "auto",
-        // });
-      }
-    }
-
     p2e = (s) => s.replace(/[۰-۹]/g, (d) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(d)));
 
     a2e = (s) => s.replace(/[٠-٩]/g, (d) => String("٠١٢٣٤٥٦٧٨٩".indexOf(d)));
   }
 
   const home = new Home();
+
+  $.pixxelSelectHandler = function (modifySelect = null) {
+    const getSelector = () =>
+      modifySelect == null ? $(".pixxel-select") : modifySelect;
+
+    const processField = ($self) => {
+      const field = $self.find("select");
+      const fieldOptions = field.find("option");
+      const fieldClass = field.attr("class") || "";
+      const listClass = field.attr("list-class") || "";
+      const searchClass = field.attr("search-class") || "";
+      const fieldId = field.attr("id");
+      const arrowIcon = getArrowIcon($self);
+      const fieldHeight = getFieldHeight($self, field);
+      const searchPlaceholder = getSearchPlaceholder(field);
+      const multipleClass = getMultipleClass(field);
+
+      field.addClass("hidden");
+      $self.addClass("rendered").removeClass("not-rendered");
+
+      insertElements(
+        field,
+        $self,
+        arrowIcon,
+        fieldHeight,
+        searchPlaceholder,
+        multipleClass,
+        listClass,
+        searchClass,
+        fieldClass,
+        fieldId
+      );
+
+      const list = $self.find(".pixxel-select-list");
+      fieldOptions.each(function () {
+        const optionContent = $(this).attr("html") || $(this).text();
+        const isDisabled = $(this).attr("disabled");
+        const optionValue = $(this).val();
+        const optionClass = $(this).attr("class");
+        createListItem(
+          field,
+          list,
+          optionContent,
+          optionValue,
+          isDisabled,
+          optionClass
+        );
+      });
+
+      const dropdown = $self.find(".pixxel-select-dropdown");
+      const search = $self.find(".pixxel-select-search");
+      const searchContainer = $self.find(".pixxel-select-search-container");
+      const option = $self.find(".pixxel-select-option");
+      const optionText = $self.find(".pixxel-select-text");
+
+      // add position top to list
+      calculateListTop(list, field, dropdown, searchContainer);
+
+      // filter based on search for not ajax list
+      if (field.is("[search]") && !field.is("[ajax-request]")) {
+        search
+          .on("change keyup paste", function (e) {
+            handleSearch($(this), list);
+          })
+          .change();
+        calculateListTop(list, field, dropdown, searchContainer);
+      }
+
+      // action for default selected option
+      if (field.find("option:selected").length) {
+        const optionContent =
+          field.find("option:selected").attr("html") ||
+          field.find("option:selected").text();
+        dropdown.find("span").html(optionContent).addClass("");
+        list
+          .find(
+            `.pixxel-select-option[pixxel-value="${field
+              .find("option:selected")
+              .val()}"]`
+          )
+          .addClass("bg-light-blue selected");
+      }
+
+      // action for simple select option
+      simpleSelectHandler(
+        $self,
+        option,
+        fieldOptions,
+        field,
+        dropdown,
+        list,
+        searchContainer
+      );
+
+      // simple selection dropdown Click handler
+      if (!field.is("[ajax-request]")) {
+        dropdownClickHandler(
+          $self,
+          field,
+          dropdown,
+          list,
+          searchContainer,
+          fieldId
+        );
+      }
+    };
+
+    const getArrowIcon = ($self) => {
+      console.log($self.hasClass("no-arrow"));
+      if ($self.hasClass("no-arrow")) {
+        return $self.attr("icon")
+          ? `<i class="${$self.attr("icon")} transition-all"></i>`
+          : ``;
+      }
+      return `<i class="pixxelicon-arrow-bottom absolute left-3 ${$self.attr(
+        "icon"
+      )} transition-all"></i>`;
+    };
+
+    const getFieldHeight = ($self) => {
+      return $self.attr("height") ? parseInt($self.attr("height")) : 0;
+    };
+
+    const getSearchPlaceholder = (field) => {
+      return field.is("[search]") ? field.attr("search-placeholder") || "" : "";
+    };
+
+    const getMultipleClass = (field) => {
+      if (field.is("[multiple]")) {
+        return field.is("[search]")
+          ? "flex-wrap h-full justify-start"
+          : "flex-wrap justify-start ";
+      }
+      return "";
+    };
+
+    const insertElements = (
+      field,
+      $self,
+      arrowIcon,
+      fieldHeight,
+      searchPlaceholder,
+      multipleClass,
+      listClass,
+      searchClass,
+      fieldClass,
+      fieldId
+    ) => {
+      if (field.is("[search]")) {
+        field.is("[ajax-request]")
+          ? field.after(`
+        <div class="pixxel-select-dropdown flex  items-center relative ${multipleClass} ${fieldClass} ">
+          <input type="text" placeholder="${searchPlaceholder}" class="pixxel-select-search w-full pl-10 h-full outline-none">
+        </div>
+        <ul class="pixxel-select-list ${fieldId} ${listClass} bg-white w-full rounded-xl absolute right-0 opacity-0 invisible overflow-y-auto h-fit max-h-72  transition-all z-10  "></ul>
+        `)
+          : field.after(`
+        <div class="pixxel-select-dropdown flex  items-center relative  ${multipleClass} ${fieldClass} "><span></span>${arrowIcon}
+        </div>
+        <div class="pixxel-select-search-container ${fieldClass} -mt-1 flex justify-center items-center  border-t-0 opacity-0 invisible rounded-t-none overflow-hidden">
+          <input type="text" placeholder="${searchPlaceholder}" class="pixxel-select-search !border-none w-full pl-10 h-full outline-none ${searchClass}">
+          <svg class="hidden shrink-0 absolute left-2 w-4 h-4">
+            <use href="#loading-spinner"></use>
+          </svg>
+        </div>
+        <ul class="pixxel-select-list  ${fieldId} ${listClass} bg-white w-full rounded-md absolute right-0 opacity-0 invisible overflow-y-auto max-h-72 transition-all z-10"></ul>
+        `);
+      } else {
+        field.after(`
+        <div class="pixxel-select-dropdown flex items-center ${multipleClass} ${fieldClass}"><span></span>${arrowIcon}
+        </div>
+        <ul class="pixxel-select-list ${fieldId} ${listClass} bg-white w-full absolute right-0 opacity-0 invisible overflow-y-auto max-h-72 transition-all z-10 "></ul>
+        `);
+      }
+    };
+
+    const createListItem = (
+      field,
+      list,
+      content,
+      value,
+      isDisabled,
+      optionClass
+    ) => {
+      const listItem = $("<li>", {
+        class: `pixxel-select-option pixxel-select-li ${optionClass || ""}`,
+        "pixxel-value": value,
+        html: content,
+      });
+
+      if (isDisabled) {
+        listItem.addClass("disabled p-6 hover:bg-midnight-50 hover:text-blue-main");
+      } else {
+        listItem.click(function (e) {
+          field.find(`option[value="${value}"]`).prop("selected", true);
+          field.trigger("change");
+        });
+      }
+      list.append(listItem);
+    };
+
+    const calculateListTop = (list, field, dropdown, searchContainer) => {
+      let position;
+      list.css("top", "calc(100% + 5px)");
+    };
+
+    const dropdownClickHandler = (
+      $self,
+      field,
+      dropdown,
+      list,
+      searchContainer,
+      fieldId
+    ) => {
+      $self.on("click", ".pixxel-select-dropdown", function (e) {
+        if ($(this).parents(".select-container") != undefined) {
+          $(this)
+            .parents(".select-container")
+            .find(".pixxel-select-search-container")
+            .toggleClass("opacity-100 visible opacity-0 invisible open");
+          $(this)
+            .parents(".select-container")
+            .find(".pixxel-select-list")
+            .each(function (e) {
+              if ($(this).hasClass("open") && !$(this).hasClass(fieldId)) {
+                $(this)
+                  .toggleClass("opacity-100 visible opacity-0 invisible open")
+                  .scrollTop(0);
+                if (!$(this).parents(".pixxel-select").hasClass("no-arrow")) {
+                  $(this)
+                    .parents(".pixxel-select")
+                    .find("i")
+                    .removeClass("rotate-180");
+                }
+              }
+            });
+        }
+
+        if (!field.attr("disabled")) {
+          searchContainer.toggleClass(
+            "opacity-100 visible opacity-0 invisible open"
+          );
+          list
+            .toggleClass("opacity-100 visible opacity-0 invisible open")
+            .scrollTop(0);
+          if (!$self.hasClass("no-arrow")) {
+            $(this).find("i").toggleClass("rotate-180");
+          }
+        }
+
+        calculateListTop(list, field, dropdown, searchContainer);
+      });
+    };
+
+    const simpleSelectHandler = (
+      $self,
+      option,
+      fieldOptions,
+      field,
+      dropdown,
+      list,
+      searchContainer
+    ) => {
+      $self.on("click", ".pixxel-select-option", function (e) {
+        if (!$(this).hasClass("disabled")) {
+          const optionContent = $(this).html();
+          option.removeClass("bg-light-blue");
+          $(this).addClass("bg-light-blue selected");
+          fieldOptions.prop("selected", false);
+          field.find("option").removeAttr("selected");
+          field
+            .find(`option[value="${$(this).attr("pixxel-value")}"]`)
+            .prop("selected", true);
+
+          dropdown.find("span").html(optionContent).addClass("has-value");
+        }
+
+        if (field.is("[search]")) {
+          dropdown.toggleClass("open rounded-b-none border-b-0");
+        }
+
+        if ($(this).attr("icon") == undefined) {
+          dropdown.find("i").toggleClass("rotate-180");
+        }
+        list
+          .scrollTop(0)
+          .toggleClass("opacity-100 visible opacity-0 invisible open");
+        searchContainer.toggleClass(
+          "opacity-100 visible opacity-0 invisible open"
+        );
+
+        calculateListTop(list, field, dropdown, searchContainer);
+      });
+    };
+
+    // Call the processField function for each selector
+    getSelector().each(function () {
+      processField($(this));
+    });
+  };
+
+  $.pixxelSelectHandler();
+
 })(jQuery);

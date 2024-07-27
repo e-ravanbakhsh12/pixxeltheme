@@ -4,6 +4,8 @@ namespace PixxelTheme\includes;
 
 use PixxelTheme\templates\search\Search;
 use PixxelTheme\includes\comment\Comment;
+use PixxelTheme\templates\blog\Blog;
+use PixxelTheme\templates\blog\BlogList;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -17,7 +19,10 @@ class Rewrite
 
     public  function addQueryVars($vars)
     {
-        $vars[] = 'representation';
+        $vars[] = 'pixxelBlog';
+        $vars[] = 'pixxelBlogList';
+        $vars[] = 'pixxelSearch';
+        $vars[] = 'pixxelComment';
 
         return $vars;
     }
@@ -30,6 +35,12 @@ class Rewrite
         # ======================================================
         add_rewrite_tag('%pixxelSearch%', '([^&/]+)');
         add_rewrite_rule('wp-ajax/search/([^/]+)/?', 'index.php?pixxelSearch=$matches[1]', 'top');
+
+        add_rewrite_tag('%pixxelBlog%', '([^&/]+)');
+        add_rewrite_rule('wp-ajax/blog/([^/]+)/?', 'index.php?pixxelBlog=$matches[1]', 'top');
+        
+        add_rewrite_tag('%pixxelBlogList%', '([^&/]+)');
+        add_rewrite_rule('wp-ajax/blog-list/([^/]+)/?', 'index.php?pixxelBlogList=$matches[1]', 'top');
 
         add_rewrite_tag('%pixxelComment%', '([^&/]+)');
         add_rewrite_rule('wp-ajax/comment/([^/]+)/?', 'index.php?pixxelComment=$matches[1]', 'top');
@@ -53,6 +64,19 @@ class Rewrite
             if (!empty($searchQuery)) {
                 $search = new Search();
                 $search->setQuery(urldecode($searchQuery));
+                return;
+            }
+            $blogQuery = $wp_query->get('pixxelBlog');
+            if (!empty($blogQuery)) {
+                $blog = new Blog();
+                $blog->setQuery($blogQuery);
+                return;
+            }
+
+            $blogListQuery = $wp_query->get('pixxelBlogList');
+            if (!empty($blogListQuery)) {
+                $blogList = new BlogList();
+                $blogList->setQuery($blogListQuery);
                 return;
             }
             

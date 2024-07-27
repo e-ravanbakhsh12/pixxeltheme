@@ -25,7 +25,7 @@ $type = $_this->type;
 <body <?php body_class(); ?>>
     <?php do_action('wp_body_open'); ?>
     <?php if ($type != 'empty') : ?>
-        <main class="website-wrapper flex flex-col relative">
+        <main class="website-wrapper smooth-scroll flex flex-col relative">
             <?php if (!function_exists('elementor_theme_do_location') || !\elementor_theme_do_location('header')) : ?>
                 <header class="Pixxel-header w-full <?= $mode == 'transparent' ? 'absolute top-0 right-0' : 'relative' ?> absolute  z-50 border-b <?= $mode == 'transparent' ? ' border-white/20 ' : 'bg-white border-midnight-50' ?>">
 
@@ -106,4 +106,5 @@ $type = $_this->type;
                 </header>
             <?php endif ?>
             <div class="main-page-wrapper">
+                
             <?php endif ?>

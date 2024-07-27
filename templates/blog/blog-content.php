@@ -2,9 +2,9 @@
 
 namespace PixxelTheme\templates\blog;
 
+use PixxelTheme\includes\comment\Comment;
 use WP_Query;
 
-wp_enqueue_style('pixxel-icon', PIXXEL_URL . '/assets/css/pixxelicon.css');
 wp_enqueue_style('splide', PIXXEL_URL . '/assets/css/splide-core.min.css', [], '4.1.2');
 wp_enqueue_script('splide', PIXXEL_URL . '/assets/js/splide.min.js', [], '4.1.2', true);
 wp_enqueue_script('pixxel-blog', PIXXEL_URL . '/assets/js/blog.js', ['jquery', 'splide'], PIXXEL_VERSION, true);
@@ -28,56 +28,67 @@ $relatedBlogArgs = [
     ],
 ];
 $relatedBlog = new WP_Query($relatedBlogArgs);
+$blogListId = getPageIdByTemplate('pages/page-blog.php');
+
 ?>
-<div class="blog-container bg-white relative">
+<div class="blog-container bg-white relative" data-blog-id="<?= the_ID() ?>">
     <div class="container xl:max-w-screen-xl px-6 md:px-0 pt-2">
         <div class="breadcrumb-list regular-12 text-midnight-700 flex items-center gap-1">
             <a href="<?= home_url() ?>" class="">خانه</a>
             <i class="pixxelicon-arrow-right-2 rotate-180 text-[.5rem]"></i>
-            <a href="<?= get_permaLink($productPageId[0]) ?>" class="">محصولات</a>
+            <a href="<?= get_permaLink($blogListId[0]) ?>" class="">بلاگ</a>
             <i class="pixxelicon-arrow-right-2 rotate-180 text-[.5rem]"></i>
             <div class=""><?= get_the_title() ?></div>
         </div>
     </div>
     <section class="py-10 ">
         <div class="container xl:max-w-[50.5rem] px-6 md:px-0 ">
-            <?= get_the_post_thumbnail(get_the_ID(), 'full', ['class' => 'w-full object-contain rounded-2xl']) ?>
-            <h1 class="semibold-28 md:semibold-36 py-8 border-b border-midnight-50"><?= get_the_title() ?></h1>
-            <div class="pixxel-post-content pb-8 border-b border-midnight-50">
+            <?= get_the_post_thumbnail(get_the_ID(), 'full', ['class' => 'w-full object-contain rounded-2xl' , 'data-anim'=>"up", 'data-y'=>"40", 'data-delay'=>"0.2"]) ?>
+            <h1 class="semibold-28 md:semibold-36 py-8 border-b border-midnight-50" data-anim="title" data-delay="0.2" data-split="lines"><?= get_the_title() ?></h1>
+            <div class="pixxel-post-content pb-8 border-b border-midnight-50"  data-anim="up" data-y="40" data-delay="0.3">
                 <?= get_the_content() ?>
             </div>
         </div>
     </section>
+    <?php if (comments_open()) : ?>
+            <section class="container xl:max-w-[50.5rem] px-6 md:px-0 ">
+                <h2 class="semibold-22">نوشتن دیدگاه</h2>
+                <?php
+                $comment = new Comment();
+                echo $comment->generateCustomComment(get_the_ID());
+                ?>
+            </section>
+    <?php endif ?>
 
     <?php
     if ($relatedBlog->have_posts()) :
     ?>
         <section class="container xl:max-w-screen-xl py-10 md:py-32 flex flex-col md:items-center">
-                <h2 class="semibold-28 md:semibold-36 ">
-                    مقالات مشابه
-                </h2>
-                <div id="related-blog-gallery" class="splide splide-related-blog relative w-full pt-6 md:pt-14" aria-label="Related Blog Gallery">
-                    <div class="splide__track">
-                        <div class="splide__list">
-                            <?php foreach ($relatedBlog->posts as $blog) :
-                            ?>
-                                <li class="splide__slide ">
-                                    <div class="flex flex-col gap-2 md:gap-8 w-[16.25rem] md:w-[19.25rem]">
-                                        <?= get_the_post_thumbnail($blog->ID, 'full', ['class' => 'w-full h-[10.5rem] md:h-[12rem] object-cover rounded-2xl']) ?>
-                                        <div class="">
-                                            <a href="<?= get_permalink($blog->ID) ?>" class="semibold-16 min-h-12">
-                                                <h3 class="line-clamp-2"><?= $blog->post_title ?></h3>
-                                            </a>
-                                            <p class="regular-14 line-clamp-2 mt-4"><?= getFirstParagraph($blog->post_content) ?></p>
-                                        </div>
-
+            <h2 class="semibold-28 md:semibold-36 ">
+                مقالات مشابه
+            </h2>
+            <div id="related-blog-gallery" class="splide splide-related-blog relative w-full pt-6 md:pt-14" aria-label="Related Blog Gallery">
+                <div class="splide__track">
+                    <div class="splide__list">
+                        <?php foreach ($relatedBlog->posts as $i=> $blog) :
+                        ?>
+                            <li class="splide__slide " data-anim="horizontal" data-x="40" data-delay="<?=  $i*0.2 ?>">
+                                <div class="flex flex-col gap-2 md:gap-8 w-[16.25rem] md:w-[19.25rem]">
+                                    <?= get_the_post_thumbnail($blog->ID, 'full', ['class' => 'w-full h-[10.5rem] md:h-[12rem] object-cover rounded-2xl']) ?>
+                                    <div class="">
+                                        <a href="<?= get_permalink($blog->ID) ?>" class="semibold-16 min-h-12">
+                                            <h3 class="line-clamp-2"><?= $blog->post_title ?></h3>
+                                        </a>
+                                        <p class="regular-14 line-clamp-2 mt-4"><?= getFirstParagraph($blog->post_content) ?></p>
                                     </div>
 
-                                </li>
-                            <?php endforeach ?>
-                        </div>
+                                </div>
+
+                            </li>
+                        <?php endforeach ?>
                     </div>
                 </div>
+            </div>
         </section>
     <?php endif ?>
 

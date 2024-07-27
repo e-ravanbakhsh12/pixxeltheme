@@ -4,61 +4,112 @@ namespace PixxelTheme\templates\blog;
 
 use WP_Query;
 
+wp_enqueue_style('splide', PIXXEL_URL . '/assets/css/splide-core.min.css', [], '4.1.2');
+wp_enqueue_script('splide', PIXXEL_URL . '/assets/js/splide.min.js', [], '4.1.2', true);
+wp_enqueue_script('pixxel-blogList', PIXXEL_URL . '/assets/js/blog-list.js', ['jquery', 'splide'], PIXXEL_VERSION, true);
 
-$class = $args['class'];
-$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$_this = $args['_this'];
+$paged = $_GET['pg'] ? $_GET['pg'] : 1;
+$order = $_GET['order'] ? $_GET['order'] : 'date';
+$search = $_GET['search'] ? $_GET['search'] : false;
 $args = array(
     'post_type'         => 'post',
-    'orderby'           => 'date',
-    'order'             => 'DESC',
-    'post_status'       => 'publish',
-    'posts_per_page'    => 12,
+    'posts_per_page'    => 8,
     'paged'             => $paged,
+    'post_status'       => 'publish',
+    'meta_key'         => 'view-count',
+    'orderby'           => $order,
+    'order'             => 'DESC',
 );
-$posts = new WP_Query($args);
+if($search)$args['search_title']= $search;
+$blogs = new WP_Query($args);
+$popularArgs = array(
+    'post_type'         => 'post',
+    'posts_per_page'    => 8,
+    'paged'             => 1,
+    'post_status'       => 'publish',
+    'meta_key'         => 'view-count',
+    'orderby'           => 'meta_value_num',
+    'order'             => 'DESC',
+);
+$popularBlogs = new WP_Query($popularArgs);
+$headerData = get_field('header_data');
 ?>
-<div class="main-container bg-grad relative">
-    <section class="relative pt-[4.5rem] md:pt-36  w-full mx-auto pb-[4.5rem] md:pb-44">
-        <div class="container xl:max-w-screen-xl bg-white p-3 md:py-4 md:px-6 ">
-            <h1 class="text-xl md:text-[1.75rem] font-bold flex items-baseline  gap-2 ">
-                <i class="pixxelicon-shape text-base text-magenta"></i>
-                <?= get_the_title() ?>
-            </h1>
-            <div class="blog-list grid grid-cols-2 md:grid-cols-4 w-full mt-4 md:mt-12 gap-x-2 gap-6-4 md:gap-x-5 md:gap-y-12  ">
-                <?php if ($posts->have_posts()) foreach ($posts->posts as $post) : ?>
-                    <a href="<?= get_permalink($post->ID) ?>" class="flex flex-col gap-2 md:gap-8 ">
-                        <div class="relative shrink-0">
-                            <?= get_the_post_thumbnail($post->ID, 'full', ['class' => 'w-full object-cover object-top h-32 md:h-56']) ?>
-                            <i class="pixxelicon-corner absolute -top-1 right-0 text-white text-xl rotate-180"></i>
-                        </div>
-                        <div class="">
-                            <div class="relative group-1 line-clamp-2 min-h-10">
-                                <h3 class="text-xs md:text-sm font-medium line-clamp-2"><?= $post->post_title ?></h3>
-                            </div>
-                            <div class="flex items-baseline gap-2 text-[0.625rem]">
-                                <i class="pixxelicon-calendar "></i>
-                                <?= date_i18n('d  M  Y', strtotime($post->post_date)) ?>
-                            </div>
-                            <p class="line-clamp-2 md:line-clamp-4 text-[0.625rem] md:text-xs mt-2 md:mt-4"><?= $post->post_excerpt  ?></p>
-                        </div>
+<div class="product-list-container relative">
+    <div class="container xl:max-w-screen-xl px-6 md:px-0 pt-2">
+        <div class="breadcrumb-list regular-12 text-midnight-700 flex items-center gap-1">
+            <a href="<?= home_url() ?>" class="">خانه</a>
+            <i class="pixxelicon-arrow-right-2 rotate-180 text-[.5rem]"></i>
+            <div class="">بلاگ</div>
 
-                    </a>
-                <?php endforeach ?>
-                <?php wp_reset_postdata(); ?>
-            </div>
-            <div class="pagination">
-                <?php
-                if ($posts->max_num_pages > 1) {
-                    echo $class->displayPagination($paged, $posts->max_num_pages,get_permalink(get_the_ID()));
-                }
-                ?>
+        </div>
+    </div>
+    <section class="py-10 md:py-16">
+        <div class="container xl:max-w-screen-xl px-3 md:px-0 flex-center gap-4 flex-col ">
+            <h1 class="text-xl semibold-28 md:semibold-36" data-anim="title" data-delay="0.2" data-split="lines">
+                <?= $headerData['title'] ?>
+            </h1>
+            <p class="regular-14 md:regular-18 pt-4 text-center" data-anim="up" data-y="40" data-delay="0.3"><?= $headerData['description'] ?></p>
+        </div>
+    </section>
+    <section class="bg-light-blue py-10 md:py-16">
+        <div class="container xl:max-w-screen-xl px-3 md:px-0 flex-center gap-4 flex-col ">
+            <h2 class="text-xl semibold-28 md:semibold-36" data-anim="title" data-delay="0.2" data-split="lines">
+                محبوب‌ترین مقالات
+            </h2>
+            <div id="popular-blog-list" class="splide splide-popular-blog relative w-full pt-6 md:pt-14" aria-label="popular Blog list">
+                <div class="splide__track">
+                    <div class="splide__list">
+                        <?php foreach ($popularBlogs->posts as $i=> $blog) :
+                        ?>
+                            <li class="splide__slide " data-anim="horizontal" data-x="40" data-delay="<?=  $i*0.2 ?>">
+                                <a href="<?= get_permalink($blog->ID) ?>" class="grid grid-cols-[7.875rem_1fr] md:grid-cols-[14rem_1fr] grid-rows-2 w-[20rem] md:w-[39.5rem] py-3 px-2 md:p-6 bg-white rounded-2xl  md:rounded-3xl gap-3 md:gap-x-6 md:gap-y-4">
+                                    <?= get_the_post_thumbnail($blog->ID, 'full', ['class' => 'w-full h-[5rem] md:h-[8.75rem] object-cover rounded-2xl md:row-span-2']) ?>
+                                    <h3 class="semibold-16 md:semibold-18 ">
+                                        <span class="line-clamp-2">
+                                            <?= $blog->post_title ?>
+                                        </span>
+                                    </h3>
+                                    <div class="regular-14 col-span-2 md:col-span-1">
+                                        <p class="line-clamp-2 "><?= getFirstParagraph($blog->post_content) ?></p>
+                                    </div>
+                                </a>
+                            </li>
+                        <?php endforeach ?>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+    <section class="py-10 md:py-16">
+        <div class="container xl:max-w-screen-xl px-3 md:px-0 ">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <h2 class="text-xl semibold-28 md:semibold-36 lg:col-span-2" data-anim="horizontal" data-x="40" data-delay="0.2">
+                    همه مقالات
+                </h2>
+                <div class="pixxel-select group-1  relative items-center justify-between w-full " icon="text-midnight-400 text-xs " data-anim="horizontal" data-x="40" data-delay="0.4">
+                    <select class="w-full rounded-2xl h-10  bg-white outline-none text-center cursor-pointer text-midnight-400 border-2 border-midnight-50 flex-center" name="display-order" id="display-order" list-class="border-2 border-midnight-50 rounded-2xl cursor-pointer" style="display: none;">
+                        <Option class="px-3 py-1 " value="date" <?= $order==='date'?'selected':'' ?>>جدیدترین</Option>
+                        <Option class="px-3 py-1 " value="meta_value_num" <?= $order==='meta_value_num'?'selected':'' ?>>محبوبترین</Option>
+                        <Option class="px-3 py-1 " value="modified" <?= $order==='modified'?'selected':'' ?>>بروزترین</Option>
+                    </select>
+                </div>
+                <div class="relative w-full flex col-span-2 md:col-span-1" data-anim="horizontal" data-x="40" data-delay="0.6">
+                    <input type="text" name='search-blog' id="search-blog" class="w-full rounded-2xl h-10  bg-white outline-none text-midnight-400 border-2 border-midnight-50 px-3 pl-5" value="<?= $search?$search:'' ?>" />
+                    <i class="pixxelicon-search text-sm absolute left-2 top-2"></i>
+                </div>
+            </div>
+            <div class="products-list grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 w-full pt-8 md:pt-6 gap-2 md:gap-4">
+                <?= $_this->displayList($blogs) ?>
+            </div>
+            <div class="pagination" data-anim="up" data-y="40" data-delay="0.3">
+                <?php
+                if ($blogs->max_num_pages > 1) {
+                    echo $_this->displayPagination($paged, $blogs->max_num_pages);
+                }
+                ?>
+            </div>
+
+        </div>
+    </section>
 </div>
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol role="status" id="loading-spinner" viewBox="0 0 100 101" fill="" xmlns="http://www.w3.org/2000/svg">
-        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB" />
-        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="" />
-    </symbol>
-</svg>

@@ -12,6 +12,7 @@ module.exports = {
         "light-blue": "rgba(237, 245, 255, 1)",
         "midnight-50": "rgba(229, 232, 234, 1)",
         "midnight-200": "rgba(183, 188, 193, 1)",
+        "midnight-400": "rgba(136, 144, 152, 1)",
         "midnight-700": "rgba(64, 77, 88, 1)",
         "midnight-900": "rgba(17, 32, 47, 1)",
         "blue-main": "rgba(1, 132, 253, 1)",
