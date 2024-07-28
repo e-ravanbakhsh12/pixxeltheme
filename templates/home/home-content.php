@@ -6,7 +6,13 @@ use WP_Query;
 
 wp_enqueue_style('splide', PIXXEL_URL . '/assets/css/splide-core.min.css', [], '4.1.2');
 wp_enqueue_script('splide', PIXXEL_URL . '/assets/js/splide.min.js', [], '4.1.2', true);
-wp_enqueue_script('pixxel-home', PIXXEL_URL . '/assets/js/home.js', ['jquery', 'splide'], PIXXEL_VERSION, true);
+$jsDependency = ['jquery','splide'];
+if(!isGoogleBot()){
+    wp_enqueue_script('pixxel-glightbox', PIXXEL_URL . '/assets/js/glightbox.min.js', [], PIXXEL_VERSION, true);
+    wp_enqueue_style('pixxel-glightbox', PIXXEL_URL . '/assets/css/glightbox.min.css', [], PIXXEL_VERSION);
+    $jsDependency[] = 'pixxel-glightbox';
+}
+wp_enqueue_script('pixxel-home', PIXXEL_URL . '/assets/js/home.js', $jsDependency, PIXXEL_VERSION, true);
 
 $_this = $args['_this'];
 $section1 = get_field('section_1');
@@ -28,10 +34,10 @@ $blogArgs = array(
 );
 $blogs = new WP_Query($blogArgs);
 ?>
-<div class="home-container relative">
-    <section class="relative pt-[4.5rem] md:pt-32">
+<div class="home-container relative ">
+    <section class="relative pt-[4.5rem] md:pt-32 overflow-hidden " style="background-color:<?= $section1['color'] ?>;">
         <?php if ($section1['hero_img']) : ?>
-            <?= wp_get_attachment_image($section1['hero_img'], 'full', false, ['class' => 'w-full absolute h-full object-cover inset-0']) ?>
+            <?= wp_get_attachment_image($section1['hero_img'], 'full', false, ['class' => 'cover-down w-auto absolute bottom-0 left-0  md:left-[15%] h-[18rem] md:h-[37rem] lg:h-[42rem] object-contain ']) ?>
         <?php else : ?>
             <img class="w-full absolute h-full object-cover inset-0" src="<?= PIXXEL_URL . '/assets/img/home/hero-bg.jpg' ?>" alt="">
         <?php endif ?>
@@ -46,7 +52,7 @@ $blogs = new WP_Query($blogArgs);
         </div>
     </section>
     <section class="py-10 md:py-[6.5rem] bg-cream-02">
-        <div class="container xl:max-w-screen-xl px-6 md:px-0">
+        <div class="container xl:max-w-screen-xl px-6 md:px-0 overflow-hidden">
             <div class="flex flex-wrap items-center pb-8 md:pb-4 md:border-b border-white">
                 <h2 class="semibold-28 md:semibold-36 md:w-full order-1" data-anim="title" data-delay="0.2" data-split="lines"><?= $section2['title'] ?></h2>
                 <a href="<?= get_permaLink($productPageId[0]) ?>" class="regular-14 md:regular-16 order-2 md:order-3 mr-auto">
@@ -72,7 +78,7 @@ $blogs = new WP_Query($blogArgs);
                                         </div>
                                         <div class="semibold-12 md:semibold-14 px-2 py-[0.125rem] rounded-full bg-bg text-midnight-900"><?= $properties['skin_type'] ?></div>
                                     </div>
-                                    <img src="<?= PIXXEL_URL . '/assets/img/home/product.jpg' ?>" alt="" class="w-full aspect-square">
+                                    <?= get_the_post_thumbnail($product->ID, 'full', ['class' => 'w-full aspect-square object-contain rounded-xl', 'loading' => "lazy"]) ?>
                                     <h3 class="regular-16 md:regular-18 w-full text-right transition-all group-1-hover:text-blue-main pt-3 md:pt-4"><?= $product->post_title ?></h3>
                                     <p class="regular-12 md:regular-14 text-midnight-700 w-full text-right pt-2 line-clamp-2"><?= $product->post_excerpt ?></p>
                                     <a href="<?= get_permalink($product->ID) ?>" class="flex-center h-10 rounded-full bg-blue-main text-white gap-2 w-fit px-4 mt-4 md:mt-6 absolute  -bottom-5 opacity-0 group-1-hover:opacity-100 transition-all">مشاهده محصول</a>
@@ -92,7 +98,7 @@ $blogs = new WP_Query($blogArgs);
             </div>
         </div>
     </section>
-    <section class="py-10 md:py-[6.5rem]">
+    <section class="py-10 md:py-[6.5rem] overflow-hidden">
         <div class="flex-center flex-col">
             <h2 class="semibold-28 md:semibold-36 md:w-full text-center" data-anim="title" data-delay="0.2" data-split="lines"><?= $section3['title'] ?></h2>
 
@@ -100,15 +106,15 @@ $blogs = new WP_Query($blogArgs);
                 <div class="splide__track ">
                     <div class="splide__list">
                         <?php
-                        for ($i = 0; $i < 5; $i++) : ?>
+                        if($section3['video']) foreach ($section3['video'] as$i=>$video) : ?>
                             <li class="splide__slide w-full bg-white overflow-hidden rounded-2xl group-1 "  data-anim="horizontal" data-x="-40" data-delay="<?=  $i*0.2 ?>">
-                                <div class="w-full flex-center relative">
-                                    <img src="<?= PIXXEL_URL . "/assets/img/home/video-$i.jpg" ?>" alt="" class="w-full h-[10rem] md:h-[30rem] object-cover">
+                                <a href="<?= $video['video'] ?>" class="w-full glightbox flex-center relative" data-gallery="videoGallery"  data-zoomable="true" data-draggable="true">
+                                    <?= wp_get_attachment_image($video['cover'], 'full', false, ['class' => 'w-full h-[10rem] md:h-[30rem] object-cover']) ?>
                                     <div class="cover absolute w-full h-full bg-black/20"></div>
-                                    <i class="pixxelicon-video-play text-2xl text-white absolute "></i>
-                                </div>
+                                    <img src="<?= PIXXEL_URL.'/assets/img/home/video-play.png' ?>" alt="" class="rounded-full size-14 md:size-24 absolute ">
+                                </a>
                             </li>
-                        <?php endfor ?>
+                        <?php endforeach ?>
                     </div>
                 </div>
                 <div class="splide__arrows items-center justify-center gap-4 mt-7 md:mt-0 text-black flex">
@@ -123,7 +129,7 @@ $blogs = new WP_Query($blogArgs);
         </div>
     </section>
     <section class="py-10 md:py-[6.5rem] bg-light-blue">
-        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col">
+        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col overflow-hidden">
             <h2 class="semibold-28 md:semibold-36 md:w-full text-center" data-anim="title" data-delay="0.2" data-split="lines"><?= $section4['title'] ?></h2>
             <div id="consultant-gallery" class="splide consultant-slider w-full relative pt-6 md:pt-8" aria-label="consultant Gallery">
                 <div class="splide__track">
@@ -154,7 +160,7 @@ $blogs = new WP_Query($blogArgs);
         </div>
     </section>
     <section class="py-10 md:py-[6.5rem]">
-        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col">
+        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col overflow-hidden">
             <h2 class="semibold-28 md:semibold-36 md:w-full text-center" data-anim="title" data-delay="0.2" data-split="lines"><?= $section5['title'] ?></h2>
             <p class="regular-14 md:regular-16 pt-4"><?= $section5['description'] ?></p>
             <div class="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 pt-6 md:pt-14">
@@ -193,7 +199,7 @@ $blogs = new WP_Query($blogArgs);
         </div>
     </section>
     <section class="py-10 md:py-[6.5rem]">
-        <div class="container xl:max-w-screen-xl px-6 md:px-0 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+        <div class="container xl:max-w-screen-xl px-6 md:px-0 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 overflow-hidden">
             <?php
             for ($i = 0; $i < 2; $i++) : ?>
                 <div class="w-full relative" data-anim="horizontal" data-x="40" data-delay="<?=  $i*0.2 ?>">
@@ -232,7 +238,7 @@ $blogs = new WP_Query($blogArgs);
         </div>
     </section>
     <section class="py-10 md:py-[6.5rem]">
-        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col">
+        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col overflow-hidden">
             <h2 class="semibold-28 md:semibold-36 md:w-full text-center" data-anim="up" data-y="40" data-delay="0.2"><?= $section8['title'] ?></h2>
             <div class="flex flex-col md:flex-row divide-y divide-divider md:divide-y-0 md:divide-x md:divide-x-reverse mt-6 md:mt-14">
                 <?php

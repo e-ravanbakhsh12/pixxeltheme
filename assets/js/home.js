@@ -5,21 +5,20 @@
     constructor() {
       const _this = this;
 
-
       $(document).on("click", ".toggle-tab", function (e) {
         const name = $(this).data("tab");
-        if($(this).find('i').hasClass('rotate-180')){
-          $(this).parents('.toggle-row').find('.toggle-content').slideUp();
-          $(this).find('h3').removeClass('text-blue-main');
-          $(this).find('i').removeClass('rotate-180');
-        }else{
-          $('.toggle-content').slideUp();
-          $('.toggle-tab i').removeClass('rotate-180');
-          $('.toggle-tab h3').removeClass('text-blue-main');
+        if ($(this).find("i").hasClass("rotate-180")) {
+          $(this).parents(".toggle-row").find(".toggle-content").slideUp();
+          $(this).find("h3").removeClass("text-blue-main");
+          $(this).find("i").removeClass("rotate-180");
+        } else {
+          $(".toggle-content").slideUp();
+          $(".toggle-tab i").removeClass("rotate-180");
+          $(".toggle-tab h3").removeClass("text-blue-main");
 
-          $(this).parents('.toggle-row').find('.toggle-content').slideDown();
-          $(this).find('h3').addClass('text-blue-main');
-          $(this).find('i').addClass('rotate-180');
+          $(this).parents(".toggle-row").find(".toggle-content").slideDown();
+          $(this).find("h3").addClass("text-blue-main");
+          $(this).find("i").addClass("rotate-180");
         }
       });
 
@@ -30,17 +29,16 @@
         autoplay: true,
         arrows: true,
         gap: 16,
-        perPage: 'auto',
+        perPage: "auto",
         mediaQuery: "min",
         breakpoints: {
           768: {
             perPage: 4,
           },
           340: {
-            perPage: 'auto',
+            perPage: "auto",
           },
         },
-
       });
       productList.mount();
 
@@ -51,7 +49,7 @@
         autoplay: true,
         arrows: true,
         gap: 16,
-        focus:'center',
+        focus: "center",
         perPage: 1.2,
         mediaQuery: "min",
         breakpoints: {
@@ -62,9 +60,16 @@
             perPage: 1.2,
           },
         },
-
       });
       videoList.mount();
+
+      if (typeof GLightbox !== "undefined") {
+        const lightbox = GLightbox({
+          loop: true,
+          touchNavigation: true,
+          closeOnOutsideClick: true,
+        });
+      }
 
       const consultantList = new Splide(".consultant-slider", {
         // type: "loop",
@@ -73,22 +78,20 @@
         // autoplay: true,
         arrows: true,
         gap: 16,
-        focus:'center',
-        start:1,
-        perPage: 'auto',
+        focus: "center",
+        start: 1,
+        perPage: "auto",
         mediaQuery: "min",
         breakpoints: {
           768: {
             perPage: 3,
           },
           340: {
-            perPage: 'auto',
+            perPage: "auto",
           },
         },
-
       });
       consultantList.mount();
-
 
       // show more
       $(document).on("click", ".show-more-features", function (e) {
@@ -150,10 +153,10 @@
             _this.successModal();
           } else {
             form
-                .find(".form-error")
-                .removeClass("hidden")
-                .find("p")
-                .html(response.message.error);
+              .find(".form-error")
+              .removeClass("hidden")
+              .find("p")
+              .html(response.message.error);
           }
         },
         error: function (response, status, error) {
@@ -168,8 +171,6 @@
         },
       });
     }
-
-
   }
 
   let home = new Home();

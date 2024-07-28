@@ -1,31 +1,11 @@
 (function ($) {
   "use strict";
 
-  class BlogList {
+  class ProductList {
     constructor() {
       const _this = this;
       this.searchTimeout;
       this.isSearching=false;
-
-      const relatedPost = new Splide(".splide-popular-blog", {
-        type: "loop",
-        direction: "rtl",
-        // drag:'free',
-        autoplay: false,
-        arrows: false,
-        gap: 16,
-        perPage: "auto",
-        mediaQuery: "min",
-        breakpoints: {
-          768: {
-            perPage: "auto",
-          },
-          340: {
-            perPage: "auto",
-          },
-        },
-      });
-      relatedPost.mount();
 
       $(document).on("click", ".page-item", function (e) {
         _this.updateList($(this).attr("page"));
@@ -61,7 +41,7 @@
       const formData = new FormData();
       formData.append("data", JSON.stringify(arg));
       $.ajax({
-        url: pixxelArr.homeUrl + "/wp-ajax/blog-list/filter",
+        url: pixxelArr.homeUrl + "/wp-ajax/product-list/filter",
         data: formData,
         processData: false,
         contentType: false,
@@ -97,13 +77,18 @@
       let skeleton= '';
       for (let i = 0; i < number; i++) {
         skeleton+=`
-        <div class="w-full flex flex-col items-center rounded-2xl ">
-          <div class="w-full h-[12.5rem] md:h-[12.rem] rounded-2xl skeleton"></div>
-          <div class="min-h-9 md:max-h-12 mt-2 md:mt-6 w-full rounded-lg skeleton"></div>
-          <div class="mt-auto w-full">
-              <div class="mt-2 h-4 md:h-6 rounded-md skeleton w-full"></div>
-              <div class="mt-2 h-4 md:h-6 rounded-md skeleton w-4/5"></div>
+        <div class="w-full flex flex-col p-3 md:pb-6 bg-white rounded-2xl group-1">
+          <div class="w-full flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                  <span class="size-5 rounded-full border-2 skeleton"></span>
+                  <span class="size-5 rounded-full border-2 skeleton"></span>
+              </div>
+              <div class="rounded-full h-5 w-20 skeleton "></div>
           </div>
+          <div class="w-full aspect-square rounded-xl skeleton mt-4"></div>
+          <div class="w-2/3  h-8 rounded-lg skeleton mt-4"></div>
+          <div class="mt-2 h-4 md:h-6 rounded-md skeleton w-full"></div>
+          <div class="mt-2 h-4 md:h-6 rounded-md skeleton w-full"></div>
         </div>
         `
         
@@ -112,5 +97,5 @@
     }
   }
 
-  const blogList = new BlogList();
+  const productList = new ProductList();
 })(jQuery);

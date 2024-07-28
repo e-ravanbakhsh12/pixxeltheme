@@ -36,7 +36,8 @@ class Enqueue extends PixxelTheme
         wp_localize_script('pixxel-global-js', 'pixxelArr', backEndData());
 
 
-        wp_dequeue_style('wp-block-library');
+        wp_dequeue_style('wp-block-library');   
+        wp_dequeue_style('wp-block-library-rtl-css');
         wp_dequeue_style('wp-block-library-theme');
     }
 

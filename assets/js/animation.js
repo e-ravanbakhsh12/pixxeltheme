@@ -14,14 +14,14 @@ class MainAnimation {
     this.animElements = [...selector.querySelectorAll("[data-anim]")];
     this.animationsList = [
       "up",
-      "bg",
-      "fall",
-      "opacity",
+      // "bg",
+      // "fall",
+      // "opacity",
       "title",
-      "vertical",
+      // "vertical",
       "horizontal",
-      "width",
-      "fill",
+      // "width",
+      // "fill",
     ];
     const mm = gsap.matchMedia();
 
@@ -353,7 +353,6 @@ class AnimFall extends Animations {
   }
 }
 
-
 function HorizontalLoop(items, config) {
   items = gsap.utils.toArray(items);
   config = config || {};
@@ -513,16 +512,43 @@ window.addEventListener("DOMContentLoaded", (e) => {
   gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
 
   // create the smooth scroller FIRST!
-      const smoother = ScrollSmoother.create({
-        content: ".smooth-scroll",
-        smooth: 2,
-        normalizeScroll: true,
-        ignoreMobileResize: true,
-        effects: true,
-        //preventDefault: true,
-        //ease: 'power4.out',
-        //smoothTouch: 0.1,
-      });
+  const smoother = ScrollSmoother.create({
+    content: ".smooth-scroll",
+    smooth: 2,
+    normalizeScroll: true,
+    ignoreMobileResize: true,
+    effects: true,
+    //preventDefault: true,
+    //ease: 'power4.out',
+    //smoothTouch: 0.1,
+  });
+  // create
+  let mm = gsap.matchMedia();
+
+  mm.add("(max-width: 726px)", function () {
+    gsap.to(".cover-down", {
+      y: 200,
+      scale: 0.8,
+      scrollTrigger: {
+        trigger: ".cover-down",
+        start: "bottom 50%",
+        end: "bottom top",
+        scrub: 0.8,
+      },
+    });
+  });
+  mm.add("(min-width: 727px)", function () {
+    gsap.to(".cover-down", {
+      y: 400,
+      scale: 0.8,
+      scrollTrigger: {
+        trigger: ".cover-down",
+        start: "bottom 80%",
+        end: "bottom top",
+        scrub: 0.8,
+      },
+    });
+  });
 
   let header = new Header();
   let animation = new MainAnimation();

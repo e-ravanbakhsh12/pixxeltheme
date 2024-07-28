@@ -63,7 +63,7 @@ $blogListId = getPageIdByTemplate('pages/page-blog.php');
     <?php
     if ($relatedBlog->have_posts()) :
     ?>
-        <section class="container xl:max-w-screen-xl py-10 md:py-32 flex flex-col md:items-center">
+        <section class="container xl:max-w-screen-xl py-10 md:py-32 flex flex-col md:items-center overflow-hidden">
             <h2 class="semibold-28 md:semibold-36 ">
                 مقالات مشابه
             </h2>

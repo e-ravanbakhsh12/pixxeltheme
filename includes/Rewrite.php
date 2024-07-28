@@ -6,6 +6,7 @@ use PixxelTheme\templates\search\Search;
 use PixxelTheme\includes\comment\Comment;
 use PixxelTheme\templates\blog\Blog;
 use PixxelTheme\templates\blog\BlogList;
+use PixxelTheme\templates\product\ProductList;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -21,6 +22,7 @@ class Rewrite
     {
         $vars[] = 'pixxelBlog';
         $vars[] = 'pixxelBlogList';
+        $vars[] = 'pixxelProductList';
         $vars[] = 'pixxelSearch';
         $vars[] = 'pixxelComment';
 
@@ -41,6 +43,9 @@ class Rewrite
         
         add_rewrite_tag('%pixxelBlogList%', '([^&/]+)');
         add_rewrite_rule('wp-ajax/blog-list/([^/]+)/?', 'index.php?pixxelBlogList=$matches[1]', 'top');
+
+        add_rewrite_tag('%pixxelProductList%', '([^&/]+)');
+        add_rewrite_rule('wp-ajax/product-list/([^/]+)/?', 'index.php?pixxelProductList=$matches[1]', 'top');
 
         add_rewrite_tag('%pixxelComment%', '([^&/]+)');
         add_rewrite_rule('wp-ajax/comment/([^/]+)/?', 'index.php?pixxelComment=$matches[1]', 'top');
@@ -77,6 +82,13 @@ class Rewrite
             if (!empty($blogListQuery)) {
                 $blogList = new BlogList();
                 $blogList->setQuery($blogListQuery);
+                return;
+            }
+
+            $productListQuery = $wp_query->get('pixxelProductList');
+            if (!empty($productListQuery)) {
+                $productList = new ProductList();
+                $productList->setQuery($productListQuery);
                 return;
             }
             

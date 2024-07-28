@@ -36,7 +36,7 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
         </div>
     </div>
     <section class="pt-10 pb-8 md:pb-14">
-        <div class="container xl:max-w-screen-xl px-6 md:px-0">
+        <div class="container xl:max-w-screen-xl px-6 md:px-0 overflow-hidden">
             <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4">
                 <div class="product-image" data-anim="horizontal" data-x="-40" data-delay="0.2">
                     <div id="product-img-list" class="splide splide-product-img relative" aria-label="Product Gallery">
@@ -139,7 +139,7 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
             </div>
     </section>
     <section class="py-10 md:py-[6.5rem] bg-light-blue">
-        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col">
+        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col overflow-hidden">
             <h2 class="semibold-28 md:semibold-36 md:w-full text-center" data-anim="title" data-delay="0.2" data-split="lines"><?= $expert['title'] ?></h2>
             <div id="consultant-gallery" class="splide consultant-slider w-full relative pt-6 md:pt-8" aria-label="consultant Gallery">
                 <div class="splide__track">
@@ -180,7 +180,7 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
         </section>
     <?php endif ?>
     <section class="py-10 md:py-[6.5rem]">
-        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col">
+        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex-center flex-col overflow-hidden">
             <h2 class="semibold-28 md:semibold-36 md:w-full text-center" data-anim="title" data-delay="0.2" data-split="lines"><?= $why['title'] ?></h2>
             <div class="flex flex-col md:flex-row divide-y divide-divider md:divide-y-0 md:divide-x md:divide-x-reverse mt-6 md:mt-14">
                 <?php

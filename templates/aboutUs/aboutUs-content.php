@@ -19,28 +19,28 @@ $section3 = get_field('section_3');
             <div class=""><?= get_the_title() ?></div>
         </div>
     </div>
-    <section class="container xl:max-w-screen-xl py-10 md:py-16 px-6 md:px-0 flex flex-col md:flex-row items-center gap-6 md:gap-16 md:justify-between">
-        <div class="flex-1">
+    <section class="container xl:max-w-screen-xl py-10 md:py-16 px-6 md:px-0 flex flex-col md:flex-row items-center gap-6 md:gap-16 md:justify-between overflow-hidden">
+        <div class="flex-1" data-anim="horizontal" data-x="40" data-delay="0.2">
             <h1 class="semibold-28 md:semibold-36"><?= $section1['title'] ?></h1>
             <p class="regular-14 md:regular-16 text-justify pt-6"><?= $section1['description'] ?></p>
         </div>
-        <?= wp_get_attachment_image($section1['img'], 'full', false, ['class' => ' flex-1 w-full h-[22.5rem] object-cover rounded-2xl']) ?>
+        <?= wp_get_attachment_image($section1['img'], 'full', false, ['class' => ' flex-1 w-full h-[22.5rem] object-cover rounded-2xl','data-anim'=>"horizontal" ,'data-x'=>"-40", 'data-delay'=>"0.2"]) ?>
     </section>
     <section class="bg-light-blue py-10 md:py-16">
-        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex flex-col md:flex-row items-center gap-6 md:gap-16 md:justify-between">
-            <div class="flex-1 md:order-2">
+        <div class="container xl:max-w-screen-xl px-6 md:px-0 flex flex-col md:flex-row items-center gap-6 md:gap-16 md:justify-between overflow-hidden">
+            <div class="flex-1 md:order-2" data-anim="horizontal" data-x="-40" data-delay="0.2">
                 <h2 class="semibold-28 md:semibold-36"><?= $section2['title'] ?></h2>
                 <p class="regular-14 md:regular-16 text-justify pt-6"><?= $section2['description'] ?></p>
             </div>
-            <?= wp_get_attachment_image($section2['img'], 'full', false, ['class' => 'md:order-1 flex-1 w-full h-[22.5rem] object-cover rounded-2xl']) ?>
+            <?= wp_get_attachment_image($section2['img'], 'full', false, ['class' => 'md:order-1 flex-1 w-full h-[22.5rem] object-cover rounded-2xl','data-anim'=>"horizontal" ,'data-x'=>"40", 'data-delay'=>"0.2"]) ?>
         </div>
     </section>
-    <section class="container xl:max-w-screen-xl py-10 md:py-16 px-6 md:px-0 flex flex-col md:flex-row gap-8 md:gap-16 md:justify-between">
-        <div class="flex-1">
+    <section class="container xl:max-w-screen-xl py-10 md:py-16 px-6 md:px-0 flex flex-col md:flex-row gap-8 md:gap-16 md:justify-between" data-anim="up" data-y="40" data-delay="0.6">
+        <div class="flex-1" >
             <h2 class="semibold-28 md:semibold-36 mb-6">ارسال پیام</h2>
             <?= do_shortcode($section3['form_shortcode']) ?>
         </div>
-        <div class="flex-1">
+        <div class="flex-1" >
             <h2 class="semibold-28 md:semibold-36">راه های ارتباطی</h2>
             <div id="pixxel-map" class="pixxel-map relative w-full  h-[13.75rem] md:h-[16.25rem] flex flex-col mt-6 rounded-2xl border-2 border-transparent md:border-midnight-50 !font-sans transition-all" data-lat="<?= $section3['lat'] ?>" data-lng="<?= $section3['lng'] ?>">
                 <div class="navigator-box hidden flex-col gap-2 text-midnight-700 z-[999] text-2xl font-bold bottom-28 md:bottom-4 right-4 absolute">

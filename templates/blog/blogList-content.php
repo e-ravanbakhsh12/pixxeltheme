@@ -53,7 +53,7 @@ $headerData = get_field('header_data');
         </div>
     </section>
     <section class="bg-light-blue py-10 md:py-16">
-        <div class="container xl:max-w-screen-xl px-3 md:px-0 flex-center gap-4 flex-col ">
+        <div class="container xl:max-w-screen-xl px-3 md:px-0 flex-center gap-4 flex-col overflow-hidden">
             <h2 class="text-xl semibold-28 md:semibold-36" data-anim="title" data-delay="0.2" data-split="lines">
                 محبوب‌ترین مقالات
             </h2>
@@ -82,12 +82,12 @@ $headerData = get_field('header_data');
         </div>
     </section>
     <section class="py-10 md:py-16">
-        <div class="container xl:max-w-screen-xl px-3 md:px-0 ">
+        <div class="container xl:max-w-screen-xl px-3 md:px-0 overflow-hidden">
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <h2 class="text-xl semibold-28 md:semibold-36 lg:col-span-2" data-anim="horizontal" data-x="40" data-delay="0.2">
                     همه مقالات
                 </h2>
-                <div class="pixxel-select group-1  relative items-center justify-between w-full " icon="text-midnight-400 text-xs " data-anim="horizontal" data-x="40" data-delay="0.4">
+                <div class="pixxel-select group-1 z-10 relative items-center justify-between w-full " icon="text-midnight-400 text-xs " data-anim="horizontal" data-x="40" data-delay="0.4">
                     <select class="w-full rounded-2xl h-10  bg-white outline-none text-center cursor-pointer text-midnight-400 border-2 border-midnight-50 flex-center" name="display-order" id="display-order" list-class="border-2 border-midnight-50 rounded-2xl cursor-pointer" style="display: none;">
                         <Option class="px-3 py-1 " value="date" <?= $order==='date'?'selected':'' ?>>جدیدترین</Option>
                         <Option class="px-3 py-1 " value="meta_value_num" <?= $order==='meta_value_num'?'selected':'' ?>>محبوبترین</Option>
