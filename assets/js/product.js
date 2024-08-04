@@ -4,6 +4,7 @@
   class Product {
     constructor() {
       const _this = this;
+      this.audioList = [];
 
       $(document).on("click", ".toggle-tab", function (e) {
         const name = $(this).data("tab");
@@ -22,16 +23,15 @@
         }
       });
 
-      $(document).on('click','.color-item',function(e){
-        $('.color-item').removeClass('ring-1').addClass('ring-0');
-        $('.color-item i').removeClass('flex-center').addClass('hidden');
-        $(this).addClass('ring-1').removeClass('ring-0');
-        $(this).find('i').addClass('flex-center').removeClass('hidden');
-        $(this).parent().attr('data-selected',$(this).data('value'))
+      $(document).on("click", ".color-item", function (e) {
+        $(".color-item").removeClass("ring-1").addClass("ring-0");
+        $(".color-item i").removeClass("flex-center").addClass("hidden");
+        $(this).addClass("ring-1").removeClass("ring-0");
+        $(this).find("i").addClass("flex-center").removeClass("hidden");
+        $(this).parent().attr("data-selected", $(this).data("value"));
+      });
 
-      })
-
-      const gallery = new Splide('.splide-product-img', {
+      const gallery = new Splide(".splide-product-img", {
         type: "loop",
         direction: "rtl",
         // drag:'free',
@@ -42,16 +42,24 @@
         // pagination:false,
       });
       gallery.mount();
-      gallery.on('moved', function(e) {  
-        $('.thumbnails img').removeClass('border-blue-main').addClass('opacity-50 border-midnight-50');
-        $(`.thumbnails img[data-item="${e}"]`).addClass('border-blue-main').removeClass('opacity-50 border-midnight-50');
-    });  
-      $(document).on("click",'.thumbnails img', function (e) {
-          $('.thumbnails img').removeClass('border-blue-main').addClass('opacity-50 border-midnight-50');
-          $(this).addClass('border-blue-main').removeClass('opacity-50 border-midnight-50');
-          const number = Number($(this).data("item"));
-          gallery.go(number);
-        });
+      gallery.on("moved", function (e) {
+        $(".thumbnails img")
+          .removeClass("border-blue-main")
+          .addClass("opacity-50 border-midnight-50");
+        $(`.thumbnails img[data-item="${e}"]`)
+          .addClass("border-blue-main")
+          .removeClass("opacity-50 border-midnight-50");
+      });
+      $(document).on("click", ".thumbnails img", function (e) {
+        $(".thumbnails img")
+          .removeClass("border-blue-main")
+          .addClass("opacity-50 border-midnight-50");
+        $(this)
+          .addClass("border-blue-main")
+          .removeClass("opacity-50 border-midnight-50");
+        const number = Number($(this).data("item"));
+        gallery.go(number);
+      });
 
       const consultantList = new Splide(".consultant-slider", {
         // type: "loop",
@@ -74,6 +82,20 @@
         },
       });
       consultantList.mount();
+
+      // play audio
+
+      $(document).on("click", ".loadAudio.pixxelicon-pause", function (e) {
+        const index = $(this).data("index");
+        _this.audioList.forEach((audio, i) => {
+          if (i != index) {
+            audio.stopPlay();
+          }
+        });
+      });
+      $(".audio-player").each(function (e) {
+        _this.audioList.push(new AudioPlayer($(this).get(0)));
+      });
     }
   }
 

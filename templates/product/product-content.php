@@ -7,11 +7,13 @@ use PixxelTheme\includes\comment\Comment;
 
 wp_enqueue_style('pixxel-icon', PIXXEL_URL . '/assets/css/pixxelicon.css');
 wp_enqueue_style('splide', PIXXEL_URL . '/assets/css/splide-core.min.css', [], '4.1.2');
-// wp_enqueue_style('pixxel-glightbox', PIXXEL_URL . '/assets/css/glightbox.min.css', [], PIXXEL_VERSION);
-// wp_enqueue_script('pixxel-glightbox', PIXXEL_URL . '/assets/js/glightbox.min.js', [], PIXXEL_VERSION, true);
-// wp_enqueue_script('splide-grid', PIXXEL_URL . '/assets/js/splide-grid.min.js', [], '0.4.1', true);
+$jsDependency = ['jquery', 'splide'];
+if (!isGoogleBot()) {
+    wp_enqueue_script('pixxel-audio-player', PIXXEL_URL . '/assets/js/audio-player.js', [], PIXXEL_VERSION, true);
+    $jsDependency[] = 'pixxel-audio-player';
+}
 wp_enqueue_script('splide', PIXXEL_URL . '/assets/js/splide.min.js', [], '4.1.2', true);
-wp_enqueue_script('pixxel-product', PIXXEL_URL . '/assets/js/product.js', ['jquery', 'splide'], PIXXEL_VERSION, true);
+wp_enqueue_script('pixxel-product', PIXXEL_URL . '/assets/js/product.js', $jsDependency, PIXXEL_VERSION, true);
 
 $_this = $args['_this'];
 $price = get_field('price');
@@ -123,8 +125,8 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
             <div class="w-full md:w-2/3 py-8 md:py-14 border-y border-midnight-50 grid grid-cols-1 md:grid-cols-2 md:gap-4">
                 <h2 class="semibold-22 md:semibold-28" data-anim="title" data-delay="0.2" data-split="lines">جزئیات محصول</h2>
                 <div class="flex flex-col divide-y divide-midnight-50 regular-14 md:regular-16">
-                    <?php if ($productDetails) foreach ($productDetails as $i=> $detail) : ?>
-                        <div class="flex items-center gap-4 w-full py-3 md:py-4" data-anim="up" data-y="40" data-delay="<?= $i*0.1 ?>">
+                    <?php if ($productDetails) foreach ($productDetails as $i => $detail) : ?>
+                        <div class="flex items-center gap-4 w-full py-3 md:py-4" data-anim="up" data-y="40" data-delay="<?= $i * 0.1 ?>">
                             <div class="w-32 line-clamp-1 text-midnight-700"><?= $detail['title'] ?></div>
                             <div class="w-grow line-clamp-1"><?= $detail['value'] ?></div>
                         </div>
@@ -133,7 +135,7 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
             </div>
             <div class="w-full md:w-2/3 pt-8 md:pt-14">
                 <h2 class="semibold-22 md:semibold-28" data-anim="title" data-delay="0.2" data-split="lines">معرفی محصول</h2>
-                <div class="pixxel-post-content py-6 md:py-8" data-anim="up" data-y="40" data-delay="<?= $i*0.1 ?>">
+                <div class="pixxel-post-content py-6 md:py-8" data-anim="up" data-y="40" data-delay="<?= $i * 0.1 ?>">
                     <?= get_the_content() ?>
                 </div>
             </div>
@@ -145,14 +147,26 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
                 <div class="splide__track">
                     <div class="splide__list">
                         <?php if ($expert['expert'])
-                            foreach ($expert['expert'] as $i=> $expert) : ?>
-                            <li class="splide__slide bg-white overflow-hidden rounded-2xl group-1 " data-anim="horizontal" data-x="40" data-delay="<?=  $i*0.2 ?>">
-                                <div class="w-[17.5rem] md:w-full flex-center flex-col relative p-3 md:p-6">
+                            foreach ($expert['expert'] as $i => $expert) : ?>
+                            <li class="splide__slide bg-white overflow-hidden rounded-2xl group-1 " data-anim="horizontal" data-x="40" data-delay="<?= $i * 0.2 ?>">
+                                <div class="w-[17.5rem] md:w-full flex-center flex-col relative p-3 md:p-6 h-full">
                                     <?= wp_get_attachment_image($expert['img'], 'full', false, ['class' => 'size-[10rem] rounded-full object-cover', 'loading' => "lazy"]) ?>
-                                    <h3 class="semibold-16 md:semibold-22 pt-3 md:pt-4"><?= $expert['name'] ?></h3>
-                                    <p class="regular-14 md:regular-16 md:pt-2"><?= $expert['level'] ?></p>
-                                    <div class="w-full h-[1px] bg-midnight-50"></div>
-                                    <p class="text-center  regular-12 md:regular-14"><?= $expert['description'] ?></p>
+                                    <?php if ($expert['audio']['url']) : ?>
+                                        <div class="audio-player flex flex-center gap-2 relative">
+                                            <div class="grow">
+                                                <canvas class="audioCanvas w-full -mt-8" height="60"></canvas>
+                                                <input type="text" class="audioUrl hidden" value="<?= $expert['audio']['url']  ?>">
+                                            </div>
+                                            <div class="decorLine h-[10px] rounded-full bg-light-blue mt-3 w-[calc(100%_-1.5rem)] grow absolute left-6"></div>
+                                            <i class="pixxelicon-play rotate-180 text-blue-main text-l loadAudio mt-2" data-index="<?= $i  ?>"></i>
+                                        </div>
+                                    <?php endif ?>
+                                    <div class="flex-center flex-col mt-auto">
+                                        <h3 class="semibold-16 md:semibold-22 pt-3 md:pt-4"><?= $expert['name'] ?></h3>
+                                        <p class="regular-14 md:regular-16 md:pt-2"><?= $expert['level'] ?></p>
+                                        <div class="w-full h-[1px] bg-midnight-50"></div>
+                                        <p class="text-center  regular-12 md:regular-14"><?= $expert['description'] ?></p>
+                                    </div>
                                 </div>
                             </li>
                         <?php endforeach ?>
@@ -172,10 +186,10 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
     <?php if (comments_open()) : ?>
         <section class="bg-cream-02">
             <div class="container xl:max-w-screen-xl  py-16 md:py-28 px-3 md:px-0">
-                    <?php
-                    $comment = new Comment('product');
-                    echo $comment->generateCustomComment(get_the_ID());
-                    ?>
+                <?php
+                $comment = new Comment('product');
+                echo $comment->generateCustomComment(get_the_ID());
+                ?>
             </div>
         </section>
     <?php endif ?>
@@ -184,8 +198,8 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
             <h2 class="semibold-28 md:semibold-36 md:w-full text-center" data-anim="title" data-delay="0.2" data-split="lines"><?= $why['title'] ?></h2>
             <div class="flex flex-col md:flex-row divide-y divide-divider md:divide-y-0 md:divide-x md:divide-x-reverse mt-6 md:mt-14">
                 <?php
-                if (count($why['items'])) foreach ($why['items'] as $i=> $item) : ?>
-                    <div class="w-full flex flex-col gap-3 py-4 md:py-0 md:px-10" data-anim="horizontal" data-x="-40" data-delay="<?=  $i*0.2 ?>">
+                if (count($why['items'])) foreach ($why['items'] as $i => $item) : ?>
+                    <div class="w-full flex flex-col gap-3 py-4 md:py-0 md:px-10" data-anim="horizontal" data-x="-40" data-delay="<?= $i * 0.2 ?>">
                         <i class="<?= $item['icon_name'] ?> text-[1.75rem] text-orange-main"></i>
                         <h3 class="semibold-18"><?= $item['title'] ?></h3>
                         <p class="regular-14"><?= $item['description'] ?></p>

@@ -4,6 +4,7 @@
   class Home {
     constructor() {
       const _this = this;
+      this.audioList = [];
 
       $(document).on("click", ".toggle-tab", function (e) {
         const name = $(this).data("tab");
@@ -98,6 +99,20 @@
         $(".features-list").toggleClass("max-h-[11.5rem] max-h-[32rem]");
         $(this).find("i").toggleClass("rotate-180");
         $(this).find(".more, .less").toggleClass("hidden");
+      });
+
+      // play audio
+      
+      $(document).on("click", ".loadAudio.pixxelicon-pause", function (e) {
+        const index = $(this).data('index');
+        _this.audioList.forEach((audio,i) => {
+          if(i !=index){
+            audio.stopPlay();
+          }
+        });
+      });
+      $(".audio-player").each(function (e) {
+        _this.audioList.push(new AudioPlayer($(this).get(0)));
       });
     }
 

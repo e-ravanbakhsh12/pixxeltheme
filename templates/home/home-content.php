@@ -6,11 +6,13 @@ use WP_Query;
 
 wp_enqueue_style('splide', PIXXEL_URL . '/assets/css/splide-core.min.css', [], '4.1.2');
 wp_enqueue_script('splide', PIXXEL_URL . '/assets/js/splide.min.js', [], '4.1.2', true);
-$jsDependency = ['jquery','splide'];
-if(!isGoogleBot()){
+$jsDependency = ['jquery', 'splide'];
+if (!isGoogleBot()) {
+    wp_enqueue_script('pixxel-audio-player', PIXXEL_URL . '/assets/js/audio-player.js', [], PIXXEL_VERSION, true);
     wp_enqueue_script('pixxel-glightbox', PIXXEL_URL . '/assets/js/glightbox.min.js', [], PIXXEL_VERSION, true);
     wp_enqueue_style('pixxel-glightbox', PIXXEL_URL . '/assets/css/glightbox.min.css', [], PIXXEL_VERSION);
     $jsDependency[] = 'pixxel-glightbox';
+    $jsDependency[] = 'pixxel-audio-player';
 }
 wp_enqueue_script('pixxel-home', PIXXEL_URL . '/assets/js/home.js', $jsDependency, PIXXEL_VERSION, true);
 
@@ -45,7 +47,7 @@ $blogs = new WP_Query($blogArgs);
         <div class="container xl:max-w-screen-xl  text-white z-10 relative px-4 md:px-0 pt-32 pb-8 md:pt-44 md:pb-52">
             <h1 class="bold-24 md:bold-48 drop-shadow-hero" data-anim="title" data-delay="0.2" data-split="lines"><?= $section1['title'] ?></h1>
             <p class="regular-14 md:regular-18 pt-4 md:pt-6 md:max-w-[25rem] drop-shadow-hero" data-anim="up" data-y="40" data-delay=".3"><?= $section1['description'] ?></p>
-            <a href="<?= $section1['button']['link']['url'] ?>" target="<?= $section1['button']['link']['target'] ?>" class="flex-center h-10 rounded-full bg-blue-main text-white gap-2 w-fit px-4 mt-4 md:mt-6"  data-anim="up" data-y="40" data-delay=".4">
+            <a href="<?= $section1['button']['link']['url'] ?>" target="<?= $section1['button']['link']['target'] ?>" class="flex-center h-10 rounded-full bg-blue-main text-white gap-2 w-fit px-4 mt-4 md:mt-6" data-anim="up" data-y="40" data-delay=".4">
                 <?= $section1['button']['label'] ?>
                 <i class="pixxelicon-chevron-left text-[0.5rem]"></i>
             </a>
@@ -68,7 +70,7 @@ $blogs = new WP_Query($blogArgs);
                             $color = get_field('color', $product->ID);
                             $properties = get_field('properties', $product->ID);
                         ?>
-                            <li class="splide__slide relative w-[14rem] md:w-full bg-white rounded-2xl group-1 " data-anim="horizontal" data-x="40" data-delay="<?= $i*0.2 ?>">
+                            <li class="splide__slide relative w-[14rem] md:w-full bg-white rounded-2xl group-1 " data-anim="horizontal" data-x="40" data-delay="<?= $i * 0.2 ?>">
                                 <div class="w-full flex flex-col items-center p-3 md:pb-6">
                                     <div class="w-full flex items-center justify-between">
                                         <div class="flex items-center gap-2">
@@ -106,12 +108,12 @@ $blogs = new WP_Query($blogArgs);
                 <div class="splide__track ">
                     <div class="splide__list">
                         <?php
-                        if($section3['video']) foreach ($section3['video'] as$i=>$video) : ?>
-                            <li class="splide__slide w-full bg-white overflow-hidden rounded-2xl group-1 "  data-anim="horizontal" data-x="-40" data-delay="<?=  $i*0.2 ?>">
-                                <a href="<?= $video['video'] ?>" class="w-full glightbox flex-center relative" data-gallery="videoGallery"  data-zoomable="true" data-draggable="true">
+                        if ($section3['video']) foreach ($section3['video'] as $i => $video) : ?>
+                            <li class="splide__slide w-full bg-white overflow-hidden rounded-2xl group-1 " data-anim="horizontal" data-x="-40" data-delay="<?= $i * 0.2 ?>">
+                                <a href="<?= $video['video'] ?>" class="w-full glightbox flex-center relative" data-gallery="videoGallery" data-zoomable="true" data-draggable="true">
                                     <?= wp_get_attachment_image($video['cover'], 'full', false, ['class' => 'w-full h-[10rem] md:h-[30rem] object-cover']) ?>
                                     <div class="cover absolute w-full h-full bg-black/20"></div>
-                                    <img src="<?= PIXXEL_URL.'/assets/img/home/video-play.png' ?>" alt="" class="rounded-full size-14 md:size-24 absolute ">
+                                    <img src="<?= PIXXEL_URL . '/assets/img/home/video-play.png' ?>" alt="" class="rounded-full size-14 md:size-24 absolute ">
                                 </a>
                             </li>
                         <?php endforeach ?>
@@ -135,14 +137,26 @@ $blogs = new WP_Query($blogArgs);
                 <div class="splide__track">
                     <div class="splide__list">
                         <?php if (count($section4['expert']))
-                            foreach ($section4['expert'] as $i=> $expert) : ?>
-                            <li class="splide__slide bg-white overflow-hidden rounded-2xl group-1 " data-anim="horizontal" data-x="40" data-delay="<?=  $i*0.2 ?>">
-                                <div class="w-[17.5rem] md:w-full flex-center flex-col relative p-3 md:p-6">
+                            foreach ($section4['expert'] as $i => $expert) : ?>
+                            <li class="splide__slide bg-white overflow-hidden rounded-2xl group-1 " data-anim="horizontal" data-x="40" data-delay="<?= $i * 0.2 ?>">
+                                <div class="w-[17.5rem] md:w-full flex-center flex-col relative h-full p-3 md:p-6">
                                     <?= wp_get_attachment_image($expert['img'], 'full', false, ['class' => 'size-[10rem] rounded-full object-cover', 'loading' => "lazy"]) ?>
-                                    <h3 class="semibold-16 md:semibold-22 pt-3 md:pt-4"><?= $expert['name'] ?></h3>
-                                    <p class="regular-14 md:regular-16 md:pt-2"><?= $expert['level'] ?></p>
-                                    <div class="w-full h-[1px] bg-midnight-50"></div>
-                                    <p class="text-center  regular-12 md:regular-14"><?= $expert['description'] ?></p>
+                                    <?php if ($expert['audio']['url']) : ?>
+                                        <div class="audio-player flex items-center gap-2 relative">
+                                            <div class="grow">
+                                                <canvas class="audioCanvas w-full -mt-8" height="60"></canvas>
+                                                <input type="text" class="audioUrl hidden" value="<?= $expert['audio']['url']  ?>">
+                                            </div>
+                                            <div class="decorLine h-[10px] rounded-full bg-light-blue mt-3 w-[calc(100%_-1.5rem)] grow absolute left-6"></div>
+                                            <i class="pixxelicon-play rotate-180 text-blue-main text-l loadAudio mt-2" data-index="<?= $i  ?>"></i>
+                                        </div>
+                                    <?php endif ?>
+                                    <div class="flex-center flex-col mt-auto">
+                                        <h3 class="semibold-16 md:semibold-22 pt-3 md:pt-4"><?= $expert['name'] ?></h3>
+                                        <p class="regular-14 md:regular-16 md:pt-2"><?= $expert['level'] ?></p>
+                                        <div class="w-full h-[1px] bg-midnight-50"></div>
+                                        <p class="text-center  regular-12 md:regular-14"><?= $expert['description'] ?></p>
+                                    </div>
                                 </div>
                             </li>
                         <?php endforeach ?>
@@ -165,8 +179,8 @@ $blogs = new WP_Query($blogArgs);
             <p class="regular-14 md:regular-16 pt-4"><?= $section5['description'] ?></p>
             <div class="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 pt-6 md:pt-14">
                 <?php
-                if (count($section5['brand'])) foreach ($section5['brand'] as $i=> $brand) : ?>
-                    <div class="w-full h-full flex-center flex-col gap-4 md:gap-8 py-3 md:py-9 px-4 md:px-6" data-anim="horizontal" data-x="-40" data-delay="<?=  $i*0.2 ?>">
+                if (count($section5['brand'])) foreach ($section5['brand'] as $i => $brand) : ?>
+                    <div class="w-full h-full flex-center flex-col gap-4 md:gap-8 py-3 md:py-9 px-4 md:px-6" data-anim="horizontal" data-x="-40" data-delay="<?= $i * 0.2 ?>">
                         <?= wp_get_attachment_image($brand['img'], 'full', false, ['class' => 'size-16 md:size-[4.5rem] rounded-full object-cover', 'loading' => "lazy"]) ?>
                         <h4 class="regular-16 md:regular-18 line-clamp-1"><?= $brand['title'] ?></h4>
                     </div>
@@ -179,8 +193,8 @@ $blogs = new WP_Query($blogArgs);
             <h2 class="semibold-28 md:semibold-36 md:w-full text-center" data-anim="title" data-delay="0.2" data-split="lines">مقالات پیکسل اکسپرت</h2>
             <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 pt-6 md:pt-14">
                 <?php
-                foreach ($blogs->posts as $i=> $blog) : ?>
-                    <a href="<?= get_permalink($blog->ID) ?>" class="w-full h-full p-3 md:p-6 bg-white rounded-3xl grid grid-cols-[7.75rem_1fr] md:grid-cols-[14rem_1fr] grid-rows-[auto_auto] gap-3 md:gap-x-6 md:gap-y-4" data-anim="up" data-y="40" data-delay="<?= $i>1? '0.3':'0.2' ?>">
+                foreach ($blogs->posts as $i => $blog) : ?>
+                    <a href="<?= get_permalink($blog->ID) ?>" class="w-full h-full p-3 md:p-6 bg-white rounded-3xl grid grid-cols-[7.75rem_1fr] md:grid-cols-[14rem_1fr] grid-rows-[auto_auto] gap-3 md:gap-x-6 md:gap-y-4" data-anim="up" data-y="40" data-delay="<?= $i > 1 ? '0.3' : '0.2' ?>">
                         <?= get_the_post_thumbnail($blog->ID, 'full', ['class' => 'row-span-1 md:row-span-2 w-full h-20 md:h-[8.75rem] object-cover rounded-2xl', 'loading' => 'lazy']) ?>
                         <h3 class="semibold-16 md:semibold-18  w-full">
                             <p class="line-clamp-2">
@@ -202,7 +216,7 @@ $blogs = new WP_Query($blogArgs);
         <div class="container xl:max-w-screen-xl px-6 md:px-0 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 overflow-hidden">
             <?php
             for ($i = 0; $i < 2; $i++) : ?>
-                <div class="w-full relative" data-anim="horizontal" data-x="40" data-delay="<?=  $i*0.2 ?>">
+                <div class="w-full relative" data-anim="horizontal" data-x="40" data-delay="<?= $i * 0.2 ?>">
                     <img src="<?= PIXXEL_URL . '/assets/img/home/why.jpg' ?>" class="w-full flex-center h-32 md:h-60 rounded-3xl object-cover" />
                     <div class="absolute w-full bottom-2 md:bottom-6 ">
                         <div class="mx-2 md:mx-8 bg-white rounded-2xl md:rounded-xl flex items-center gap-2 justify-between px-2 py-3 md:px-10 md:py-8">
@@ -223,7 +237,7 @@ $blogs = new WP_Query($blogArgs);
             <div class="toggle-main-container grow px-4 py-4 md:px-10 divide-y divide-midnight-50 bg-white rounded-2xl">
                 <?php
                 if (count($section7['faq'])) foreach ($section7['faq'] as $i => $faq) : ?>
-                    <div class="toggle-row py-4 md:py-6 " data-anim="up" data-y="40" data-delay="<?= $i*0.2 ?>">
+                    <div class="toggle-row py-4 md:py-6 " data-anim="up" data-y="40" data-delay="<?= $i * 0.2 ?>">
                         <div class="toggle-tab  flex justify-between items-center w-full gap-2 cursor-pointer" data-tab="<?= $i ?>">
                             <h3 class="semibold-16 md:semibold-18 grow transition-all"><?= $faq['title'] ?></h3>
                             <i class="pixxelicon-chevron-down text-[0.5rem] shrink-0 transition-all"></i>
@@ -243,7 +257,7 @@ $blogs = new WP_Query($blogArgs);
             <div class="flex flex-col md:flex-row divide-y divide-divider md:divide-y-0 md:divide-x md:divide-x-reverse mt-6 md:mt-14">
                 <?php
                 if (count($section8['items'])) foreach ($section8['items'] as $i => $item) : ?>
-                    <div class="w-full flex flex-col gap-3 py-4 md:py-0 md:px-10" data-anim="horizontal" data-x="-40" data-delay="<?=  $i*0.2 ?>">
+                    <div class="w-full flex flex-col gap-3 py-4 md:py-0 md:px-10" data-anim="horizontal" data-x="-40" data-delay="<?= $i * 0.2 ?>">
                         <i class="<?= $item['icon_name'] ?> text-[1.75rem] text-orange-main"></i>
                         <h3 class="semibold-18"><?= $item['title'] ?></h3>
                         <p class="regular-14"><?= $item['description'] ?></p>
