@@ -39,7 +39,7 @@ $blogs = new WP_Query($blogArgs);
 <div class="home-container relative ">
     <section class="relative pt-[4.5rem] md:pt-32 overflow-hidden " style="background-color:<?= $section1['color'] ?>;">
         <?php if ($section1['hero_img']) : ?>
-            <?= wp_get_attachment_image($section1['hero_img'], 'full', false, ['class' => 'cover-down w-auto absolute bottom-0 left-0  md:left-[15%] h-[18rem] md:h-[37rem] lg:h-[42rem] object-contain ']) ?>
+            <?= wp_get_attachment_image($section1['hero_img'], 'full', false, ['class' => 'cover-down w-auto absolute bottom-0 left-0 h-[18rem] md:h-[37rem] lg:h-[42rem] object-contain ']) ?>
         <?php else : ?>
             <img class="w-full absolute h-full object-cover inset-0" src="<?= PIXXEL_URL . '/assets/img/home/hero-bg.jpg' ?>" alt="">
         <?php endif ?>
