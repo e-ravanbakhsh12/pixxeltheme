@@ -96,7 +96,16 @@
       $(".audio-player").each(function (e) {
         _this.audioList.push(new AudioPlayer($(this).get(0)));
       });
+
+
+      if(gsap !='undefined'){
+        $(document).on('click','.read-more-content',function(e){
+          gsap.to(window, {duration: 1, scrollTo: "#product-content"}); 
+        });
+      }
     }
+
+    
   }
 
   let product = new Product();

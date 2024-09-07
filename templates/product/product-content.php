@@ -96,7 +96,10 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
                     </div>
                     <div class="flex flex-col gap-3 md:gap-4 pt-6">
                         <h3 class="semibold-14 md:semibold-16">معرفی کوتاه</h3>
-                        <p class="regular-14 md:regular-16 text-midnight-700 text-justify"><?= get_the_excerpt() ?></p>
+                        <p class="regular-14 md:regular-16 text-midnight-700 text-justify line-clamp-3 relative">
+                            <?= get_the_excerpt() ?>
+                            <span class="read-more-content text-blue-main bg-gradient-to-r from-white to-white/80 absolute bottom-0 left-0 z-10 px-3 cursor-pointer">ادامه...</span>
+                        </p>
                     </div>
                 </div>
                 <div class="pt-6 md:pt-0" data-anim="horizontal" data-x="-40" data-delay="0.6">
@@ -109,7 +112,9 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
                                 </div>
                             <?php endforeach ?>
                         </div>
-                        <p class="pt-6 md:pt-10">توضیحات کوتاه یا آیتم کوتاه</p>
+                        <?php if (0): ?>
+                            <p class="pt-6 md:pt-10">توضیحات کوتاه یا آیتم کوتاه</p>
+                        <?php endif ?>
                         <div class="price-container w-full flex items-center justify-between gap-4 semibold-14 md:semibold-16 pt-8 md:pt-11">
                             قیمت محصول
                             <div class=""><?= number_format($price, 0, '', ',') ?> <span>تومان</span></div>
@@ -133,7 +138,7 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
                     <?php endforeach ?>
                 </div>
             </div>
-            <div class="w-full md:w-2/3 pt-8 md:pt-14">
+            <div id="product-content" class="w-full md:w-2/3 pt-8 md:pt-14">
                 <h2 class="semibold-22 md:semibold-28" data-anim="title" data-delay="0.2" data-split="lines">معرفی محصول</h2>
                 <div class="pixxel-post-content py-6 md:py-8" data-anim="up" data-y="40" data-delay="<?= $i * 0.1 ?>">
                     <?= get_the_content() ?>
