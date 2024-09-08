@@ -33,8 +33,9 @@ $footerList = [
                         <p class="regular-12 md:regular-14" data-anim="horizontal" data-x="40" data-delay="0.2">با <span class="semibold-14 md:semibold-16">پیکسل</span> پوست شما عاشق میشود</p>
                         <i class="pixxelicon-logo text-5xl" data-anim="up" data-y="40" data-delay="0.2"></i>
                         <div class="flex-center gap-4 md:gap-10 text-base md:text-xl" data-anim="horizontal" data-x="-40" data-delay="0.2">
-                            <i class="pixxelicon-instagram md:text-blue-main"></i>
-                            <i class="pixxelicon-telegram "></i>
+                            <a href="https://www.instagram.com/pixxel.iran/"><i class="pixxelicon-instagram md:text-blue-main"></i></a>
+                            <a href="https://t.me/Pixxelskinexpert"><i class="pixxelicon-telegram "></i></a>
+                            <a href="https://www.linkedin.com/company/pixxelskinexpert/"><i class="pixxelicon-linkedin "></i></a>
                         </div>
                     </div>
                 </section>

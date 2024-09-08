@@ -30,14 +30,13 @@
         autoplay: true,
         arrows: true,
         gap: 16,
-        perPage: "auto",
+        autoWidth :true,
+        perPage: 4,
         mediaQuery: "min",
         breakpoints: {
           768: {
             perPage: 4,
-          },
-          340: {
-            perPage: "auto",
+            autoWidth :false,
           },
         },
       });
@@ -51,16 +50,8 @@
         arrows: true,
         gap: 16,
         focus: "center",
-        perPage: 1.2,
+        autoWidth :true,
         mediaQuery: "min",
-        breakpoints: {
-          768: {
-            perPage: 1.5,
-          },
-          340: {
-            perPage: 1.2,
-          },
-        },
       });
       videoList.mount();
 
@@ -81,14 +72,13 @@
         gap: 16,
         focus: "center",
         start: 1,
-        perPage: "auto",
+        perPage: 3,
+        autoWidth :true,
         mediaQuery: "min",
         breakpoints: {
           768: {
             perPage: 3,
-          },
-          340: {
-            perPage: "auto",
+            autoWidth :false,
           },
         },
       });

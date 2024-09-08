@@ -56,7 +56,7 @@ $section3 = get_field('section_3');
                 <span class="w-[1px] h-6 bg-midnight-50"></span>
                 <div class="flex flex-col gap-2">
                     <h3 class="semibold-16 md:semibold-18">آدرس ما</h3>
-                    <p class="regular-14 md:regular-16 text-midnight-700">تهران، خیابان ولیعصر، بالاتر از میدان ونک، خیابان والی نژاد، شماره ۲۰، طبقه دوم</p>
+                    <p class="regular-14 md:regular-16 text-midnight-700"><?= $section3['address'] ?></p>
                 </div>
             </div>
             <div class="flex items-center gap-4 md:gap-5 pt-6 md:pt-4">
@@ -65,11 +65,12 @@ $section3 = get_field('section_3');
                 <div class="flex flex-col md:flex-row md:justify-between grow gap-8 md:gap-4">
                     <div class="flex flex-col gap-2">
                         <h3 class="semibold-16 md:semibold-18">تلفن</h3>
-                        <p class="regular-14 md:regular-16 text-midnight-700">۰۲۱ - ۳۴۴۵ ۶۵۲۱</p>
+                        <p class="regular-14 md:regular-16 text-midnight-700"><?= $section3['phone'] ?></p>
                     </div>
                     <div class="flex items-center gap-4 w-full md:w-auto text-blue-main text-xl justify-center md:justify-end">
-                        <i class="pixxelicon-instagram size-12 flex-center rounded-full bg-light-blue"></i>
-                        <i class="pixxelicon-telegram size-12 flex-center rounded-full bg-light-blue"></i>
+                        <a href="https://www.instagram.com/pixxel.iran/"><i class="pixxelicon-instagram size-12 flex-center rounded-full bg-light-blue"></i></a>
+                        <a href="https://t.me/Pixxelskinexpert"><i class="pixxelicon-telegram size-12 flex-center rounded-full bg-light-blue"></i></a>
+                        <a href="https://www.linkedin.com/company/pixxelskinexpert/"><i class="pixxelicon-linkedin size-12 flex-center rounded-full bg-light-blue"></i></a>
                     </div>
                 </div>
             </div>

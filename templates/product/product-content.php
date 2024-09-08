@@ -18,6 +18,7 @@ wp_enqueue_script('pixxel-product', PIXXEL_URL . '/assets/js/product.js', $jsDep
 $_this = $args['_this'];
 $price = get_field('price');
 $color = get_field('color');
+$link = get_field('link');
 $gallery = get_field('gallery');
 $properties = get_field('properties');
 $productDetails = get_field('product_details');
@@ -119,7 +120,7 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
                             قیمت محصول
                             <div class=""><?= number_format($price, 0, '', ',') ?> <span>تومان</span></div>
                         </div>
-                        <a class="flex-center w-full h-10 rounded-full bg-blue-main text-white gap-2 px-4 mt-4 md:mt-6 transition-all">افزودن به سبد خرید</a>
+                        <a href="<?= $link['link']['url'] ?>" class="flex-center w-full h-10 rounded-full bg-blue-main text-white gap-2 px-4 mt-4 md:mt-6 transition-all">خرید محصول از لوکسیرانا</a>
                     </div>
                 </div>
             </div>

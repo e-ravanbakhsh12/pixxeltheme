@@ -109,7 +109,7 @@ $blogs = new WP_Query($blogArgs);
                     <div class="splide__list">
                         <?php
                         if ($section3['video']) foreach ($section3['video'] as $i => $video) : ?>
-                            <li class="splide__slide w-full bg-white overflow-hidden rounded-2xl group-1 " data-anim="horizontal" data-x="-40" data-delay="<?= $i * 0.2 ?>">
+                            <li class="splide__slide w-[17.5rem] md:w-[53.5rem] bg-white overflow-hidden rounded-2xl group-1 " data-anim="horizontal" data-x="-40" data-delay="<?= $i * 0.2 ?>">
                                 <a href="<?= $video['video'] ?>" class="w-full glightbox flex-center relative" data-gallery="videoGallery" data-zoomable="true" data-draggable="true">
                                     <?= wp_get_attachment_image($video['cover'], 'full', false, ['class' => 'w-full h-[10rem] md:h-[30rem] object-cover']) ?>
                                     <div class="cover absolute w-full h-full bg-black/20"></div>
@@ -180,10 +180,10 @@ $blogs = new WP_Query($blogArgs);
             <div class="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 pt-6 md:pt-14">
                 <?php
                 if (count($section5['brand'])) foreach ($section5['brand'] as $i => $brand) : ?>
-                    <div class="w-full h-full flex-center flex-col gap-4 md:gap-8 py-3 md:py-9 px-4 md:px-6" data-anim="horizontal" data-x="-40" data-delay="<?= $i * 0.2 ?>">
+                    <a href="<?= $brand['link']['url'] ?>" class="w-full h-full flex-center flex-col gap-4 md:gap-8 py-3 md:py-9 px-4 md:px-6" data-anim="horizontal" data-x="-40" data-delay="<?= $i * 0.2 ?>">
                         <?= wp_get_attachment_image($brand['img'], 'full', false, ['class' => 'size-16 md:size-[4.5rem] rounded-full object-cover', 'loading' => "lazy"]) ?>
                         <h4 class="regular-16 md:regular-18 line-clamp-1"><?= $brand['title'] ?></h4>
-                    </div>
+                    </a>
                 <?php endforeach ?>
             </div>
         </div>
