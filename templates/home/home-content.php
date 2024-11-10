@@ -22,6 +22,7 @@ $section2 = get_field('section_2');
 $section3 = get_field('section_3');
 $section4 = get_field('section_4');
 $section5 = get_field('section_5');
+$section6 = get_field('section_6');
 $section7 = get_field('section_7');
 $section8 = get_field('section_8');
 $productPageId = getPageIdByTemplate('pages/page-product.php');
@@ -36,7 +37,7 @@ $blogArgs = array(
 );
 $blogs = new WP_Query($blogArgs);
 ?>
-<div class="home-container relative ">
+<div class="home-container relative">
     <section class="relative pt-[4.5rem] md:pt-32 overflow-hidden " style="background-color:<?= $section1['color'] ?>;">
         <?php if ($section1['hero_img']) : ?>
             <?= wp_get_attachment_image($section1['hero_img'], 'full', false, ['class' => 'cover-down w-auto absolute bottom-0 left-0 h-[18rem] md:h-[37rem] lg:h-[42rem] object-contain ']) ?>
@@ -215,20 +216,11 @@ $blogs = new WP_Query($blogArgs);
     <section class="py-10 md:py-[6.5rem]">
         <div class="container xl:max-w-screen-xl px-6 md:px-0 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 overflow-hidden">
             <?php
-            for ($i = 0; $i < 2; $i++) : ?>
-                <div class="w-full relative" data-anim="horizontal" data-x="40" data-delay="<?= $i * 0.2 ?>">
-                    <img src="<?= PIXXEL_URL . '/assets/img/home/why.jpg' ?>" class="w-full flex-center h-32 md:h-60 rounded-3xl object-cover" />
-                    <div class="absolute w-full bottom-2 md:bottom-6 ">
-                        <div class="mx-2 md:mx-8 bg-white rounded-2xl md:rounded-xl flex items-center gap-2 justify-between px-2 py-3 md:px-10 md:py-8">
-                            <h3 class="regular-14 md:regular-28">چرا باید ضد آفتاب بزنیم؟</h3>
-                            <a class="flex-center h-10 rounded-full bg-blue-main text-white gap-2 w-fit px-4 cursor-pointer">
-                                مشاهده محصول
-                                <i class="pixxelicon-chevron-left text-[0.5rem]"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            <?php endfor ?>
+            if($section6) foreach ($section6 as $i =>$banner) : ?>
+                <a href="<?= $banner['link']['url'] ?>" class="w-full relative rounded-3xl overflow-hidden h-32 md:h-60" data-anim="horizontal" data-x="40" data-delay="<?= $i * 0.2 ?>">
+                <?= wp_get_attachment_image($banner['img'], 'full', false, ['class' => 'w-full h-full flex-center  rounded-3xl object-cover hover:scale-110 overflow-hidden transition-all duration-300 hover:rotate-2', 'loading' => "lazy"]) ?>
+                </a>
+            <?php endforeach ?>
         </div>
     </section>
     <section class="py-10 md:py-[6.5rem] bg-light-blue">

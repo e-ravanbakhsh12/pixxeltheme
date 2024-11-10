@@ -30,17 +30,17 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
 ?>
 <div class="product-container relative">
     <div class="container xl:max-w-screen-xl px-6 md:px-0 pt-2">
-        <div class="breadcrumb-list regular-12 text-midnight-700 flex items-center gap-1">
+        <div class="breadcrumb-list regular-12 text-midnight-700 flex items gap-1">
             <a href="<?= home_url() ?>" class="">خانه</a>
-            <i class="pixxelicon-arrow-right-2 rotate-180 text-[.5rem]"></i>
+            <i class="pixxelicon-arrow-right-2 flex mb-auto mt-[5px] rotate-180 text-[.5rem]"></i>
             <a href="<?= get_permaLink($productPageId[0]) ?>" class="">محصولات</a>
-            <i class="pixxelicon-arrow-right-2 rotate-180 text-[.5rem]"></i>
+            <i class="pixxelicon-arrow-right-2 flex mb-auto mt-[5px] rotate-180 text-[.5rem]"></i>
             <div class=""><?= get_the_title() ?></div>
         </div>
     </div>
     <section class="pt-10 pb-8 md:pb-14">
         <div class="container xl:max-w-screen-xl px-6 md:px-0 overflow-hidden">
-            <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4 ">
                 <div class="product-image" data-anim="horizontal" data-x="-40" data-delay="0.2">
                     <div id="product-img-list" class="splide splide-product-img relative" aria-label="Product Gallery">
                         <div class="splide__track">
@@ -103,15 +103,17 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
                         </p>
                     </div>
                 </div>
-                <div class="pt-6 md:pt-0" data-anim="horizontal" data-x="-40" data-delay="0.6">
-                    <div class="bg-light-blue rounded-3xl p-3 md:p-6">
-                        <h3 class="semibold-14 md:semibold-16">رنگ</h3>
-                        <div class="flex items-center gap-3 pt-3" data-selected='<?= $color[0]['label'] ?>'>
-                            <?php if ($color) foreach ($color as $i => $item) : ?>
-                                <div class="color-item size-8 rounded-full relative flex-center cursor-pointer ring-offset-light-blue ring-offset-2 ring-blue-main <?= $i > 0 ? 'ring-0' : 'ring-1' ?>" style="background-color:<?= $item['value'] ?>" data-value="<?= $item['label'] ?>">
-                                    <i class="pixxelicon-check <?= $i > 0 ? 'hidden' : 'flex-center' ?> text-white  size-3 rounded-full bg-blue-main  text-[0.25rem] "></i>
-                                </div>
-                            <?php endforeach ?>
+                <div class="pt-6 md:pt-0 sticky-container" data-anim="horizontal" data-x="-40" data-delay="0.6">
+                    <div class="bg-light-blue rounded-3xl p-3 md:p-6  buy-btn-container">
+                        <div class="flex flex-wrap items-center  gap-3">
+                            <h3 class="semibold-14 md:semibold-16">رنگ</h3>
+                            <div class="flex items-center gap-3 pt-3" data-selected='<?= $color[0]['label'] ?>'>
+                                <?php if ($color) foreach ($color as $i => $item) : ?>
+                                    <div class="color-item size-8 rounded-full relative flex-center cursor-pointer ring-offset-light-blue ring-offset-2 ring-blue-main <?= $i > 0 ? 'ring-0' : 'ring-1' ?>" style="background-color:<?= $item['value'] ?>" data-value="<?= $item['label'] ?>">
+                                        <i class="pixxelicon-check <?= $i > 0 ? 'hidden' : 'flex-center' ?> text-white  size-3 rounded-full bg-blue-main  text-[0.25rem] "></i>
+                                    </div>
+                                <?php endforeach ?>
+                            </div>
                         </div>
                         <?php if (0): ?>
                             <p class="pt-6 md:pt-10">توضیحات کوتاه یا آیتم کوتاه</p>
@@ -120,7 +122,7 @@ $productPageId = getPageIdByTemplate('pages/page-product.php');
                             قیمت محصول
                             <div class=""><?= number_format($price, 0, '', ',') ?> <span>تومان</span></div>
                         </div>
-                        <a href="<?= $link['link']['url'] ?>" class="flex-center w-full h-10 rounded-full bg-blue-main text-white gap-2 px-4 mt-4 md:mt-6 transition-all">خرید محصول از لوکسیرانا</a>
+                        <a href="<?= $link['url'] ?>" class="flex-center w-full h-10 rounded-full bg-blue-main text-white gap-2 px-4 mt-4 md:mt-6 transition-all">خرید محصول از لوکسیرانا</a>
                     </div>
                 </div>
             </div>

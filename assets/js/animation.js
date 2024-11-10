@@ -525,6 +525,23 @@ window.addEventListener("DOMContentLoaded", (e) => {
   // create
   let mm = gsap.matchMedia();
 
+  const stickySection = document.querySelector('.buy-btn-container');
+  if(stickySection){
+    mm.add("(min-width:768px)", function () {
+      gsap.to(".buy-btn-container", {  
+        scrollTrigger: {  
+          trigger: ".sticky-container",  
+          start: "top",  
+          end: "bottom",  
+          scrub: true,  
+          pin: true,  
+          pinSpacing: false,  
+        },  
+      }); 
+    });
+  }
+  
+
   mm.add("(max-width: 726px)", function () {
     gsap.to(".cover-down", {
       y: 200,

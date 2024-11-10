@@ -5,6 +5,7 @@ namespace PixxelTheme\templates\blog;
 
 $_this = $args['_this'];
 $blogs = $args['blogs'];
+
 if ($blogs->have_posts()) foreach ($blogs->posts as $i=> $blog) : ?>
     <a href="<?= get_permalink($blog->ID) ?>" class="w-full flex flex-col items-center bg-white rounded-2xl group-1" data-anim="up" data-y="40" data-delay="0.2">
         <?= get_the_post_thumbnail($blog->ID, 'full', ['class' => 'w-full h-[12.5rem] md:h-[12.rem] rounded-2xl object-cover', 'loading' => "lazy"]) ?>
